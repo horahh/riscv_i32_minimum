@@ -18,9 +18,4 @@ module register_file(
 
 	assign register_data_1 = registers[rs1];
 	assign register_data_2 = registers[rs2];
-
 endmodule
-
-
-
-
