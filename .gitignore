@@ -1,4 +1,4 @@
 *.out
 *.lxt2
 *.vcd
-*.session
+*.vim
