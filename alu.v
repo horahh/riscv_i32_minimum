@@ -1,9 +1,11 @@
 // reference:
 // https://github.com/riscv/riscv-opcodes/blob/master/opcodes-rv32i
 
-module alu_basic(
+`define HIGH_IMPEDANCE 32b'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+
+module alu(
 	input         clock,
-	input  [6:0]  select,
+	input         enable,
 	input  [6:0]  opcode,
 	input  [31:0] register_data_1,
 	input  [31:0] register_data_2,
@@ -20,35 +22,21 @@ parameter
 	OR   = 6;
 	AND  = 7;
 
-	case(opcode)
-		ADD: register_data_out <= register_data_1 + register_data_2;
-		SLL: register_data_out <= register_data_1 << register_data_2;
-		SLTU:  register_data_out <= register_data_1 < register_data_2 : 1 ? 0;
-		XOR: register_data_out <= register_data_1 ^ register_data_2;
-		SRL: register_data_out <= register_data_1 >> register_data_2;
-		SRA: register_data_out <= register_data_1 >>> register_data_2;
-		OR:  register_data_out <= register_data_1 | register_data_2;
-		AND: register_data_out <= register_data_1 & register_data_2;
-		default: register_data_out <= 0;
-	endcase
-
-endmodule
-
-module alu_extended(
-	input         clock,
-	input  [6:0]  select,
-	input  [6:0]  opcode,
-	input  [31:0] register_data_1,
-	input  [31:0] register_data_2,
-	output [31:0] register_data_out);
-parameter
-	SUB  = 0; // bit select 31..25 = 32 -> means subtract
-	SRA  = 5; // bit select 31..25 = 32 -> means SRA 
-
-	case(opcode)
-		SUB: register_data_out <= register_data_1 - register_data_2;
-		SRA: register_data_out <= register_data_1 >>> register_data_2;
-		default: register_data_out <= 0;
-	endcase
+	always@(posedge clock and enable) begin
+		case(opcode)
+			ADD: register_data_out <= register_data_1 + register_data_2;
+			SLL: register_data_out <= register_data_1 << register_data_2;
+			SLTU:  register_data_out <= register_data_1 < register_data_2 : 1 ? 0;
+			XOR: register_data_out <= register_data_1 ^ register_data_2;
+			SRL: register_data_out <= register_data_1 >> register_data_2;
+			SRA: register_data_out <= register_data_1 >>> register_data_2;
+			OR:  register_data_out <= register_data_1 | register_data_2;
+			AND: register_data_out <= register_data_1 & register_data_2;
+			default: register_data_out <= 0;
+		endcase
+	end
+	always@(posedge clock and not enable) begin
+		register_data_out <= HIGH_IMPEDANCE;
+	end
 endmodule
 
