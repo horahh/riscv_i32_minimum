@@ -9,7 +9,7 @@ module test_register_file(
 	input  [31:0] register_data_1,
 	input  [31:0] register_data_2);
 
-	parameter
+parameter
 	CLOCK_PERIOD = 1;
 
 	reg clock;

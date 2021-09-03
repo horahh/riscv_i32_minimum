@@ -1,4 +1,4 @@
-module test_bench;
+module test_bench_register_file;
 	wire clock;
 	wire reset;
 	wire write_enable;

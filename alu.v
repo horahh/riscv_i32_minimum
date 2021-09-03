@@ -4,8 +4,8 @@
 module alu(
 	input         clock,
 	input         enable,
-	input [6:0] funct7, // select operation type
 	input [2:0]   funct3, // select operation
+	input [6:0] funct7, // select operation type
 	input [31:0]  register_data_1,
 	input [31:0]  register_data_2,
 	output [31:0]  register_data_out);
