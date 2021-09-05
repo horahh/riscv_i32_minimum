@@ -6,22 +6,22 @@ module alu_select(
 	output alu_extra_enable);
 
 parameter
-	BASE = 0,
-	EXTRA  = 32;
+	BASE = 7'h0,
+	EXTRA  = 7'h20; // 32 dec
 
 	reg alu_base_enable;
 	reg alu_extra_enable;
 
 	always @(posedge clock & enable) begin
 		case(funct7)
-			BASE: alu_base_enable = 1;
-			default: alu_base_enable = 0;
+			BASE: alu_base_enable <= 1'b1;
+			default: alu_base_enable <= 1'b0;
 		endcase
 	end
 	always @(posedge clock & enable) begin
 		case(funct7)
-			EXTRA: alu_extra_enable = 1;
-			default: alu_extra_enable = 0;
+			EXTRA: alu_extra_enable <= 1'b1;
+			default: alu_extra_enable <= 1'b0;
 		endcase
 	end
 endmodule

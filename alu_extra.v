@@ -10,8 +10,8 @@ module alu_extra(
 	input  [31:0] register_data_2,
 	output [31:0] register_data_out);
 parameter
-	SUB  = 0, // bit select 31..25 = 32 -> means subtract
-	SRA  = 5; // bit select 31..25 = 32 -> means SRA 
+	SUB  = 3'h0, // bit select 31..25 = 32 -> means subtract
+	SRA  = 3'h5; // bit select 31..25 = 32 -> means SRA 
 
 	reg register_data_out;
 	always @(posedge clock & enable) begin
@@ -21,7 +21,7 @@ parameter
 			default: register_data_out <= 0;
 		endcase
 	end
-	always @(posedge clock & !enable) begin
+	always @(posedge clock & ~enable) begin
 		register_data_out <= `HIGH_IMPEDANCE;
 	end
 endmodule

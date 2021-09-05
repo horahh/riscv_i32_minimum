@@ -1,7 +1,7 @@
 // reference:
 // https://github.com/riscv/riscv-opcodes/blob/master/opcodes-rv32i
 
-`define HIGH_IMPEDANCE 32'hZZZZZZZZ
+`define HIGH_IMPEDANCE 32'bz
 
 module alu_base(
 	input         clock,
@@ -11,16 +11,14 @@ module alu_base(
 	input  [31:0] register_data_2,
 	output [31:0] register_data_out);
 parameter
-	ADD  = 0,
-	SUB  = 0, // bit select 31..25 = 32 -> means subtract
-	SLL  = 1,
-	SLT  = 2,
-	SLTU = 3,
-	XOR  = 4,
-	SRL  = 5,
-	SRA  = 5, // bit select 31..25 = 32 -> means SRA 
-	OR   = 6,
-	AND  = 7;
+	ADD  = 3'h0,
+	SLL  = 3'h1,
+	SLT  = 3'h2,
+	SLTU = 3'h3,
+	XOR  = 3'h4,
+	SRL  = 3'h5,
+	OR   = 3'h6,
+	AND  = 3'h7;
 
 	reg register_data_out;
 
@@ -31,13 +29,12 @@ parameter
 			SLTU:  register_data_out <= register_data_1 < register_data_2 ? 1 : 0;
 			XOR: register_data_out <= register_data_1 ^ register_data_2;
 			SRL: register_data_out <= register_data_1 >> register_data_2;
-			SRA: register_data_out <= register_data_1 >>> register_data_2;
 			OR:  register_data_out <= register_data_1 | register_data_2;
 			AND: register_data_out <= register_data_1 & register_data_2;
 			default: register_data_out <= 0;
 		endcase
 	end
-	always @(posedge clock & !enable) begin
+	always @(posedge clock & ~enable) begin
 		register_data_out <= `HIGH_IMPEDANCE;
 	end
 endmodule
