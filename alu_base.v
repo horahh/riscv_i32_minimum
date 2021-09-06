@@ -10,6 +10,7 @@ module alu_base(
 	input  [31:0] register_data_1,
 	input  [31:0] register_data_2,
 	output [31:0] register_data_out);
+
 parameter
 	ADD  = 3'h0,
 	SLL  = 3'h1,
@@ -20,22 +21,25 @@ parameter
 	OR   = 3'h6,
 	AND  = 3'h7;
 
-	reg register_data_out;
+	reg register_data_result;
+	assign register_data_out = register_data_result;
 
-	always @(posedge clock & enable) begin
+	always @(posedge clock ) begin
 		case(funct3)
-			ADD: register_data_out <= register_data_1 + register_data_2;
-			SLL: register_data_out <= register_data_1 << register_data_2;
-			SLTU:  register_data_out <= register_data_1 < register_data_2 ? 1 : 0;
-			XOR: register_data_out <= register_data_1 ^ register_data_2;
-			SRL: register_data_out <= register_data_1 >> register_data_2;
-			OR:  register_data_out <= register_data_1 | register_data_2;
-			AND: register_data_out <= register_data_1 & register_data_2;
-			default: register_data_out <= 0;
+			ADD:     register_data_result = register_data_1 +  register_data_2;
+			SLL:     register_data_result = register_data_1 << register_data_2;
+			SLTU:    register_data_result = register_data_1 <  register_data_2 ? 32'b1 : 32'b0;
+			XOR:     register_data_result = register_data_1 ^  register_data_2;
+			SRL:     register_data_result = register_data_1 >> register_data_2;
+			OR:      register_data_result = register_data_1 |  register_data_2;
+			AND:     register_data_result = register_data_1 &  register_data_2;
+			default: register_data_result = 32'b0;
 		endcase
 	end
+	/*
 	always @(posedge clock & ~enable) begin
 		register_data_out <= `HIGH_IMPEDANCE;
 	end
+	*/
 endmodule
 

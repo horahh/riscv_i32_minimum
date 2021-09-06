@@ -21,9 +21,9 @@ parameter
 		funct3 = 0;
 		register_data_1 = 0;
 		register_data_2 = 0;
-		# 2
+		# 5
 		register_data_1 = 1;
 		register_data_2 = 2;
-		#10 $finish;
+		#100 $finish;
 	end
 endmodule
