@@ -1,25 +1,16 @@
 module test_register_file(
-	output clock,
-	output reset,
-	output write_enable,
-	output [4:0] rs1,
-	output [4:0] rs2,
-	output [4:0] register_write_select,
-	output [31:0] register_data_write,
+	output reg clock,
+	output reg reset,
+	output reg write_enable,
+	output reg [4:0] rs1,
+	output reg [4:0] rs2,
+	output reg [4:0] register_write_select,
+	output reg [31:0] register_data_write,
 	input  [31:0] register_data_1,
 	input  [31:0] register_data_2);
 
 parameter
 	CLOCK_PERIOD = 1;
-
-	reg clock;
-	reg reset;
-	reg write_enable;
-	reg rs1;
-	reg rs2;
-	reg register_write_select;
-	reg register_data_write;
-
 
 	always
 	begin
@@ -28,7 +19,7 @@ parameter
 
 	initial
 	begin
-		$dumpfile("riscv32i.vcd");
+		$dumpfile("test_register_file_riscv32i.vcd");
 		$dumpvars(clock);
 		//initialize registers 
 		clock = 0; 
