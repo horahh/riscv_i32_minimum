@@ -28,7 +28,7 @@ parameter
 		case(funct3)
 			ADD:     register_data_result = register_data_1 +  register_data_2;
 			SLL:     register_data_result = register_data_1 << register_data_2;
-			SLTU:    register_data_result = register_data_1 <  register_data_2 ? 32'b1 : 32'b0;
+			SLTU:    register_data_result = (register_data_1 <  register_data_2) ? 32'b1 : 32'b0;
 			XOR:     register_data_result = register_data_1 ^  register_data_2;
 			SRL:     register_data_result = register_data_1 >> register_data_2;
 			OR:      register_data_result = register_data_1 |  register_data_2;
