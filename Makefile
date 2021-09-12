@@ -9,11 +9,11 @@ alu:
 	gtkwave riscv32i.vcd &
 alu_base:
 	iverilog -o riscv32i.out test_bench_alu_base.v test_alu_base.v alu_base.v 
-	vvp -v -l alu.log riscv32i.out  > riscv32i.vcd
+	vvp -v -l alu_base.log riscv32i.out  > riscv32i.vcd
 	gtkwave riscv32i.vcd &
 
 register_file:
-	iverilog -o riscv32i.out test_bench.v register_file.v test_register_file.v 
+	iverilog -o riscv32i.out test_bench_register_file.v register_file.v test_register_file.v 
 	vvp -v -l all.log riscv32i.out  > riscv32i.vcd
 	gtkwave riscv32i.vcd &
 
