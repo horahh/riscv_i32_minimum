@@ -1,4 +1,4 @@
-`timescale 1s/100ms
+`timescale 1s/1ms
 
 module test_alu_base(
 	output reg        clock,

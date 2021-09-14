@@ -1,3 +1,5 @@
+`timescale 1s/1ms
+
 module test_alu(
 	output reg clock,
 	output reg enable,
@@ -21,9 +23,10 @@ parameter
 		enable = 1;
 		register_data_1 = 1;
 		register_data_2 = 2;
-		funct3= 0;
+		funct3 = 0;
 		funct7 = 0;
-		#20 $finish;
+      #10 funct7 = 32;
+		#100 $finish;
 	end
 	initial begin
 		forever @(negedge clock) begin

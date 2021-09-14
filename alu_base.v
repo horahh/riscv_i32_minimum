@@ -2,6 +2,8 @@
 // https://github.com/riscv/riscv-opcodes/blob/master/opcodes-rv32i
 
 `define HIGH_IMPEDANCE 32'bz
+`define ZERO           32'b0
+`define ONE            32'b1
 
 module alu_base(
 	input             clock,
@@ -20,15 +22,12 @@ module alu_base(
 	parameter [2:0] OR   = 3'h6;
 	parameter [2:0] AND  = 3'h7;
 
-	// reg [31:0] register_data_result;
-	// assign register_data_out = register_data_result;
-
 	always @(posedge clock & enable) begin
 		case(funct3)
 			ADD:     register_data_out = register_data_1 +  register_data_2;
 			SLL:     register_data_out = register_data_1 << register_data_2;
-			SLT:     register_data_out = register_data_1 <  register_data_2 ? 32'b1 : 32'b0; // need to implement for unsigned
-			SLTU:    register_data_out = register_data_1 <  register_data_2 ? 32'b1 : 32'b0;
+			SLT:     register_data_out = register_data_1 <  register_data_2 ? `ONE : `ZERO; // TODO: need to implement for signed
+			SLTU:    register_data_out = register_data_1 <  register_data_2 ? `ONE : `ZERO;
 			XOR:     register_data_out = register_data_1 ^  register_data_2;
 			SRL:     register_data_out = register_data_1 >> register_data_2;
 			OR:      register_data_out = register_data_1 |  register_data_2;
@@ -36,22 +35,10 @@ module alu_base(
 			default: register_data_out = 32'b0;
 		endcase
 	end
-	/*
-	always @(posedge clock ) begin
-		case(funct3)
-			ADD:     register_data_out = register_data_1 +  register_data_2;
-			SLL:     register_data_out = register_data_1 << register_data_2;
-			SLTU:    register_data_out = register_data_1 <  register_data_2 ? 32'b1 : 32'b0;
-			XOR:     register_data_out = register_data_1 ^  register_data_2;
-			SRL:     register_data_out = register_data_1 >> register_data_2;
-			OR:      register_data_out = register_data_1 |  register_data_2;
-			AND:     register_data_out = register_data_1 &  register_data_2;
-			default: register_data_out = 32'b0;
-		endcase
-	end
-	*/
+
 	always @(posedge clock & !enable) begin
 		register_data_out = `HIGH_IMPEDANCE;
 	end
+
 endmodule
 
