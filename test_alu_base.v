@@ -8,7 +8,6 @@ module test_alu_base(
 	output reg [31:0] register_data_2,
 	input      [31:0] register_data_out);
 
-   reg clock_ratio_2;
 
 parameter
 	CLOCK_PERIOD = 1;
@@ -17,9 +16,6 @@ parameter
 	begin
 		#CLOCK_PERIOD clock = !clock;
 	end
-   always @(posedge clock) begin
-      clock_ratio_2 = !clock_ratio_2;
-   end
 
 	initial
 	begin
@@ -27,7 +23,6 @@ parameter
 		// $dumpvars(clock);
 		// initialize registers
 		clock  = 0;
-      clock_ratio_2 = 0;
 		enable = 0;
 		// set ALU to SUM
 		funct3 = 0;
@@ -44,8 +39,11 @@ parameter
 	initial begin
       #7
 		// display all registers in the rs1 output one by one
-		forever @(negedge clock_ratio_2) begin
-			register_data_2 +=1;
+		forever @(negedge clock) begin
+         if (register_data_2 < 10 )
+            register_data_2 +=1;
+         else
+            register_data_2 -=1;
 		end
 	end
 	initial begin
