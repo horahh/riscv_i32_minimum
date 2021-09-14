@@ -23,17 +23,17 @@ module alu_base(
 	// reg [31:0] register_data_result;
 	// assign register_data_out = register_data_result;
 
-	always @(posedge clock ) begin
+	always @(posedge clock & enable) begin
 		case(funct3)
-			3'b000:     register_data_out = register_data_1 +  register_data_2;
-			3'b001:     register_data_out = register_data_1 << register_data_2;
-			3'b010:     register_data_out = register_data_1 <  register_data_2 ? 32'b1 : 32'b0; // need to implement for unsigned
-			3'b011:     register_data_out = register_data_1 <  register_data_2 ? 32'b1 : 32'b0;
-			3'b100:     register_data_out = register_data_1 ^  register_data_2;
-			3'b101:     register_data_out = register_data_1 >> register_data_2;
-			3'b110:     register_data_out = register_data_1 |  register_data_2;
-			3'b111:     register_data_out = register_data_1 &  register_data_2;
-			default:    register_data_out = 32'b0;
+			ADD:     register_data_out = register_data_1 +  register_data_2;
+			SLL:     register_data_out = register_data_1 << register_data_2;
+			SLT:     register_data_out = register_data_1 <  register_data_2 ? 32'b1 : 32'b0; // need to implement for unsigned
+			SLTU:    register_data_out = register_data_1 <  register_data_2 ? 32'b1 : 32'b0;
+			XOR:     register_data_out = register_data_1 ^  register_data_2;
+			SRL:     register_data_out = register_data_1 >> register_data_2;
+			OR:      register_data_out = register_data_1 |  register_data_2;
+			AND:     register_data_out = register_data_1 &  register_data_2;
+			default: register_data_out = 32'b0;
 		endcase
 	end
 	/*
@@ -50,10 +50,8 @@ module alu_base(
 		endcase
 	end
 	*/
-	/*
-	always @(posedge clock & ~enable) begin
-		register_data_out <= `HIGH_IMPEDANCE;
+	always @(posedge clock & !enable) begin
+		register_data_out = `HIGH_IMPEDANCE;
 	end
-	*/
 endmodule
 
