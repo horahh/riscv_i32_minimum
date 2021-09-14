@@ -26,7 +26,7 @@ module test_alu(
 		funct3 = 0;
       // select alu_base 
 		funct7 = 0;
-      #10 
+      #20 
       // now select alu_extra SUB 
       funct3 = 0;
       funct7 = 32;
