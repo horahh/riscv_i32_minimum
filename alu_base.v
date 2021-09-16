@@ -26,7 +26,7 @@ module alu_base(
 		case(funct3)
 			ADD:     register_data_out = register_data_1 +  register_data_2;
 			SLL:     register_data_out = register_data_1 << register_data_2;
-			SLT:     register_data_out = register_data_1 <  register_data_2 ? `ONE : `ZERO; // TODO: need to implement for signed
+			SLT:     register_data_out = $signed(register_data_1) <  $signed(register_data_2) ? `ONE : `ZERO;
 			SLTU:    register_data_out = register_data_1 <  register_data_2 ? `ONE : `ZERO;
 			XOR:     register_data_out = register_data_1 ^  register_data_2;
 			SRL:     register_data_out = register_data_1 >> register_data_2;
