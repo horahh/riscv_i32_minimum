@@ -49,7 +49,7 @@ module test_alu(
 		forever
 		@(posedge clock) begin
          $display("%0t", $time);
-			$display("clock = %b, funct3 = %h, register_data_1 = %h, register_data_2 = %h, register_data_out = %h", clock, funct3, register_data_1, register_data_2, register_data_out);
+			$display("clock = %b, funct7 = %h, funct3 = %h, register_data_1 = %h, register_data_2 = %h, register_data_out = %h", clock, funct7, funct3, register_data_1, register_data_2, register_data_out);
 		end
 	end
 
