@@ -1,4 +1,3 @@
-
 `define HIGH_IMPEDANCE 32'bz
 `define ZERO 32'b0
 `define ONE  32'b1
@@ -14,18 +13,18 @@ module register_file(
 	output [31:0] register_data_1,
 	output [31:0] register_data_2);
 
+   // register zero here can be written to any value but when read the zero this
+   // value is just ignored
 	reg    [31:0] registers[31:0];
 
+   // define a register stuck at zero apart from the others
+   reg    [31:0] register_zero = `ZERO;
+
 	always@(posedge clock & write_enable) begin
-      if (register_write_select == 0) begin
-			registers[register_write_select] <= `ZERO;
-      end
-      else begin
 			registers[register_write_select] <= register_data_write;
-      end
 	end
 
-	assign register_data_1 = registers[rs1];
+	assign register_data_1 = rs1 ? registers[rs1] : register_zero;
 	assign register_data_2 = registers[rs2];
 
 endmodule
