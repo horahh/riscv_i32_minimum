@@ -1,7 +1,7 @@
 module fetch(
    input             clock,
    input             enable,
-   input      [31:0] pc_address,
+   input      [31:0] pc,
    output reg [31:0] pc_address_value,
    output            read_enable,
    output     [31:0] memory_address,

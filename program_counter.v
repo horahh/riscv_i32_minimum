@@ -1,8 +1,9 @@
 module program_counter(
    input             clock,
    input      [31:0] instruction,
-   output reg        pc);
+   output            pc);
 
+   reg pc = 0;
    reg next_pc;
 
    // implementing logic for the easy case for now
