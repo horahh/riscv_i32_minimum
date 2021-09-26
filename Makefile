@@ -20,4 +20,4 @@ register_file:
 	gtkwave test_register_file_riscv32i.vcd &
 
 clean:
-	rm -f *.out; rm -f *.vcd; rm -f *.ltx2; rm -f *.log
+	rm -f *.out; rm -f *.vcd; rm -f *.lxt2; rm -f *.log

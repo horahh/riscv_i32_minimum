@@ -12,7 +12,7 @@ module alu_extra(
 	output [31:0] register_data_out);
 
    parameter [2:0] SUB  = 3'h0; // bit select 31..25 = 32 -> means subtract
-	parameter [2:0] SRA  = 3'h5; // bit select 31..25 = 32 -> means SRA 
+	parameter [2:0] SRA  = 3'h5; // bit select 31..25 = 32 -> means Shift Right Aritmethic which carries the MSB to the left
 
 	reg register_data_out;
 	always @(posedge clock & enable) begin
