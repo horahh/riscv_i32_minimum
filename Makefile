@@ -1,23 +1,39 @@
+################################################################################
+##################### SOURCE FILES #############################################
+################################################################################
+# search for all verilog files 
+# exclude the test files from the list
+SYSTEM_SOURCE_FILES = $(shell find ./ -type f \( -name '*.v' ! -name '*test*' \))
+TEST_BENCH_FILE     = $(wildcard test_bench_*.v)
+TEST_FILE           = $(wildcard test_case_*.v)
+
+################################################################################
+#################### VERILOG COMPILER ##########################################
+################################################################################
+VERILOG_COMPILER    = iverilog
+VERILOG_FLAGS       = -o
+VERILOG_OUTPUT      = riscv32i.out
+
+VCD_GENERATION      = vvp
+VCD_FLAGS           = -v -l
+VCD_OUTPUT          = risc32i.vcd
+VCD_LOG             = $(CURRENT_IP_BLOCK).log
+VCD_OUTPUT          = riscv32i.vcd
+
+WAVE_GENERATION     = gtkwave
+
+# reference: 
+# Get the current dir path to pick the corresponding test files
+MAKEFILE_PATH = $(abspath $(lastword $(MAKEFILE_LIST)))
+CURRENT_DIR = $(notdir $(patsubst %/,%,$(dir $(MAKEFILE_PATH))))
+
+################################################################################
+#################### COMPILATION AND SIMULATION TARGETS ########################
+################################################################################
 all:
-	iverilog -o riscv32i.out test_bench_register_file.v register_file.v test_register_file.v 
-	#alu_base.v alu_extra.v alu_select.v alu.v 
-	vvp -v -l all.log riscv32i.out  > riscv32i.vcd
-	gtkwave riscv32i.vcd &
-
-alu:
-	iverilog -o alu_riscv32i.out test_bench_alu.v test_alu.v alu_base.v alu_extra.v alu_select.v alu.v 
-	vvp -v -l alu.log alu_riscv32i.out  > alu_riscv32i.vcd
-	gtkwave alu_riscv32i.vcd &
-
-alu_base:
-	iverilog -o alu_base_riscv32i.out test_bench_alu_base.v test_alu_base.v alu_base.v 
-	vvp -v -l alu_base.log alu_base_riscv32i.out  > alu_base_riscv32i.vcd
-	gtkwave alu_base_riscv32i.vcd &
-
-register_file:
-	iverilog -o register_file_riscv32i.out test_bench_register_file.v register_file.v test_register_file.v 
-	vvp -v -l register_file.log register_file_riscv32i.out  > test_register_file_riscv32i.vcd
-	gtkwave test_register_file_riscv32i.vcd &
+	$(VERILOG_COMPILER) $(VERILOG_FLAGS) $(VERILOG_OUTPUT) $(TEST_BENCH_FILE) $(TEST_CASE_FILE) $(SYSTEM_SOURCE_FILES)
+	$(VCD_GENERATION) $(VCD_FLAGS) $(VCD_LOG) $(VCD_LOG) $(VERILOG_OUTPUT) > $(VCD_OUTPUT)
+	$(WAVE_GENERATION) $(VCD_OUTPUT) &
 
 clean:
 	rm -f *.out; rm -f *.vcd; rm -f *.lxt2; rm -f *.log
