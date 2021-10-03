@@ -10,5 +10,5 @@ module test_bench_register_file;
 	wire [31:0] register_data_2;
 
 	register_file        register_file_rv32i     (clock, reset, write_enable, rs1, rs2, register_write_select, register_data_write, register_data_1, register_data_2);
-	test_register_file   test_register_file_rv32i(clock, reset, write_enable, rs1, rs2, register_write_select, register_data_write, register_data_1, register_data_2);
+	test_bench_register_file   test_register_file_rv32i(clock, reset, write_enable, rs1, rs2, register_write_select, register_data_write, register_data_1, register_data_2);
 endmodule
