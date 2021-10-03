@@ -19,7 +19,7 @@ parameter
 
 	initial
 	begin
-		$dumpfile("test_register_file_riscv32i.vcd");
+		$dumpfile("test_case_register_file.vcd");
 		$dumpvars(clock);
 		//initialize registers 
 		clock = 0; 
