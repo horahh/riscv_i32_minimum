@@ -19,7 +19,7 @@ parameter
 
 	initial
 	begin
-		$dumpfile("test_alu_base_riscv32i_v2.vcd");
+		$dumpfile("test_alu_base.vcd");
 		// $dumpvars(clock);
 		// initialize registers
 		clock  = 0;
