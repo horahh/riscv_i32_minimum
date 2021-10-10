@@ -6,14 +6,26 @@
 define IP_BLOCK_HELP  
  IP_BLOCK refers to the ip desired to be compiled/simulated 
  By default refers to the whole system (current directory) 
- Can be changed to the directory of the IP that is wanted to be compiled/simulated 
- Provided that has all dependencies of the makefile which are: 
+
+ Each directory is supposed to have a self contained ip with
+ test bench, a test and connections for all its inner ips.
+
+ The directories are recursive so that each ip can have 
+ another ip inside with the same requirements as test bench, 
+ a test and connections for its inner ips.
+
+ IP_BLOCK can be changed to the directory of the IP that is 
+ wanted to be compiled/simulated provided that has all 
+ dependencies of the makefile which are: 
  test_bench_*.v 
  test_case_*.v 
  <ip_block_0>.v <ip_block_1>.v <ip_block_2>.v ... 
+ <inner_ip_directory0> <inner_ip_directory1> <inner_ip_directory2> ...
 
- IP_BLOCK can be overwritten the the ip_block name i.e. alu, register_file, etc 
- in order to compile/simmulate a specific block only "
+ IP_BLOCK can be overwritten by the ip_block directory path i.e. alu, 
+ register_file, alu/alu_base, etc 
+
+ This applies in order to compile/simmulate a specific block only "
 endef
 
 # Execute the project from the root as base
