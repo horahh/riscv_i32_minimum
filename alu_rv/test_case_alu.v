@@ -1,6 +1,6 @@
 `timescale 1s/1ms
 
-module test_alu(
+module test_case_alu(
 	output reg clock,
 	output reg enable,
 	output reg [2:0] funct3,
