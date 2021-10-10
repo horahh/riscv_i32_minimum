@@ -1,25 +1,15 @@
-module alu_select(
-	input            clock,
-	input            enable,
-	input      [6:0] funct7, // select operation type
-	output reg       alu_base_enable,
-	output reg       alu_extra_enable);
+module alu(
+	input             clock,
+	input             enable,
+	input      [6:0]  funct7, // select operation type
+   input      [31:0] operand_0,
+   input      [31:0] operand_1,
+   output     [31:0] destination
+	);
 
-   parameter [6:0] BASE = 7'h0;
-	parameter [6:0] EXTRA  = 7'h20; // 32 dec
+   alu_select alu_select_0(clock, enable, funct7, alu_base_enable, alu_extra_enable);
 
-	always @(posedge clock & enable) begin
-		case(funct7)
-			BASE: alu_base_enable <= 1'b1;
-			default: alu_base_enable <= 1'b0;
-		endcase
-	end
-
-	always @(posedge clock & enable) begin
-		case(funct7)
-			EXTRA: alu_extra_enable <= 1'b1;
-			default: alu_extra_enable <= 1'b0;
-		endcase
-	end
+   alu_base alu_base_0(clock, alu_base_enable, operand_0, operand_1, destination);
+   alu_extra alu_extra_0(clock, alu_extra_enable, operand_0, operand_1, destination);
 
 endmodule
