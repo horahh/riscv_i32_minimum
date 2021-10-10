@@ -14,13 +14,13 @@ assign funct3 = instruction[14:12];
 assign funct7 = instruction[31:25];
 assign rs1    = instruction[19:15];
 assign rs2    = instruction[24:20];
+assign rd     = instruction[11:7];
 
 // connect alu
 
 alu alu_0(
    .clock(clock),
    .enable(enable), 
-   .funct3(funct3),
    .funct7(funct7),
    .register_data_1(rs1),
    .register_data_2(rs2),
