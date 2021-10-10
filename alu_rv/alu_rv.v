@@ -1,4 +1,4 @@
-module alu_to_riscv32i_spec(
+module alu_rv(
    input clock,
    input enable,
    input [31:0] instruction,
