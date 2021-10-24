@@ -1,4 +1,4 @@
-`timescale 1s/1ms
+`timescale 1s/100ms
 
 module test_alu_base(
 	output reg        clock,
@@ -44,7 +44,7 @@ parameter
          if (register_data_2 < 10 )
             register_data_2 +=1;
          else
-            register_data_2 -=1;
+            register_data_2 =0;
 		end
 	end
    
