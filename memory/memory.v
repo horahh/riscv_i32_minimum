@@ -1,3 +1,4 @@
+/* 1 KB memory module is enough for now! :) */
 `define MEMORY_SIZE 1024
 `define HIGH_IMPEDANCE 32'bz
 
