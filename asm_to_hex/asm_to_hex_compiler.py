@@ -126,7 +126,7 @@ def parse_instruction(instruction):
 def main():
     parser = argparse.ArgumentParser(description="ASM to Binary RV32I Translator")
     parser.add_argument("--asm",type=str, default="code.asm",help="Provide the asm to translate to binary")
-    parser.add_argument("--bin",type=str, default="code.bin", help="Provide the bin file to dump the binary translation of the provided asm")
+    parser.add_argument("--bin",type=str, default="code.hex", help="Provide the bin file to dump the binary translation of the provided asm")
     args=parser.parse_args()
     asm_to_binary(args.asm, args.bin)
 
