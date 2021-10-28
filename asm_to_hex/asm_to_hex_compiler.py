@@ -106,8 +106,10 @@ def decode_rtype(tokens):
     print(f"{rs2}")
     print(f"{rd}")
 
-    print("{}".format(hex(binary_instruction)))
-    return hex(binary_instruction)
+    hex_value_32_bit = hex(binary_instruction)[2:].zfill(8)
+
+    print("{}".format(hex_value_32_bit))
+    return hex_value_32_bit
 
 def parse_instruction(instruction):
     tokens = get_instruction_tokens(instruction)
