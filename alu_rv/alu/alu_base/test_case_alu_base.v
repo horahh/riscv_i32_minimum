@@ -20,7 +20,7 @@ parameter
 	initial
 	begin
 		$dumpfile("test_case_alu_base.vcd");
-		$dumpvars(clock,enable,funct3, register_data_1,register_data_2, register_data_out);
+		$dumpvars();
 		// initialize registers
 		clock  = 0;
 		enable = 0;
