@@ -8,7 +8,6 @@ module execute(
    input         unconditional_type_load,
    input         unconditional_type_add, 
    input         integer_type_alu,
-   input         register_type_alu,
    input         integer_type_load,
    input         store_type,
    input         fence_type,

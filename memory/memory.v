@@ -3,14 +3,18 @@
 `define HIGH_IMPEDANCE 32'bz
 
 module memory(
-   input         clock,
-   input         read_enable,
-   input  [31:0] read_address,
+   input             clock,
+   input             read_enable,
+   input      [31:0] read_address,
    output reg [31:0] read_value,
-   input         write_enable,
-   input  [31:0] write_address,
-   input  [31:0] write_value);
+   input             write_enable,
+   input      [31:0] write_address,
+   input      [31:0] write_value
+);
 
+////////////////////////////////////////////////////////////////////////////////
+//      MAIN MEMORY
+////////////////////////////////////////////////////////////////////////////////
    reg [31:0] random_access_memory [`MEMORY_SIZE-1:0];
 
    always @(posedge clock) begin
@@ -24,12 +28,10 @@ module memory(
    initial
    begin
       $readmemh("asm_to_hex/code.hex",random_access_memory);
-      forever @(posedge clock)
+      forever @(posedge clock) begin
          $display("read_enable=%x, read_address=%x, read_value= %x", read_enable, read_address, read_value);
          $display("write_enable=%x, write_address=%x, write_value=%x", write_enable, write_address, write_value);
+      end
    end
 
 endmodule
-
-
-   
