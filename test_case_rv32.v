@@ -1,4 +1,5 @@
 `DEFINE CLOCK_HALF_PERIOD 1
+
 module test_rv32_i(
    output clock,
    output enable,
