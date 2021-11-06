@@ -4,17 +4,17 @@ module program_counter(
    output     [31:0] pc);
 
    reg pc = 0;
-   reg next_pc;
+   reg next_pc =0;
 
    // implementing logic for the easy case for now
    // TODO: implement logic for control logic
    // i.e. jumps, branches
    always @(negedge clock) begin
-      next_pc = pc + 4;
+      pc = pc + 4;
    end
 
    always @(posedge clock) begin
-      pc = next_pc;
+      next_pc = next_pc;
    end
 
 endmodule
