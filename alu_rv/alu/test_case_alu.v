@@ -26,6 +26,8 @@ module test_case_alu(
 		funct3 = 0;
       // select alu_base 
 		funct7 = 0;
+      $dumpfile("test_case_alu.vcd");
+      $dumpvars();
       #20 
       // now select alu_extra SUB 
       funct3 = 0;
