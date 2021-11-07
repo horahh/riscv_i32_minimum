@@ -17,8 +17,8 @@ module alu_extra(
 	reg register_data_out;
 	always @(posedge clock & enable) begin
 		case(funct3)
-			SUB: register_data_out = register_data_1 - register_data_2;
-			SRA: register_data_out = register_data_1 >>> register_data_2;
+			SUB: register_data_out <= register_data_1 - register_data_2;
+			SRA: register_data_out <= register_data_1 >>> register_data_2;
 			default: register_data_out <= `ZERO;
 		endcase
 	end

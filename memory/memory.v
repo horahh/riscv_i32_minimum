@@ -18,20 +18,15 @@ module memory(
    reg [31:0] random_access_memory [`MEMORY_SIZE-1:0];
 
    always @(posedge clock) begin
-      read_value = read_enable ? random_access_memory[read_address] : `HIGH_IMPEDANCE;
+      read_value <= read_enable ? random_access_memory[read_address] : `HIGH_IMPEDANCE;
    end
    always @(posedge clock & write_enable) begin
-      random_access_memory[write_address] = write_value;
+      random_access_memory[write_address] <= write_value;
    end
-
 
    initial
    begin
       $readmemh("asm_to_hex/code.hex",random_access_memory);
-      forever @(posedge clock) begin
-         $display("read_enable=%x, read_address=%x, read_value= %x", read_enable, read_address, read_value);
-         $display("write_enable=%x, write_address=%x, write_value=%x", write_enable, write_address, write_value);
-      end
    end
 
 endmodule

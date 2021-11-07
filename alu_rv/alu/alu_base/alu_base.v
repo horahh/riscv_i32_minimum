@@ -24,15 +24,15 @@ module alu_base(
 
 	always @(posedge clock & enable) begin
 		case(funct3)
-			ADD:     register_data_out = register_data_1 +  register_data_2;
-			SLL:     register_data_out = register_data_1 << register_data_2;
-			SLT:     register_data_out = $signed(register_data_1) <  $signed(register_data_2) ? `ONE : `ZERO;
-			SLTU:    register_data_out = register_data_1 <  register_data_2 ? `ONE : `ZERO;
-			XOR:     register_data_out = register_data_1 ^  register_data_2;
-			SRL:     register_data_out = register_data_1 >> register_data_2;
-			OR:      register_data_out = register_data_1 |  register_data_2;
-			AND:     register_data_out = register_data_1 &  register_data_2;
-			default: register_data_out = 32'b0;
+			ADD:     register_data_out <= register_data_1 +  register_data_2;
+			SLL:     register_data_out <= register_data_1 << register_data_2;
+			SLT:     register_data_out <= $signed(register_data_1) <  $signed(register_data_2) ? `ONE : `ZERO;
+			SLTU:    register_data_out <= register_data_1 <  register_data_2 ? `ONE : `ZERO;
+			XOR:     register_data_out <= register_data_1 ^  register_data_2;
+			SRL:     register_data_out <= register_data_1 >> register_data_2;
+			OR:      register_data_out <= register_data_1 |  register_data_2;
+			AND:     register_data_out <= register_data_1 &  register_data_2;
+			default: register_data_out <= 32'b0;
 		endcase
 	end
 
