@@ -75,4 +75,4 @@ module test_bench_rv32i;
       .memory_value(pc_address_value)
    );
 
-
+endmodule

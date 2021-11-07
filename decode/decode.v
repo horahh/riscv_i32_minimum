@@ -10,7 +10,7 @@ J-type: unconditional jumps, a variation of U-type.
 `define ZERO 1'b0
 `define ONE  1'b1
 
-module rv32i_decode(
+module decode(
    input      [6:0] opcode,
    output reg       branch_type,
    output reg       register_type_alu,

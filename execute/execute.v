@@ -19,8 +19,7 @@ module execute(
 // instantiate register file
 
 // instantiate functional units
-if ( register_type_alu ) begin
-   alu_execute alu_execute_0(
+   alu_rv alu_execute_0(
       .clock(clock), 
       .enable(register_type_alu), 
       .instruction(instruction), 
@@ -28,7 +27,5 @@ if ( register_type_alu ) begin
       .rs2(register_data_2_select),
       .rd(register_data_out_select)
    );
-   
-end
 
 endmodule
