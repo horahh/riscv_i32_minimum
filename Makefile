@@ -49,13 +49,13 @@ define IP_BLOCK_HELP
 endef
 
 ################################################################################
-#################### SOURCE_FILES     ##########################################
+#################### VERILOG_FILES     ##########################################
 ################################################################################
 # Execute the project from the root as base
 IP_BLOCK             = .
 # search for all verilog files 
 # exclude the test files from the list
-SYSTEM_SOURCE_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.v' ! -name '*test*' \))
+VERILOG_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.v' ! -name '*test*' \))
 TEST_BENCH_FILE      = $(wildcard $(IP_BLOCK)/test_bench_*.v)
 TEST_CASE_FILE       = $(wildcard $(IP_BLOCK)/test_case_*.v)
 
@@ -86,12 +86,17 @@ MAKEFILE_PATH = $(abspath $(lastword $(MAKEFILE_LIST)))
 CURRENT_DIR = $(notdir $(patsubst %/,%,$(dir $(MAKEFILE_PATH))))
 
 ################################################################################
+#################### OBJECT AND OUTPUT FILES ###################################
+################################################################################
+OUTPUT_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.vcd' -o -name '*.out' -o -name '*.lxt2' -o -name '*.log' \))
+
+################################################################################
 #################### COMPILATION AND SIMULATION TARGETS ########################
 ################################################################################
 all:
-	@echo $(SYSTEM_SOURCE_FILES)
+	@echo $(VERILOG_FILES)
 	@echo $(IP_NAME)
-	$(VERILOG_COMPILER) $(VERILOG_FLAGS) $(VERILOG_OUTPUT) $(TEST_BENCH_FILE) $(TEST_CASE_FILE) $(SYSTEM_SOURCE_FILES)
+	$(VERILOG_COMPILER) $(VERILOG_FLAGS) $(VERILOG_OUTPUT) $(TEST_BENCH_FILE) $(TEST_CASE_FILE) $(VERILOG_FILES)
 	$(VCD_GENERATION) $(VCD_FLAGS) $(VCD_LOG) $(VERILOG_OUTPUT) > $(VCD_OUTPUT)
 
 sim:
@@ -101,4 +106,5 @@ help:
 	$(info $(IP_BLOCK_HELP))
 
 clean:
-	rm -f $(IP_BLOCK)/*.out; rm -f $(IP_BLOCK)/*.vcd; rm -f $(IP_BLOCK)/*.lxt2; rm -f $(IP_BLOCK)/*.log
+	@echo $(OUTPUT_FILES)
+	rm -f $(OUTPUT_FILES)
