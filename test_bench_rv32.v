@@ -37,18 +37,18 @@ module test_bench_rv32i;
       .clock(clock), 
       .enable(read_enable),
       .pc(pc),
-      .pc_address_value(pc_instruction),
+      .value_at_pc_address(pc_instruction),
       .read_enable(read_enable),
       .memory_value(memory_read_value)
    );
 
-
-   assign instruction_opcode = pc_instruction[6:0];
+   wire [6:0] instruction_opcode;
+   assign  instruction_opcode = pc_instruction[6:0];
    decode decode_0(
       .opcode(instruction_opcode),
       .branch_type(branch_type),
       .register_type_alu(register_type_alu),
-      .integer_type_jmp(integer_type_jump),
+      .integer_type_jump(integer_type_jump),
       .jump_type(jump_type),
       .unconditional_type_load(unconditional_type_load),
       .unconditional_type_add(unconditional_type_add),
@@ -63,7 +63,7 @@ module test_bench_rv32i;
       .instruction(pc_instruction),
       .branch_type(branch_type),
       .register_type_alu(register_type_alu),
-      .integer_type_jmp(integer_type_jump),
+      .integer_type_jump(integer_type_jump),
       .jump_type(jump_type),
       .unconditional_type_load(unconditional_type_load),
       .unconditional_type_add(unconditional_type_add),

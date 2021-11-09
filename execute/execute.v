@@ -28,8 +28,8 @@ module execute(
       .clock(clock), 
       .enable(register_type_alu), 
       .instruction(instruction), 
-      .rs1_value(rs1_value),
-      .rs2_value(rs2_value),
+      .rs1_value(register_data_1_value),
+      .rs2_value(register_data_2_value),
       .rs1(register_data_1_select),
       .rs2(register_data_2_select),
       .rd(register_data_write_select),
@@ -47,8 +47,8 @@ module execute(
       .rs2(register_data_2_select),
       .register_write_select(register_data_write_select),
       .register_data_write(register_data_write_value),
-      .register_data_1(rs1_value),
-      .register_data_2(rs2_value)
+      .register_data_1(register_data_1_value),
+      .register_data_2(register_data_2_value)
    );
 
 endmodule
