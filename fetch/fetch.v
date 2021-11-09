@@ -2,16 +2,12 @@ module fetch(
    input             clock,
    input             enable,
    input      [31:0] pc,
-   output reg [31:0] pc_address_value,
+   output reg [31:0] value_at_pc_address,
    output            read_enable,
-   output     [31:0] memory_address,
    input      [31:0] memory_value);
 
    always @(posedge clock) begin
-      memory_address = pc_address;
-   end
-   always @(posedge clock) begin
-      pc_address_value = memory_value;
+      value_at_pc_address <= memory_value;
    end
 
    assign read_enable = enable;

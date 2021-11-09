@@ -1,33 +1,35 @@
 module test_bench_rv32i;
 
    wire        clock;
-   wire        read_enable;
    wire [31:0] pc;
+   wire        read_enable;
+   wire [31:0] memory_read_address;
    wire [31:0] memory_read_value;
    wire        memory_write_enable;
-   wire        memory_write_address;
+   wire [31:0] memory_write_address;
    wire [31:0] memory_write_value;
    wire [31:0] pc_instruction;
    wire        write_back_enable;
 
    test_case_rv32 test_case_rv32_0(
       .clock(clock),
-      .read_enable(enable)
+      .enable(read_enable)
    );
 
    memory memory_0(
       .clock(clock),
       .read_enable(read_enable),
-      .read_address(address_value),
+      .read_address(memory_read_address),
       .read_value(memory_read_value),
       .write_enable(memory_write_enable),
       .write_address(memory_write_address),
       .write_value(memory_write_value)
    );
 
+
    program_counter program_counter_0(
       .clock(clock),
-      .instruction(memory_address),
+      .instruction(pc_instruction),
       .pc(pc)
    );
 
@@ -37,8 +39,7 @@ module test_bench_rv32i;
       .pc(pc),
       .pc_address_value(pc_instruction),
       .read_enable(read_enable),
-      .memory_address(read_address),
-      .memory_value(read_value)
+      .memory_value(memory_read_value)
    );
 
 
@@ -71,8 +72,7 @@ module test_bench_rv32i;
       .store_type(store_type),
       .fence_type(fence_type),
       .write_back_enable(write_back_enable),
-      .memory_address(pc),
-      .memory_value(pc_address_value)
+      .memory_address(pc)
    );
 
 endmodule
