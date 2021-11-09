@@ -21,6 +21,6 @@ module test_case_program_counter(
    initial begin
       $dumpfile("test_case_program_counter.vcd");
       $dumpvars();
-      $monitor("clock=%b, instruction=%b, pc=%b\n", clock,instruction,pc);
+      $monitor("clock=%b, instruction=%h, pc=%h\n", clock,instruction,pc);
    end
 endmodule
