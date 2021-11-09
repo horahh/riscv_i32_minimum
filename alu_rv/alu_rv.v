@@ -2,9 +2,12 @@ module alu_rv(
    input clock,
    input enable,
    input [31:0] instruction,
+   input [31:0] rs1_value,
+   input [31:0] rs2_value,
    output [4:0] rs1,
    output [4:0] rs2,
-   output [4:0] rd
+   output [4:0] rd,
+   output [31:0] rd_result
 );
 
 // split instruction into fields
@@ -22,9 +25,9 @@ alu alu_0(
    .clock(clock),
    .enable(enable), 
    .funct7(funct7),
-   .register_data_1(rs1),
-   .register_data_2(rs2),
-   .register_data_out(rd)
+   .register_data_1(rs1_value),
+   .register_data_2(rs2_value),
+   .register_data_out(rd_result)
 );
 endmodule
 
