@@ -10,6 +10,12 @@ module alu_rv(
    output [31:0] rd_result
 );
 
+wire [2:0] funct3;
+wire [6:0] funct7;
+wire [4:0] rs1;
+wire [4:0] rs2;
+wire [4:0] rd;
+
 // split instruction into fields
 // source: https://github.com/jameslzhu/riscv-card/blob/master/riscv-card.pdf
 // core instructions format for R type
@@ -25,9 +31,9 @@ alu alu_0(
    .clock(clock),
    .enable(enable), 
    .funct7(funct7),
-   .register_data_1(rs1_value),
-   .register_data_2(rs2_value),
-   .register_data_out(rd_result)
+   .operand_0(rs1_value),
+   .operand_1(rs2_value),
+   .destination(rd_result)
 );
 endmodule
 
