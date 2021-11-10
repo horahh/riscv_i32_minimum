@@ -16,6 +16,7 @@ module test_bench_rv32;
       .enable(read_enable)
    );
 
+   assign memory_read_address = pc;
    memory memory_0(
       .clock(clock),
       .read_enable(read_enable),
@@ -25,7 +26,6 @@ module test_bench_rv32;
       .write_address(memory_write_address),
       .write_value(memory_write_value)
    );
-
 
    program_counter program_counter_0(
       .clock(clock),
