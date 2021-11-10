@@ -1,4 +1,4 @@
-module test_bench_rv32i;
+module test_bench_rv32;
 
    wire        clock;
    wire [31:0] pc;
@@ -74,5 +74,6 @@ module test_bench_rv32i;
       .write_back_enable(write_back_enable),
       .memory_address(pc)
    );
+
 
 endmodule
