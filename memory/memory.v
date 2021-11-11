@@ -15,7 +15,7 @@ module memory(
 ////////////////////////////////////////////////////////////////////////////////
 //      MAIN MEMORY
 ////////////////////////////////////////////////////////////////////////////////
-   reg [31:0] random_access_memory [`MEMORY_SIZE-1:0];
+   reg [31:0] random_access_memory [0:`MEMORY_SIZE-1];
 
    always @(posedge clock) begin
       read_value <= read_enable ? random_access_memory[read_address] : `HIGH_IMPEDANCE;
