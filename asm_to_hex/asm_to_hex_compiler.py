@@ -18,19 +18,19 @@ def asm_to_binary(source_name, destination_name):
     with open(source_name,'r') as source_file:
         instructions = source_file.readlines()
     for instruction in instructions:
-        print(f"Parsing: {instruction}")
+        #print(f"Parsing: {instruction}")
         hex_instruction_decode = parse_instruction(instruction)
         hex_instructions.append(hex_instruction_decode)
     with open(destination_name, 'w') as destination_file:
         for hex_instruction in hex_instructions:
-            print("writing {}".format(hex_instruction))
+            #print("writing {}".format(hex_instruction))
             destination_file.write(hex_instruction)
             destination_file.write("\n")
 
 def get_instruction_tokens(instruction):
     instruction = instruction.strip()
     tokens = re.split(r"\s+|\s?,\s?",instruction)
-    print(tokens)
+    #print(tokens)
     return tokens
 
 def identify_type(token):
@@ -100,24 +100,24 @@ def decode_rtype(tokens):
     rs2 = get_register(tokens[2])
     rd = get_register(tokens[1])
     binary_instruction = (opcode << opcode_offset) + (rd << rd_offset) + (funct3 <<funct3_offset) + (rs1 << rs1_offset) + (rs2 << rs2_offset) + (funct7 << funct7_offset)
-    print(f"{funct7}")
-    print(f"{funct3}")
-    print(f"{rs1}")
-    print(f"{rs2}")
-    print(f"{rd}")
+    #print(f"{funct7}")
+    #print(f"{funct3}")
+    #print(f"{rs1}")
+    #print(f"{rs2}")
+    #print(f"{rd}")
 
     hex_value_32_bit = hex(binary_instruction)[2:].zfill(8)
 
-    print("{}".format(hex_value_32_bit))
+    #print("{}".format(hex_value_32_bit))
     return hex_value_32_bit
 
 def parse_instruction(instruction):
     tokens = get_instruction_tokens(instruction)
     if not tokens:
         exit(1)
-    print(instruction)
-    print(tokens)
-    print(tokens[0])
+    #print(instruction)
+    #print(tokens)
+    #print(tokens[0])
     type = identify_type(tokens[0])
     if type == RTYPE:
         return decode_rtype(tokens)
