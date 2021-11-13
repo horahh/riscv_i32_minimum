@@ -32,4 +32,10 @@ initial begin
    end
 end
 
+initial begin
+   $readmemh("default_register_init.hex",
+      test_bench_rv32.register_file.registers
+   );
+end
+
 endmodule
