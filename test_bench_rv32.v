@@ -42,6 +42,17 @@ module test_bench_rv32;
       .memory_value(memory_read_value)
    );
 
+   wire branch_type;
+   wire register_type_alu;
+   wire integer_type_jump;
+   wire jump_type;
+   wire unconditional_type_load;
+   wire unconditional_type_add;
+   wire integer_type_alu;
+   wire integer_type_load;
+   wire store_type;
+   wire fence_type;
+
    wire [6:0] instruction_opcode;
    assign  instruction_opcode = pc_instruction[6:0];
    decode decode_0(
