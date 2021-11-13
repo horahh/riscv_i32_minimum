@@ -1,7 +1,7 @@
 module test_bench_rv32;
-
    wire        clock;
    wire [31:0] pc;
+   wire        enable;
    wire        read_enable;
    wire [31:0] memory_read_address;
    wire [31:0] memory_read_value;
@@ -13,7 +13,7 @@ module test_bench_rv32;
 
    test_case_rv32 test_case_rv32_0(
       .clock(clock),
-      .enable(read_enable)
+      .enable(enable)
    );
 
    assign memory_read_address = pc;
@@ -35,7 +35,7 @@ module test_bench_rv32;
 
    fetch fetch_0 (
       .clock(clock), 
-      .enable(read_enable),
+      .enable(enable),
       .pc(pc),
       .value_at_pc_address(pc_instruction),
       .read_enable(read_enable),
