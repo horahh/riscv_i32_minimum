@@ -56,6 +56,7 @@ module test_bench_rv32;
    wire [6:0] instruction_opcode;
    assign  instruction_opcode = pc_instruction[6:0];
    decode decode_0(
+      .clock(clock),
       .opcode(instruction_opcode),
       .branch_type(branch_type),
       .register_type_alu(register_type_alu),
@@ -69,11 +70,12 @@ module test_bench_rv32;
       .fence_type(fence_type)
    );
 
+   wire register_type_alu2;
    execute execute_0(
       .clock(clock),
       .instruction(pc_instruction),
       .branch_type(branch_type),
-      .register_type_alu(register_type_alu),
+      .register_type_alu(register_type_alu2),
       .integer_type_jump(integer_type_jump),
       .jump_type(jump_type),
       .unconditional_type_load(unconditional_type_load),

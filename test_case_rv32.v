@@ -23,7 +23,7 @@ initial begin
       test_bench_rv32.execute_0.register_file_0.rs1,
       test_bench_rv32.execute_0.register_file_0.rs2,
       test_bench_rv32.execute_0.register_file_0.register_write_select,
-      test_bench_rv32.decode_0.register_type_alu,
+      test_bench_rv32.decode_0.register_type_alu_int,
       test_bench_rv32.decode_0.opcode
    );
    #100 

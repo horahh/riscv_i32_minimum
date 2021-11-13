@@ -44,6 +44,7 @@ module decode(
       unconditional_type_add  <= opcode == UNCONDITIONAL_TYPE_ADD_OPCODE  ? `ONE : `ZERO;
       integer_type_alu        <= opcode == INTEGER_TYPE_ALU_OPCODE        ? `ONE : `ZERO;
       register_type_alu       <= opcode == REGISTER_TYPE_ALU_OPCODE       ? `ONE : `ZERO;
+      register_type_alu       <= opcode == REGISTER_TYPE_ALU_OPCODE       ? `ONE : `ZERO;
       integer_type_load       <= opcode == INTEGER_TYPE_LOAD_OPCODE       ? `ONE : `ZERO;
       store_type              <= opcode == STORE_TYPE_OPCODE              ? `ONE : `ZERO;
       fence_type              <= opcode == FENCE_TYPE_OPCODE              ? `ONE : `ZERO;
