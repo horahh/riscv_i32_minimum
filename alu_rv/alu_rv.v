@@ -30,6 +30,7 @@ assign rd     = instruction[11:7];
 alu alu_0(
    .clock(clock),
    .enable(enable), 
+   .funct3(funct3),
    .funct7(funct7),
    .operand_0(rs1_value),
    .operand_1(rs2_value),
