@@ -104,6 +104,9 @@ all:
 sim:
 	$(WAVE_GENERATION_TOOL) $(VCD_OUTPUT) &
 
+bin:
+	python asm_to_hex/asm_to_hex_compiler.py --asm asm_to_hex/code.asm --bin asm_to_hex/code.hex
+
 help:
 	$(info $(IP_BLOCK_HELP))
 
