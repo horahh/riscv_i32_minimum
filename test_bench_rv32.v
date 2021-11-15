@@ -48,7 +48,7 @@ module test_bench_rv32;
    wire jump_type;
    wire unconditional_type_load;
    wire unconditional_type_add;
-   wire integer_type_alu;
+   wire immediate_type_alu;
    wire integer_type_load;
    wire store_type;
    wire fence_type;
@@ -64,7 +64,7 @@ module test_bench_rv32;
       .jump_type(jump_type),
       .unconditional_type_load(unconditional_type_load),
       .unconditional_type_add(unconditional_type_add),
-      .integer_type_alu(integer_type_alu),
+      .immediate_type_alu(immediate_type_alu),
       .integer_type_load(integer_type_load),
       .store_type(store_type),
       .fence_type(fence_type)
@@ -80,7 +80,7 @@ module test_bench_rv32;
       .jump_type(jump_type),
       .unconditional_type_load(unconditional_type_load),
       .unconditional_type_add(unconditional_type_add),
-      .integer_type_alu(integer_type_alu),
+      .immediate_type_alu(immediate_type_alu),
       .integer_type_load(integer_type_load),
       .store_type(store_type),
       .fence_type(fence_type),

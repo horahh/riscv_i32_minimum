@@ -1,9 +1,8 @@
 module alu(
 	input             clock,
 	input             enable,
-// funct3 not used now, but can be used to modify operations, like having "add and shift"
    input      [2:0]  funct3, 
-	input      [6:0]  funct7, // select operation type
+	input      [6:0]  funct7,
    input      [31:0] operand_0,
    input      [31:0] operand_1,
    output     [31:0] destination

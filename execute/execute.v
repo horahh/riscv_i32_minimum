@@ -3,11 +3,11 @@ module execute(
    input  [31:0] instruction,
    input         branch_type,
    input         register_type_alu,
-   input         integer_type_jump,
+   input         immediate_type_jump,
    input         jump_type,
    input         unconditional_type_load,
    input         unconditional_type_add, 
-   input         integer_type_alu,
+   input         immediate_type_alu,
    input         integer_type_load,
    input         store_type,
    input         fence_type,
@@ -26,7 +26,8 @@ module execute(
 // instantiate functional units
    alu_rv alu_execute_0(
       .clock(clock), 
-      .enable(register_type_alu), 
+      .register_type_alu(register_type_alu), 
+      .immediate_type_alu(immediate_type_alu),
       .instruction(instruction), 
       .rs1_value(register_data_1_value),
       .rs2_value(register_data_2_value),
