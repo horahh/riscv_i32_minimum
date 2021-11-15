@@ -42,7 +42,16 @@ Module that holds the current memory model to fech from and write to.
 
 Module that holds the logic to appropriately increment (or change) the PC register
 
-# FETCH DECODE EXECUTE WRITEBACK
+# FETCH 
+Loads the next instruction data and pass it to the decode unit.
+Will need to load memory as well for Load type operations (once implemented)
 
-WIP, currently implemented but not integrated nor tested 
+# DECODE 
+Decodes the instruction into specific single bit enables to set the corresponding unit to execute.
 
+# EXECUTE 
+Instantiates the ALU and Register File units and pass to the the enable signals from decode.
+Currently just having implemented Register and Immediate ALU operations.
+
+# WRITEBACK
+Implemented but not used. For Store type instruction to write into memory.
