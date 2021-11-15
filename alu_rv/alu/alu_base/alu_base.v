@@ -11,7 +11,8 @@ module alu_base(
 	input      [2:0]  funct3,
 	input      [31:0] register_data_1,
 	input      [31:0] register_data_2,
-	output reg [31:0] register_data_out);
+	output reg [31:0] register_data_out
+);
 
 	parameter [2:0] ADD  = 3'h0;
 	parameter [2:0] SLL  = 3'h1;

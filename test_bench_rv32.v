@@ -44,7 +44,7 @@ module test_bench_rv32;
 
    wire branch_type;
    wire register_type_alu;
-   wire integer_type_jump;
+   wire immediate_type_jump;
    wire jump_type;
    wire unconditional_type_load;
    wire unconditional_type_add;
@@ -60,7 +60,7 @@ module test_bench_rv32;
       .opcode(instruction_opcode),
       .branch_type(branch_type),
       .register_type_alu(register_type_alu),
-      .integer_type_jump(integer_type_jump),
+      .immediate_type_jump(immediate_type_jump),
       .jump_type(jump_type),
       .unconditional_type_load(unconditional_type_load),
       .unconditional_type_add(unconditional_type_add),
@@ -76,7 +76,7 @@ module test_bench_rv32;
       .instruction(pc_instruction),
       .branch_type(branch_type),
       .register_type_alu(register_type_alu2),
-      .integer_type_jump(integer_type_jump),
+      .immediate_type_jump(immediate_type_jump),
       .jump_type(jump_type),
       .unconditional_type_load(unconditional_type_load),
       .unconditional_type_add(unconditional_type_add),
