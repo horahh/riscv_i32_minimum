@@ -1,0 +1,36 @@
+[RV32I]
+
+[RV32I.RTYPE]
+[RV32I.RTYPE.INSTRUCTIONS]
+RTYPE_BASE = [ "add","sll","slt","sltu","xor","srl","or","and" ]
+RTYPE_EXTRA = [ "sub", "sra" ]
+[RV32I.RTYPE.OVERRIDES]
+RTYPE_EXTRA = [{ FUNCT7 = 32 }]
+[RV32I.RTYPE.INSTRUCTION_FIELDS]
+opcode    = { bits = 7, value = 0x33, offset = 0,  token = 0 }
+funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
+funct7    = { bits = 7, value = 0x0,  offset = 25, token = 0 }
+rs1       = { bits = 5, value = 0x0,  offset = 15, token = 3 }
+rs2       = { bits = 5, value = 0x0,  offset = 20, token = 2 }
+rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
+
+[RV32I.ITYPE]
+[RV32I.ITYPE.INSTRUCTIONS]
+ITYPE     = [ "addi", "slti", "sltiu", "xori", "ori", "andi" ]
+[RV32I.ITYPE.INSTRUCTION_FIELDS]
+opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
+funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
+rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
+rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
+immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
+
+[RV32I.JTYPE]
+[RV32I.JTYPE.INSTRUCTIONS]
+JTYPE_DIRECT = [ "jal" ] 
+JTYPE_INDIRECT = [ "jalr" ] 
+[RV32I.JTYPE.INTRUCTION_FIELDS]
+OPCODE    = { bits = 7, value = 0x1C, offset = 0,  token = 0 }
+funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
+rs1       = { bits = 5, value = 0x0,  offset = 15, token = 0 }
+rd        = { bits = 5, value = 0x0,  offset = 7,  token = 0 }
+immediate = { bits = 12,value = 0x0,  offset = 20, token = 0 }

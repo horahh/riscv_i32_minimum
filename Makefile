@@ -126,7 +126,7 @@ sim:
 	$(WAVE_GENERATION_TOOL) $(VCD_OUTPUT) &
 
 bin:
-	python asm_to_hex/asm_to_hex_compiler.py --asm asm_to_hex/code.asm --bin asm_to_hex/code.hex
+	python asm_to_hex/asm_toml.py --asm asm_to_hex/code.asm --bin asm_to_hex/code.hex --toml asm_to_hex/rv32i_instructions.toml
 
 test:
 	pytest -vv
