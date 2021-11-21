@@ -97,3 +97,33 @@ def int_to_32bit_hex_instructions(int_instructions):
         hex_instructions.append(hex_instruction)
     return hex_instructions
 
+def get_immediate_j(token):
+    immediate = get_immediate_j_value(token)
+    immediate_1 = immediate >> 1 & ( 2**9-1) 
+    immediate_2 = immediate >> 11 & 1
+    immediate_3 = immediate >> 8 & (2**8-1)
+    immediate_4 = immediate >> 20 & 1
+    immediate_1_offset =  1 - 1
+    immediate_2_offset = 11 - 1
+    immediate_3_offset = 12 - 1 
+    immediate_4_offset = 20 - 1
+    immediate_rv = (immediate_1 << immediate_1_offset ) + (immediate_2 << immediate_2_offset) + (immediate_3 << immediate_3_offset) + (immediate_4 << immediate_4_offset)
+    return immediate_rv
+
+def get_immediate_j_value(token):
+    result = re.match(r"^([\-\+]?\d+)$", token)
+    if result:
+        immediate = int(result.group(1))
+        min_immediate_value = -2**18-1
+        max_immediate_value =  2**18 
+        if immediate < min_immediate_value or immediate > max_immediate_value:
+            print("invalid token, expecting immediate {}".format(token))
+            exit(1)
+        if immediate < 0:
+            immediate_field_bits = 19 
+            immediate =  (2 ** immediate_field_bits) + immediate
+            immediate = immediate & ((2 ** immediate_field_bits) - 1)  
+            #print("immediate = {}\n".format(immediate))
+        return immediate 
+    print("invalid token, expecting immediate value: {}".format(token))
+    exit(1)
