@@ -7,3 +7,4 @@
 *.hex
 *.bin
 *.gtkw
+**/__pycache__
