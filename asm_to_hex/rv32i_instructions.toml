@@ -24,12 +24,17 @@ rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
 rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
 immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
 
-[RV32I.JTYPE]
-[RV32I.JTYPE.INSTRUCTIONS]
-JTYPE_DIRECT = [ "jal" ] 
-JTYPE_INDIRECT = [ "jalr" ] 
+[RV32I.UJTYPE]
+[RV32I.UJTYPE.INSTRUCTIONS]
+UJTYPE = [ "jal" ] 
+opcode    = { bits = 7, value = 0x1C, offset = 0,  token = 0 }
+rd        = { bits = 5, value = 0x0,  offset = 7,  token = 0 }
+immediate_uj = { bits = 20,value = 0x0,  offset = 20, token = 0 }
+
+[RV32I.JITYPE]
+JITYPE = [ "jalr" ] 
 [RV32I.JTYPE.INTRUCTION_FIELDS]
-OPCODE    = { bits = 7, value = 0x1C, offset = 0,  token = 0 }
+opcode    = { bits = 7, value = 0x1C, offset = 0,  token = 0 }
 funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
 rs1       = { bits = 5, value = 0x0,  offset = 15, token = 0 }
 rd        = { bits = 5, value = 0x0,  offset = 7,  token = 0 }

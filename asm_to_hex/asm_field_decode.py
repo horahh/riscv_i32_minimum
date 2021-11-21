@@ -39,6 +39,11 @@ def get_funct3(token):
             }
     if token in funct3i_token.keys():
         return funct3i_token[token]
+    funct3ji_token = {
+            "jalr": 0
+            }
+    if token in funct3ji_token.keys():
+        return 0
     print("ERROR: token not supported")
     exit(1)
 
@@ -97,7 +102,7 @@ def int_to_32bit_hex_instructions(int_instructions):
         hex_instructions.append(hex_instruction)
     return hex_instructions
 
-def get_immediate_j(token):
+def get_immediate_uj(token):
     immediate = get_immediate_j_value(token)
     immediate_1 = immediate >> 1 & ( 2**9-1) 
     immediate_2 = immediate >> 11 & 1
