@@ -3,6 +3,27 @@
 ################################################################################
 # assign a multiline variable for help
 # https://stackoverflow.com/questions/649246/is-it-possible-to-create-a-multi-line-string-variable-in-a-makefile 
+define MAKE_TARGETS
+ There are currently 4 supported targets for compilation:
+
+ all (DEFAULT) 
+ Refers to a verilog IP_BLOCK that is selected with the IP_BLOCK variable set to a specific directory.
+
+ sim
+ Opens a gtkwave instance to explore the simulation signals graphically
+
+ clean 
+ cleans up the whole directory tree of compilation objects.
+
+ bin
+ Creates a translation from the asm to the hex file to be loaded into memory by the RTL simulation
+ Simulation expects a 4K word memory (4096 bytes)
+
+ test
+ Test the compiler from ASM to HEX covertion for different instructions supported
+
+endef
+
 define IP_BLOCK_HELP  
  IP_BLOCK refers to the ip desired to be compiled/simulated 
  By default refers to the whole system (current directory) 
@@ -107,7 +128,11 @@ sim:
 bin:
 	python asm_to_hex/asm_to_hex_compiler.py --asm asm_to_hex/code.asm --bin asm_to_hex/code.hex
 
+test:
+	pytest -vv
+
 help:
+	$(info $(MAKE_TARGETS)
 	$(info $(IP_BLOCK_HELP))
 
 clean:
