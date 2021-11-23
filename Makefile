@@ -117,7 +117,7 @@ OUTPUT_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.vcd' -o -name '*.o
 all:
 	@echo $(VERILOG_FILES)
 	@echo $(IP_NAME)
-	python asm_to_hex/asm_to_hex_compiler.py --asm asm_to_hex/code.asm --bin asm_to_hex/code.hex
+	python asm_to_hex/asm_toml.py --asm asm_to_hex/code.asm --bin asm_to_hex/code.hex --toml asm_to_hex/rv32i_instructions.toml
 
 	$(VERILOG_COMPILER) $(VERILOG_FLAGS) $(VERILOG_OUTPUT) $(TEST_BENCH_FILE) $(TEST_CASE_FILE) $(VERILOG_FILES)
 	$(VCD_GENERATION) $(VCD_FLAGS) $(VCD_LOG) $(VERILOG_OUTPUT) > $(VCD_OUTPUT)
