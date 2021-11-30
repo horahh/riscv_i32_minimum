@@ -1,4 +1,5 @@
 module execute(
+   // input from decode
    input         clock,
    input  [31:0] instruction,
    input         branch_type,
@@ -11,8 +12,13 @@ module execute(
    input         integer_type_load,
    input         store_type,
    input         fence_type,
+   // output to memory
    output        write_back_enable,
-   output [31:0] memory_address
+   output [31:0] memory_address,
+   // interactions with pc
+   input  [31:0] pc,
+   output        next_pc_valid,
+   output [31:0] next_pc,
 );
 
    wire [4:0] register_data_1_select;

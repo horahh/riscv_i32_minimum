@@ -11,6 +11,10 @@ module alu_rv(
    output [4:0]  rs2,
    output [4:0]  rd,
    output [31:0] rd_result
+   // PC interactions
+   input  [31:0] pc,
+   output        next_pc_valid,
+   output [31:0] next_pc
 );
 
 wire [2:0] funct3;
@@ -48,6 +52,7 @@ wire [11:0] immediate_value_original;
 assign immediate_value_original = instruction[31:20];
 reg  [31:0] immediate_operand_value ;
 
+// TODO move to a alu_immediate module
 always @(posedge clock) begin
    case(funct3)
       ADDI:    immediate_operand_value <= $signed(immediate_value_original);

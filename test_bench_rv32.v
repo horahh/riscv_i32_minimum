@@ -1,5 +1,6 @@
 module test_bench_rv32;
    wire        clock;
+   wire        read_pc_address_enable;
    wire [31:0] pc;
    wire        enable;
    wire        read_enable;
@@ -10,15 +11,24 @@ module test_bench_rv32;
    wire [31:0] memory_write_value;
    wire [31:0] pc_instruction;
    wire        write_back_enable;
+   wire        next_pc_valid;
+   wire [31:0] next_pc;
 
    test_case_rv32 test_case_rv32_0(
       .clock(clock),
       .enable(enable)
    );
 
-   assign memory_read_address = pc;
+   // TODO: implement store and load memory operations
+   reg read_enable_mem = 0;
+   reg write_enable_mem = 0;
+   assign read_enable = read_enable_mem;
+   assign write_enable = write_enable_mem;
+   
    memory memory_0(
       .clock(clock),
+      .read_pc_address_enable(read_pc_address_enable),
+      .read_pc_address(pc),
       .read_enable(read_enable),
       .read_address(memory_read_address),
       .read_value(memory_read_value),
@@ -29,7 +39,8 @@ module test_bench_rv32;
 
    program_counter program_counter_0(
       .clock(clock),
-      .instruction(pc_instruction),
+      .next_pc_valid(next_pc_valid),
+      .next_pc(next_pc),
       .pc(pc)
    );
 
@@ -38,7 +49,7 @@ module test_bench_rv32;
       .enable(enable),
       .pc(pc),
       .value_at_pc_address(pc_instruction),
-      .read_enable(read_enable),
+      .read_enable(read_pc_address_enable),
       .memory_value(memory_read_value)
    );
 
@@ -70,12 +81,12 @@ module test_bench_rv32;
       .fence_type(fence_type)
    );
 
-   wire register_type_alu2;
    execute execute_0(
       .clock(clock),
       .instruction(pc_instruction),
+      // from decode
       .branch_type(branch_type),
-      .register_type_alu(register_type_alu2),
+      .register_type_alu(register_type_alu),
       .immediate_type_jump(immediate_type_jump),
       .jump_type(jump_type),
       .unconditional_type_load(unconditional_type_load),
@@ -84,8 +95,10 @@ module test_bench_rv32;
       .integer_type_load(integer_type_load),
       .store_type(store_type),
       .fence_type(fence_type),
+      // end from decode
       .write_back_enable(write_back_enable),
-      .memory_address(pc)
+      .write_memory_address(memory_write_address),
+      .read_memory_address(memory_read_address)
    );
 
 
