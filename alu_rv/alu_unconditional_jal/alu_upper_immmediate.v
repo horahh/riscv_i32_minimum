@@ -6,9 +6,9 @@ module alu_upper_immediate(
    input             clk,
    input             enable,
    input      [6:0]  opcode,
-   input      [31:0] immediate20,
-   input      [31:0] rs1,
-   output     [31:0] rd,
+   input      [31:0] immediate20_utype,
+   input      [31:0] rs1_value,
+   output     [31:0] rd_value,
    input      [31:0] pc
 );
 
@@ -18,9 +18,14 @@ parameter [6:0] AUIPC = 7'h17;
 always @(posedge clock)
 begin
    case(opcode)
-      LUI:     rd <= immediate20;
-      AUIPC:   rd <= pc + immediate20;
+      LUI:     rd <= immediate20_utype;
+      AUIPC:   rd <= pc + immediate20_utype;
       default: rd <= 0;
    endcase
 end
+
+	always @(posedge clock & !enable) begin
+		rd_value = `HIGH_IMPEDANCE;
+	end
+endmodule
 

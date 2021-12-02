@@ -10,8 +10,8 @@ module alu_branch(
    input             clk,
    input             enable,
    input      [2:0]  funct3,
-   input      [31:0] operand1,
-   input      [31:0] operand2,
+   input      [31:0] rs1_value,
+   input      [31:0] rs2_value,
    input      [31:0] immediate12,
    input      [31:0] pc,
    output reg [31:0] next_pc
@@ -26,11 +26,11 @@ parameter [2:0] BGEU = 3'h7;
 
 always @(posedge clock) begin
    case(funct3)
-      BEQ:     next_pc <= (operand1 == operand2) ? pc + immediate : pc + 4;
-      BNE:     next_pc <= (operand1 != operand2) ? pc + immediate : pc + 4;
-      BGE:     next_pc <= (operand1 >= operand2) ? pc + immediate : pc + 4;
-      BLTU:    next_pc <= (operand1 <  operand2) ? pc + immediate : pc + 4;
-      BGEU:    next_pc <= (operand1 >= operand2) ? pc + immediate : pc + 4;
+      BEQ:     next_pc <= (rs1_value == rs2_value) ? pc + immediate : pc + 4;
+      BNE:     next_pc <= (rs1_value != rs2_value) ? pc + immediate : pc + 4;
+      BGE:     next_pc <= (rs1_value >= rs2_value) ? pc + immediate : pc + 4;
+      BLTU:    next_pc <= (rs1_value <  rs2_value) ? pc + immediate : pc + 4;
+      BGEU:    next_pc <= (rs1_value >= rs2_value) ? pc + immediate : pc + 4;
       default: next_pc <= pc + 4;
    endcase
 end

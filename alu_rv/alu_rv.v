@@ -23,13 +23,6 @@ wire [4:0] rs1;
 wire [4:0] rs2;
 wire [4:0] rd;
 
-parameter [2:0] ADDI   = 3'h0;
-parameter [2:0] SLTI   = 3'h2;
-parameter [2:0] SLTU   = 3'h3;
-parameter [2:0] XORI   = 3'h4;
-parameter [2:0] ORI    = 3'h6;
-parameter [2:0] ANDI   = 3'h7;
-
 // split instruction into fields
 // source: https://github.com/jameslzhu/riscv-card/blob/master/riscv-card.pdf
 // core instructions format for R type
@@ -52,18 +45,6 @@ wire [11:0] immediate_value_original;
 assign immediate_value_original = instruction[31:20];
 reg  [31:0] immediate_operand_value ;
 
-// TODO move to a alu_immediate module
-always @(posedge clock) begin
-   case(funct3)
-      ADDI:    immediate_operand_value <= $signed(immediate_value_original);
-      SLTI:    immediate_operand_value <= $signed(immediate_value_original);
-      XORI:    immediate_operand_value <= $signed(immediate_value_original);
-      ORI:     immediate_operand_value <= $signed(immediate_value_original);
-      ANDI:    immediate_operand_value <= $signed(immediate_value_original);
-      SLTU:    immediate_operand_value <= $unsigned(immediate_value_original);
-      default: immediate_operand_value <= 32'b0;
-   endcase
-end
 
 reg alu_enable ;
 always @* begin

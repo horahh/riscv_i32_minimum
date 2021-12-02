@@ -1,4 +1,4 @@
-module alu(
+module alu_register_register(
 	input             clock,
 	input             enable,
    input      [2:0]  funct3, 
