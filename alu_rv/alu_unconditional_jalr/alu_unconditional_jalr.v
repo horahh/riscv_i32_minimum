@@ -1,7 +1,7 @@
 /***********************************************************************
 jalr    rd rs1 imm12              14..12=0 6..2=0x19 1..0=3
 ***********************************************************************/
-module alu_jal(
+module alu_unconditional_jalr(
    input             clock,
    input             enable,
    input      [31:0] immediate12_itype,

@@ -13,40 +13,40 @@ J-type: unconditional jumps, a variation of U-type.
 module decode(
    input            clock,
    input      [6:0] opcode,
-   output reg       branch_type,
-   output reg       register_type_alu,
-   output reg       immediate_type_jump,
-   output reg       jump_type,
-   output reg       unconditional_type_load,
-   output reg       unconditional_type_add, 
-   output reg       immediate_type_alu,
-   output reg       integer_type_load,
-   output reg       store_type,
-   output reg       fence_type
+   output reg       alu_branch_enable,
+   output reg       alu_unconditional_jalr_enable,
+   output reg       alu_unconditional_jal_enable,
+   output reg       alu_upper_immediate_lui_enable,
+   output reg       alu_upper_immediate_auipc_enable,
+   output reg       alu_register_immediate_enable,
+   output reg       alu_register_register_enable,
+   output reg       load_enable,
+   output reg       store_enable,
+   output reg       fence_enable,
 );
 
-   parameter [6:0] BRANCH_TYPE_OPCODE             = 7'h63; 
-   parameter [6:0] IMMEDIATE_TYPE_JUMP_OPCODE       = 7'h67; 
-   parameter [6:0] JUMP_TYPE_OPCODE               = 7'h6f;
-   parameter [6:0] UNCONDITIONAL_TYPE_LOAD_OPCODE = 7'h37;
-   parameter [6:0] UNCONDITIONAL_TYPE_ADD_OPCODE  = 7'h17;
-   parameter [6:0] INTEGER_TYPE_ALU_OPCODE        = 7'h0C;
-   parameter [6:0] REGISTER_TYPE_ALU_OPCODE       = 7'h33;
-   parameter [6:0] INTEGER_TYPE_LOAD_OPCODE       = 7'h03;
-   parameter [6:0] STORE_TYPE_OPCODE              = 7'h23;
-   parameter [6:0] FENCE_TYPE_OPCODE              = 7'h0F;
+   parameter [6:0] ALU_BRANCH                     = 7'h63; 
+   parameter [6:0] ALU_UNCONDITIONAL_JALR         = 7'h67; 
+   parameter [6:0] ALU_UNCONDITIONAL_JAL          = 7'h6f;
+   parameter [6:0] ALU_UPPER_IMMEDIATE_LUI        = 7'h37;
+   parameter [6:0] ALU_UPPER_IMMEDIATE_AUIPC      = 7'h17;
+   parameter [6:0] ALU_REGISTER_IMMEDIATE         = 7'h0C;
+   parameter [6:0] ALU_REGISTER_REGISTER          = 7'h33;
+   parameter [6:0] LOAD                           = 7'h03;
+   parameter [6:0] STORE                          = 7'h23;
+   parameter [6:0] FENCE                          = 7'h0F;
 
    always @(posedge clock) begin
-      branch_type               <= opcode == BRANCH_TYPE_OPCODE             ? `ONE : `ZERO;
-      immediate_type_jump       <= opcode == IMMEDIATE_TYPE_JUMP_OPCODE       ? `ONE : `ZERO;
-      jump_type                 <= opcode == JUMP_TYPE_OPCODE               ? `ONE : `ZERO;
-      unconditional_type_load   <= opcode == UNCONDITIONAL_TYPE_LOAD_OPCODE ? `ONE : `ZERO;
-      unconditional_type_add    <= opcode == UNCONDITIONAL_TYPE_ADD_OPCODE  ? `ONE : `ZERO;
-      immediate_type_alu        <= opcode == INTEGER_TYPE_ALU_OPCODE        ? `ONE : `ZERO;
-      register_type_alu         <= opcode == REGISTER_TYPE_ALU_OPCODE       ? `ONE : `ZERO;
-      integer_type_load         <= opcode == INTEGER_TYPE_LOAD_OPCODE       ? `ONE : `ZERO;
-      store_type                <= opcode == STORE_TYPE_OPCODE              ? `ONE : `ZERO;
-      fence_type                <= opcode == FENCE_TYPE_OPCODE              ? `ONE : `ZERO;
+      alu_branch_enable                <= opcode == ALU_BRANCH                     ? `ONE : `ZERO;
+      alu_unconditional_jalr_enable    <= opcode == ALU_UNCONDITIONAL_JALR         ? `ONE : `ZERO;
+      alu_unconditional_jal_enable     <= opcode == ALU_UNCONDITIONAL_JAL          ? `ONE : `ZERO;
+      alu_upper_immediate_lui_enable   <= opcode == ALU_UPPER_IMMEDIATE_LUI        ? `ONE : `ZERO;
+      alu_upper_immediate_auipc_enable <= opcode == ALU_UPPER_IMMEDIATE_AUIPC      ? `ONE : `ZERO;
+      alu_register_immediate_enable    <= opcode == ALU_REGISTER_IMMEDIATE         ? `ONE : `ZERO;
+      alu_register_register_enable     <= opcode == ALU_REGISTER_REGISTER          ? `ONE : `ZERO;
+      load_enable                      <= opcode == LOAD                           ? `ONE : `ZERO;
+      store_enable                     <= opcode == STORE                          ? `ONE : `ZERO;
+      fence_enable                     <= opcode == FENCE                          ? `ONE : `ZERO;
    end
 
 endmodule
