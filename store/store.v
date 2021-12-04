@@ -8,7 +8,7 @@ module store(
    output     [31:0] memory_read_address,
    input      [31:0] memory_read_value,
    output     [31:0] memory_write_address,
-   output     [31:0] memory_write_value
+   output     [31:0] memory_write_value,
 );
 
 parameter [2:0] SB = 3'h0;

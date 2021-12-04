@@ -1,4 +1,4 @@
-module field_decode(
+module decode_field(
    input         clock,
    input  [31:0] instruction,
    output [2:0]  funct3,
