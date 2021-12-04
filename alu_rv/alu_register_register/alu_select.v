@@ -1,7 +1,7 @@
 module alu_select(
 	input            clock,
 	input            enable,
-	input      [6:0] funct7, // select operation type
+	input      [6:0] funct7, 
 	output reg       alu_base_enable,
 	output reg       alu_extra_enable);
 

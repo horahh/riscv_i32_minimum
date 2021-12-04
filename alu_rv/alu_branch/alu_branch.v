@@ -34,3 +34,5 @@ always @(posedge clock) begin
       default: next_pc <= pc + 4;
    endcase
 end
+
+endmodule

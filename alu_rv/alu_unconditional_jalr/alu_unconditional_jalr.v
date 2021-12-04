@@ -16,3 +16,5 @@ always @(posedge clock) begin
    next_pc    <= rs1_value + immediate12_itype;
    rd_value   <= pc  + 4;
 end
+
+endmodule

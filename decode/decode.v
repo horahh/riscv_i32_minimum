@@ -22,7 +22,7 @@ module decode(
    output reg       alu_register_register_enable,
    output reg       load_enable,
    output reg       store_enable,
-   output reg       fence_enable,
+   output reg       fence_enable
 );
 
    parameter [6:0] ALU_BRANCH                     = 7'h63; 

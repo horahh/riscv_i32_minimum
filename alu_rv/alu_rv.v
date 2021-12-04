@@ -1,5 +1,3 @@
-`define ZERO 7'b0
-
 module alu_rv(
    input         clock,
    input         register_type_alu,
@@ -11,7 +9,7 @@ module alu_rv(
    output [4:0]  rs1,
    output [4:0]  rs2,
    output [4:0]  rd,
-   output [31:0] rd_result
+   output [31:0] rd_result,
    // PC interactions
    input  [31:0] pc,
    output        next_pc_valid,
@@ -32,12 +30,12 @@ module alu_rv(
    wire [31:0] immediate20_utype;
    wire [31:0] immediate20_jtype;
 
-field_decode field_decode_0(
+decode_field decode_field_0(
    .clock(clock),
    .instruction(instruction),
    .funct3(funct3),
    .funct7(funct7),
-   .opcode(
+   .opcode(opcode),
    .rs1(rs1),
    .rs2(rs2),
    .rd(rd),

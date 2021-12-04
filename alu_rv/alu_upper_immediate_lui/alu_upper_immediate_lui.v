@@ -1,6 +1,7 @@
 /***********************************************************************
 lui     rd imm20 6..2=0x0D 1..0=3
 ***********************************************************************/
+`define HIGH_IMPEDANCE 32'bz
 module alu_upper_immediate_lui(
    input             clk,
    input             alu_upper_immediate_lui_enable,

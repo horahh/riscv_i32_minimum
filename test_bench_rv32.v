@@ -34,14 +34,14 @@ module test_bench_rv32;
       .read_value(memory_read_value),
       .write_enable(memory_write_enable),
       .write_address(memory_write_address),
-      .write_value(memory_write_value),
+      .write_value(memory_write_value)
    );
 
    program_counter program_counter_0(
       .clock(clock),
       .next_pc_valid(next_pc_valid),
       .next_pc(next_pc),
-      .pc(pc),
+      .pc(pc)
    );
 
    reg register_file_write_enable =1;
@@ -56,7 +56,7 @@ module test_bench_rv32;
       .rd(rd),
       .rd_value(register_data_write_value),
       .rs1_value(rs1_value),
-      .rs2_value(rs2_value),
+      .rs2_value(rs2_value)
    );
 
    // PROCESSOR LOGIC
@@ -66,7 +66,7 @@ module test_bench_rv32;
       .pc(pc),
       .value_at_pc_address(pc_instruction),
       .read_enable(read_pc_address_enable),
-      .memory_value(memory_read_value),
+      .memory_value(memory_read_value)
    );
 
    wire       alu_branch_enable;
@@ -94,10 +94,10 @@ module test_bench_rv32;
       .alu_register_register_enable(alu_register_register_enable),
       .load_enable(load_enable),
       .store_enable(store_enable),
-      .fence_enable(fence_enable),
+      .fence_enable(fence_enable)
    );
 
-field_decode field_decode_0(
+decode_field decode_field_0(
       .clock(clock),
       .instruction(instruction),
       .funct3(funct3),
@@ -110,7 +110,7 @@ field_decode field_decode_0(
       .immediate12_stype(immediate12_stype),
       .immediate12_btype(immediate12_btype),
       .immediate20_utype(immediate20_utype),
-      .immediate20_jtype(immediate20_jtype),
+      .immediate20_jtype(immediate20_jtype)
 );
 
    execute execute_0(
@@ -135,31 +135,31 @@ field_decode field_decode_0(
       .rd(rd),
       .rs1_value(rs1_value),
       .rs2_value(rs2_value),
-      .rd_value(rd_value),
+      .rd_value(rd_value)
    );
    
 load load_0(
       .clock(clock),
       .enable(enable),
       .funct3(funct3),
-      .operand1(operand1),
+      .rs1(rs1),
       .immediate12(immediate12),
-      .result(result),
+      .rd(rd),
       .memory_read_address(memory_read_address),
-      .memory_read_value(memory_read_value),
+      .memory_read_value(memory_read_value)
 );
 
 store store_0(
       .clock(clock),
       .enable(enable),
       .funct3(funct3),
-      .operand1(operand1),
+      .rs1(rs1),
       .immediate12_store(immediate12_store),
-      .operand2(operand2),
+      .rs2(rs2),
       .memory_read_address(memory_read_address),
       .memory_read_value(memory_read_value),
       .memory_write_address(memory_write_address),
-      .memory_write_value(memory_write_value),
+      .memory_write_value(memory_write_value)
 );
 
 endmodule

@@ -15,3 +15,5 @@ always @(posedge clock) begin
    next_pc  <= pc + jimmediate20;
    rd_value <= pc + 4;
 end
+
+endmodule
