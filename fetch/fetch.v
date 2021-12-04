@@ -2,15 +2,19 @@ module fetch(
    input             clock,
    input             enable,
    input      [31:0] pc,
-   output reg [31:0] value_at_pc_address,
-   output            read_enable,
-   input      [31:0] memory_value
+   output            pc_enable,
+   input      [31:0] pc_value,
+   output reg [31:0] instruction
 );
 
+   assign pc_enable = enable;
+
+// for now this module is for illustrative purpose
    always @(posedge clock) begin
-      value_at_pc_address <= memory_value;
+      instruction <= pc_value;
    end
 
-   assign read_enable = enable;
-   
+   // PC can be used to prefetch a batch of instructions, complemented with
+   // an OOO execution unit in execute module
+
 endmodule

@@ -3,15 +3,15 @@
 `define ONE  32'b1
 
 module register_file(
-	input  clock,
-	input  reset,
-	input  write_enable,
-	input  [4:0] rs1,
-	input  [4:0] rs2,
-	input  [4:0] register_write_select,
-	input  [31:0] register_data_write,
-	output [31:0] register_data_1,
-	output [31:0] register_data_2);
+	input         clock,
+	input         reset,
+	input         write_enable,
+	input  [4:0]  rs1,
+	input  [4:0]  rs2,
+	input  [4:0]  rd,
+	input  [31:0] rd_value,
+	output [31:0] rs1_value,
+	output [31:0] rs2_value);
 
    // register zero here can be written to any value but when read the zero this
    // value is just ignored

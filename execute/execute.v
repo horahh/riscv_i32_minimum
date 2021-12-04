@@ -32,7 +32,7 @@ module execute(
    wire [31:0] register_data_write_value;
 
 // instantiate functional units
-   alu_rv alu_rv0(
+   alu_rv alu_rv_0(
       .clock(clock), 
       .register_type_alu(register_type_alu), 
       .immediate_type_alu(immediate_type_alu),

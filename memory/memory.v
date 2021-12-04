@@ -1,11 +1,12 @@
-/* 1 KB memory module is enough for now! :) */
+/* 4 KB memory module is enough for now! :) */
 `define MEMORY_SIZE 1024
 `define HIGH_IMPEDANCE 32'bz
 
 module memory(
    input             clock,
-   input             read_pc_address_enable,
-   input      [31:0] read_pc_address,
+   input             pc_enable,
+   input      [31:0] pc,
+   output reg [31:0] pc_value,
    input             read_enable,
    input      [31:0] read_address,
    output reg [31:0] read_value,
@@ -27,11 +28,11 @@ module memory(
 
    reg [31:0]  random_access_memory [0:`MEMORY_SIZE-1];
 
-   always @(posedge clock) begin
-      read_pc_address <= read_pc_address_enable ? random_access_memory[read_pc_address] : `HIGH_IMPEDANCE;
+   always @(posedge clock & pc_enable) begin
+      read_pc_value <= read_pc_address_enable ? random_access_memory[read_pc_address] : `HIGH_IMPEDANCE;
    end
 
-   always @(posedge clock) begin
+   always @(posedge clock & read_enable) begin
       read_value <= read_enable ? random_access_memory[read_word_address] : `HIGH_IMPEDANCE;
    end
 

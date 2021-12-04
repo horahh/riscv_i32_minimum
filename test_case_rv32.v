@@ -17,19 +17,19 @@ initial begin
       test_bench_rv32.memory_read_address,
       test_bench_rv32.memory_read_value,
       test_bench_rv32.read_enable,
-      test_bench_rv32.execute_0.register_file_0.register_data_1, 
-      test_bench_rv32.execute_0.register_file_0.register_data_2, 
+      test_bench_rv32.register_file_0.rs1, 
+      test_bench_rv32.register_file_0.rs2, 
       //test_bench_rv32.execute_0.register_file_0.register_data_write, 
-      test_bench_rv32.execute_0.alu_execute_0.alu_0.alu_base_0.register_data_out, 
+      test_bench_rv32.register_file_0.rd, 
       //test_bench_rv32.execute_0.register_file_0.rs1,
-      test_bench_rv32.execute_0.alu_execute_0.alu_0.alu_base_0.register_data_1,
-      test_bench_rv32.execute_0.alu_execute_0.alu_0.alu_base_0.register_data_2,
+      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rs1_value,
+      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rs2_value,
       //test_bench_rv32.execute_0.register_file_0.rs2,
-      test_bench_rv32.execute_0.register_file_0.register_write_select,
-      test_bench_rv32.decode_0.register_type_alu,
+      test_bench_rv32.register_file_0.rd,
+      test_bench_rv32.decode_0.alu_register_register_enable,
       test_bench_rv32.decode_0.opcode,
-      test_bench_rv32.execute_0.alu_execute_0.funct7,
-      test_bench_rv32.execute_0.alu_execute_0.funct3
+      test_bench_rv32.execute_0.alu_rv_0.funct7,
+      test_bench_rv32.execute_0.alu_rv_0.funct3
    );
    #100 
    $finish;

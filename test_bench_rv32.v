@@ -1,8 +1,8 @@
 module test_bench_rv32;
    wire        clock;
    wire        read_pc_address_enable;
-   wire [31:0] pc;
    wire        enable;
+   wire [31:0] pc;
    wire        read_enable;
    wire [31:0] memory_read_address;
    wire [31:0] memory_read_value;
@@ -27,8 +27,9 @@ module test_bench_rv32;
    // MEMORY AND REGISTERS
    memory memory_0(
       .clock(clock),
-      .read_pc_address_enable(read_pc_address_enable),
-      .read_pc_address(pc),
+      .pc_enable(pc_enable),
+      .pc(pc),
+      .pc_value(pc_value),
       .read_enable(read_enable),
       .read_address(memory_read_address),
       .read_value(memory_read_value),
@@ -54,7 +55,7 @@ module test_bench_rv32;
       .rs1(rs1),
       .rs2(rs2),
       .rd(rd),
-      .rd_value(register_data_write_value),
+      .rd_value(rd_value),
       .rs1_value(rs1_value),
       .rs2_value(rs2_value)
    );
@@ -64,9 +65,8 @@ module test_bench_rv32;
       .clock(clock), 
       .enable(enable),
       .pc(pc),
-      .value_at_pc_address(pc_instruction),
-      .read_enable(read_pc_address_enable),
-      .memory_value(memory_read_value)
+      .pc_enable(pc_enable),
+      .instruction(instruction)
    );
 
    wire       alu_branch_enable;
@@ -140,7 +140,7 @@ decode_field decode_field_0(
    
 load load_0(
       .clock(clock),
-      .enable(enable),
+      .enable(load_enable),
       .funct3(funct3),
       .rs1(rs1),
       .immediate12(immediate12),
@@ -151,7 +151,7 @@ load load_0(
 
 store store_0(
       .clock(clock),
-      .enable(enable),
+      .enable(store_enable),
       .funct3(funct3),
       .rs1(rs1),
       .immediate12_store(immediate12_store),
