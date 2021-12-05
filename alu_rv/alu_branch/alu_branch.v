@@ -6,6 +6,7 @@ bge     bimm12hi rs1 rs2 bimm12lo 14..12=5 6..2=0x18 1..0=3
 bltu    bimm12hi rs1 rs2 bimm12lo 14..12=6 6..2=0x18 1..0=3
 bgeu    bimm12hi rs1 rs2 bimm12lo 14..12=7 6..2=0x18 1..0=3
 ***********************************************************************/
+`define HIGH_IMPEDANCE 32'bz
 module alu_branch(
    input             clock,
    input             alu_branch_enable,
@@ -33,6 +34,10 @@ always @(posedge clock & alu_branch_enable ) begin
       BGEU:    next_pc <= (rs1_value >= rs2_value) ? pc + immediate12_btype : pc + 4;
       default: next_pc <= pc + 4;
    endcase
+end
+
+always @(posedge clock & !alu_branch_enable) begin
+   next_pc <= `HIGH_IMPEDANCE;
 end
 
 endmodule

@@ -1,6 +1,7 @@
 /***********************************************************************
 jalr    rd rs1 imm12              14..12=0 6..2=0x19 1..0=3
 ***********************************************************************/
+`define HIGH_IMPEDANCE 32'bz
 module alu_unconditional_jalr(
    input             clock,
    input             alu_unconditional_jalr_enable,
@@ -17,4 +18,8 @@ always @(posedge clock & alu_unconditional_jalr_enable ) begin
    rd_value   <= pc  + 4;
 end
 
+always @(posedge clock & alu_unconditional_jalr_enable ) begin
+   next_pc    <= `HIGH_IMPEDANCE;
+   rd_value   <= `HIGH_IMPEDANCE;
+end
 endmodule

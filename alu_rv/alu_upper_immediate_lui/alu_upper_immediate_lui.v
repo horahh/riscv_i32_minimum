@@ -11,12 +11,12 @@ module alu_upper_immediate_lui(
    input      [31:0] pc
 );
 
-   always @(posedge clock)
+   always @(posedge clock & alu_upper_immediate_lui_enable)
    begin 
-      rd <= immediate20_utype;
+      rd_value <= immediate20_utype;
    end
 
-	always @(posedge clock & !enable) begin
+	always @(posedge clock & !alu_upper_immediate_lui_enable) begin
 		rd_value = `HIGH_IMPEDANCE;
 	end
 endmodule

@@ -4,7 +4,7 @@
 
 module alu_register_immediate(
    input             clock,
-   input             enable,
+   input             alu_register_immediate_enable,
    input      [2:0]  funct3,
    input      [31:0] rs1,
    input      [31:0] immediate12_itype,
@@ -18,7 +18,7 @@ parameter [2:0] XORI   = 3'h4;
 parameter [2:0] ORI    = 3'h6;
 parameter [2:0] ANDI   = 3'h7;
 
-always @(posedge clock) begin
+always @(posedge clock & alu_register_immediate_enable) begin
    case(funct3)
       ADDI:    rd_value <= rs1 + immediate12_itype;
       SLTI:    rd_value <= $signed(rs1) < $signed(immediate12_itype) ? `ONE : `ZERO;
@@ -29,7 +29,8 @@ always @(posedge clock) begin
       default: rd_value <= 32'b0;
    endcase
 end
-	always @(posedge clock & !enable) begin
+
+	always @(posedge clock & !alu_register_immediate_enable) begin
 		rd_value = `HIGH_IMPEDANCE;
 	end
 
