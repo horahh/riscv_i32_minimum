@@ -10,13 +10,10 @@ parameter CLOCK_HALF_PERIOD = 1;
 initial begin
    $dumpfile("test_case_rv32.vcd");
    $dumpvars();
-   $monitor("clock=%h, pc=%h, pc_value=%h, memory_read_address=%h, memory_read_value=%h, read_enable=%h, rs1=%h, rs2=%h, rd=%h, rs1_select=%h, rs2_select=%h, rd_select=%h, register_type_alu=%b, opcode=%h, func7=%h, funct3=%h \n",
+   $monitor("clock=%h, pc=%h, instruction=%h, rs1=%h, rs2=%h, rd=%h, rs1_value=%h, rs2_value=%h, rd_value=%h, alu_register_register=%b, opcode=%h, funct7=%h, funct3=%h \n",
       clock, 
       test_bench_rv32.pc, 
       test_bench_rv32.instruction,
-      test_bench_rv32.memory_read_address,
-      test_bench_rv32.memory_read_value,
-      test_bench_rv32.read_enable,
       test_bench_rv32.register_file_0.rs1, 
       test_bench_rv32.register_file_0.rs2, 
       //test_bench_rv32.execute_0.register_file_0.register_data_write, 
@@ -25,7 +22,7 @@ initial begin
       test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rs1_value,
       test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rs2_value,
       //test_bench_rv32.execute_0.register_file_0.rs2,
-      test_bench_rv32.register_file_0.rd,
+      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rd_value,
       test_bench_rv32.decode_0.alu_register_register_enable,
       test_bench_rv32.decode_0.opcode,
       test_bench_rv32.execute_0.alu_rv_0.funct7,
