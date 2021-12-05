@@ -13,7 +13,7 @@ module alu_register_register(
       .alu_select_enable(alu_register_register_enable), 
       .funct7(funct7), 
       .alu_base_enable(alu_base_enable), 
-      .alu_extra_enable(alu_base_enable)
+      .alu_extra_enable(alu_extra_enable)
    );
 
    alu_base alu_base_0(

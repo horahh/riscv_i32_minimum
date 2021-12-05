@@ -19,15 +19,16 @@ initial begin
       //test_bench_rv32.execute_0.register_file_0.register_data_write, 
       test_bench_rv32.register_file_0.rd, 
       //test_bench_rv32.execute_0.register_file_0.rs1,
-      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rs1_value,
-      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rs2_value,
+      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_extra_0.rs1_value,
+      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_extra_0.rs2_value,
       //test_bench_rv32.execute_0.register_file_0.rs2,
-      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rd_value,
+      test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_extra_0.rd_value,
       test_bench_rv32.decode_0.alu_register_register_enable,
       test_bench_rv32.decode_0.opcode,
       test_bench_rv32.execute_0.alu_rv_0.funct7,
       test_bench_rv32.execute_0.alu_rv_0.funct3
    );
+   //$monitor("clock=%h, alu_base_enable=%h,  alu_extra_enable=%h\n", clock,test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.alu_base_enable, test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_extra_0.alu_extra_enable);
    #100 
    $finish;
 end

@@ -17,7 +17,7 @@ module alu_extra(
 
 	always @(posedge clock & alu_extra_enable) begin
 		case(funct3)
-			SUB:     rd_value <= rs1_value -   rs2_value;
+			SUB:     rd_value <= rs2_value - rs1_value;
 			SRA:     rd_value <= rs1_value >>> rs2_value;
 			default: rd_value <= `ZERO;
 		endcase
