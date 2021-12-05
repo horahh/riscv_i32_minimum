@@ -1,10 +1,11 @@
+`define ZERO 32'b0
 module load(
    input             clock,
-   input             enable,
+   input             load_enable,
    input      [2:0]  funct3,
-   input      [31:0] rs1,
+   input      [31:0] rs1_value,
    input      [31:0] immediate12,
-   output reg [31:0] rd,
+   output reg [31:0] rd_value,
    output     [31:0] memory_read_address
 );
 
@@ -18,19 +19,19 @@ wire [7:0]  byte_read = memory_read_value[7:0];
 wire [15:0] half_read = memory_read_value[15:0];
 
 // This code assume reads aligned to lsb side of a word
-always @(posedge clock & enable) begin
+always @(posedge clock & load_enable) begin
    case(funct3)
-      LB:      rd <= $signed(byte_read);
-      LH:      rd <= $signed(half_read);
-      LW:      rd <= memory_read_value;
-      LBU:     rd <= $unsigned(byte_read);
-      LH:      rd <= $unsigned(half_read);
-      default: rd <= 0;
+      LB:      rd_value <= $signed(byte_read);
+      LH:      rd_value <= $signed(half_read);
+      LW:      rd_value <= memory_read_value;
+      LBU:     rd_value <= $unsigned(byte_read);
+      LH:      rd_value <= $unsigned(half_read);
+      default: rd_value <= `ZERO;
    endcase
 end
 
-always @(posedge clock & enable) begin
-   memory_read_address <= rs1 + immediate12;
+always @(posedge clock & load_enable) begin
+   memory_read_address <= rs1_value + immediate12;
 end
 
 endmodule

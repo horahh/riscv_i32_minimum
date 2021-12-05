@@ -154,7 +154,7 @@ decode_field decode_field_0(
    
 load load_0(
       .clock(clock),
-      .enable(load_enable),
+      .load_enable(load_enable),
       .funct3(funct3),
       .rs1(rs1),
       .immediate12(immediate12),
@@ -165,7 +165,7 @@ load load_0(
 
 store store_0(
       .clock(clock),
-      .enable(store_enable),
+      .store_enable(store_enable),
       .funct3(funct3),
       .rs1(rs1),
       .immediate12_store(immediate12_store),

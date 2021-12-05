@@ -2,7 +2,7 @@
 
 module store(
    input             clock,
-   input             enable,
+   input             store_enable,
    input      [2:0]  funct3,
    input      [31:0] rs1_value,
    input      [31:0] rs2_value,
@@ -31,7 +31,7 @@ end
 wire [31:0] memory_read_address ;
 assign memory_read_address = memory_write_value;
 
-always @(posedge clock & enable ) begin
+always @(posedge clock & store_enable ) begin
    memory_write_address <= rs1 + immediate12_store;
 end
 
