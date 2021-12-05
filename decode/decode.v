@@ -11,18 +11,22 @@ J-type: unconditional jumps, a variation of U-type.
 `define ONE  1'b1
 
 module decode(
-   input            clock,
-   input      [6:0] opcode,
-   output reg       alu_branch_enable,
-   output reg       alu_unconditional_jalr_enable,
-   output reg       alu_unconditional_jal_enable,
-   output reg       alu_upper_immediate_lui_enable,
-   output reg       alu_upper_immediate_auipc_enable,
-   output reg       alu_register_immediate_enable,
-   output reg       alu_register_register_enable,
-   output reg       load_enable,
-   output reg       store_enable,
-   output reg       fence_enable
+   input             clock,
+   input      [31:0] instruction,
+   // output opcode field to decode fields
+   output     [6:0]  opcode,
+   // export 
+   output reg        alu_branch_enable,
+   output reg        alu_unconditional_jalr_enable,
+   output reg        alu_unconditional_jal_enable,
+   output reg        alu_upper_immediate_lui_enable,
+   output reg        alu_upper_immediate_auipc_enable,
+   output reg        alu_register_immediate_enable,
+   output reg        alu_register_register_enable,
+   output reg        load_enable,
+   output reg        store_enable,
+   output reg        fence_enable,
+   output reg        control_instruction
 );
 
    parameter [6:0] ALU_BRANCH                     = 7'h63; 
@@ -36,6 +40,9 @@ module decode(
    parameter [6:0] STORE                          = 7'h23;
    parameter [6:0] FENCE                          = 7'h0F;
 
+   wire [6:0] opcode;
+   assign opcode = instruction[6:0];
+
    always @(posedge clock) begin
       alu_branch_enable                <= opcode == ALU_BRANCH                     ? `ONE : `ZERO;
       alu_unconditional_jalr_enable    <= opcode == ALU_UNCONDITIONAL_JALR         ? `ONE : `ZERO;
@@ -47,6 +54,10 @@ module decode(
       load_enable                      <= opcode == LOAD                           ? `ONE : `ZERO;
       store_enable                     <= opcode == STORE                          ? `ONE : `ZERO;
       fence_enable                     <= opcode == FENCE                          ? `ONE : `ZERO;
+   end
+
+   always @* begin
+      control_instruction = alu_branch_enable | alu_unconditional_jalr_enable | alu_unconditional_jal_enable | alu_upper_immediate_lui_enable | alu_upper_immediate_lui_enable | alu_upper_immediate_auipc_enable ;
    end
 
 endmodule

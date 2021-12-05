@@ -15,8 +15,8 @@ module memory(
    input      [31:0] write_value
 );
 
-   wire [31:0] read_word_pc_address;
-   assign      read_word_pc_address = read_pc_address >> 2;
+   wire [31:0] pc_word_index;
+   assign      pc_word_index = pc >> 2;
    wire [31:0] read_word_address;
    assign      read_word_address = read_address >> 2;
    wire [31:0] write_word_address;
@@ -29,7 +29,7 @@ module memory(
    reg [31:0]  random_access_memory [0:`MEMORY_SIZE-1];
 
    always @(posedge clock & pc_enable) begin
-      read_pc_value <= read_pc_address_enable ? random_access_memory[read_pc_address] : `HIGH_IMPEDANCE;
+      pc_value <= pc_enable ? random_access_memory[pc_word_index] : `HIGH_IMPEDANCE;
    end
 
    always @(posedge clock & read_enable) begin

@@ -19,12 +19,9 @@ module test_bench_rv32;
       .enable(enable)
    );
 
-   // TODO: implement store and load memory operations
-   reg read_enable_mem = 0;
-   reg write_enable_mem = 0;
-   assign read_enable = read_enable_mem;
-   assign write_enable = write_enable_mem;
    // MEMORY AND REGISTERS
+
+   wire [31:0] pc_value;
    memory memory_0(
       .clock(clock),
       .pc_enable(pc_enable),
@@ -40,7 +37,7 @@ module test_bench_rv32;
 
    program_counter program_counter_0(
       .clock(clock),
-      .next_pc_valid(next_pc_valid),
+      .control_instruction(control_instruction),
       .next_pc(next_pc),
       .pc(pc)
    );
@@ -48,6 +45,12 @@ module test_bench_rv32;
    reg register_file_write_enable =1;
    reg register_file_reset = 0;
 
+   wire [4:0] rs1;
+   wire [4:0] rs2;
+   wire [4:0] rd;
+   wire [31:0] rs1_value;
+   wire [31:0] rs2_value;
+   wire [31:0] rd_value;
    register_file register_file_0(
       .clock(clock),
       .reset(register_file_reset),
@@ -61,11 +64,13 @@ module test_bench_rv32;
    );
 
    // PROCESSOR LOGIC
+   wire [31:0] instruction;
    fetch fetch_0 (
       .clock(clock), 
       .enable(enable),
       .pc(pc),
       .pc_enable(pc_enable),
+      .pc_value(pc_value),
       .instruction(instruction)
    );
 
@@ -81,10 +86,12 @@ module test_bench_rv32;
    wire       fence_enable;
 
    wire [6:0] opcode;
-   assign opcode = pc_instruction[6:0];
+   wire [2:0] funct3;
+   wire [6:0] funct7;
    decode decode_0(
       .clock(clock),
       .opcode(opcode),
+      .instruction(instruction),
       .alu_branch_enable(alu_branch_enable),
       .alu_unconditional_jalr_enable(alu_unconditional_jalr_enable),
       .alu_unconditional_jal_enable(alu_unconditional_jal_enable),
@@ -94,9 +101,16 @@ module test_bench_rv32;
       .alu_register_register_enable(alu_register_register_enable),
       .load_enable(load_enable),
       .store_enable(store_enable),
-      .fence_enable(fence_enable)
+      .fence_enable(fence_enable),
+      .control_instruction(control_instruction)
    );
 
+   wire [31:0] immediate12_itype;
+   wire [31:0] immediate12_stype;
+   wire [31:0] immediate12_btype;
+   wire [31:0] immediate20_utype;
+   wire [31:0] immediate20_jtype;
+   
 decode_field decode_field_0(
       .clock(clock),
       .instruction(instruction),

@@ -9,7 +9,7 @@ module alu_rv(
    output [4:0]  rs1,
    output [4:0]  rs2,
    output [4:0]  rd,
-   output [31:0] rd_result,
+   output [31:0] rd_value,
    // PC interactions
    input  [31:0] pc,
    output        next_pc_valid,
@@ -109,9 +109,9 @@ alu_register_register alu_register_register_0(
    .alu_register_register_enable(alu_register_register_enable), 
    .funct3(funct3),
    .funct7(funct7),
-   .operand_0(rs1_value),
-   .operand_1(operand_2_value),
-   .destination(rd_result)
+   .rs1_value(rs1_value),
+   .rs2_value(operand_2_value),
+   .rd_value(rd_value)
 );
 
 endmodule

@@ -1,14 +1,11 @@
 module program_counter(
    input              clock,
-   input              next_pc_valid,
+   input              control_instruction,
    input       [31:0] next_pc,
    output  reg [31:0] pc=0);
 
-   // implementing logic for the easy case for now
-   // TODO: implement logic for control logic
-   // i.e. jumps, branches
    always @(posedge clock) begin
-      if (next_pc_enable) begin
+      if (control_instruction) begin
          pc <= next_pc;
       end
       else begin

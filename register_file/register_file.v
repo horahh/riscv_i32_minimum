@@ -21,7 +21,7 @@ module register_file(
    reg    [31:0] register_zero = `ZERO;
 
 	always@(posedge clock & write_enable) begin
-			registers[register_write_select] <= register_data_write;
+			registers[rd] <= rd_value;
 	end
 
 	assign register_data_1 = rs1 ? registers[rs1] : register_zero;
