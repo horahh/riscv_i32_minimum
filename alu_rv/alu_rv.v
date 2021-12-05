@@ -89,7 +89,6 @@ alu_upper_immediate_lui alu_upper_immediate_lui_0(
 alu_upper_immediate_auipc alu_upper_immediate_auipc_0(
    .clock(clock),
    .alu_upper_immediate_auipc_enable(alu_upper_immediate_auipc_enable),
-   .alu_upper_immediate_auipc_enable(alu_upper_immediate_auipc_enable),
    .rs1_value(rs1_value),
    .rd_value(rd_value),
    .pc(pc)
