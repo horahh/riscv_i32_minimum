@@ -14,10 +14,7 @@ module execute(
    output        next_pc_valid,
    output [31:0] next_pc,
    //interactions with registers
-   output reg    write_enable,
-   output [4:0]  rs1,
-   output [4:0]  rs2,
-   output [4:0]  rd,
+   output reg    register_file_write_enable,
    output [31:0] rs1_value,
    output [31:0] rs2_value,
    output [31:0] rd_value
@@ -31,15 +28,13 @@ module execute(
    wire [31:0] register_data_2_value;
    wire [31:0] register_data_write_value;
 
+   reg register_file_write_enable = 1'b1;
 // instantiate functional units
    alu_rv alu_rv_0(
       .clock(clock), 
       .register_type_alu(register_type_alu), 
       .immediate_type_alu(immediate_type_alu),
       .instruction(instruction), 
-      .rs1(rs1),
-      .rs2(rs2),
-      .rd(rd),
       .rs1_value(rs1_value),
       .rs2_value(rs2_value),
       .rd_value(rd_value)

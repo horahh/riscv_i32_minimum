@@ -42,7 +42,6 @@ module test_bench_rv32;
       .pc(pc)
    );
 
-   reg register_file_write_enable =1;
    reg register_file_reset = 0;
 
    wire [4:0] rs1;
@@ -54,7 +53,7 @@ module test_bench_rv32;
    register_file register_file_0(
       .clock(clock),
       .reset(register_file_reset),
-      .write_enable(register_file_write_enable),
+      .register_file_write_enable(register_file_write_enable),
       .rs1(rs1),
       .rs2(rs2),
       .rd(rd),
@@ -143,10 +142,7 @@ decode_field decode_field_0(
       .next_pc_valid(next_pc_valid),
       .next_pc(next_pc),
    //interactions with registers
-      .write_enable(write_enable),
-      .rs1(rs1),
-      .rs2(rs2),
-      .rd(rd),
+      .register_file_write_enable(register_file_write_enable),
       .rs1_value(rs1_value),
       .rs2_value(rs2_value),
       .rd_value(rd_value)
@@ -156,9 +152,9 @@ load load_0(
       .clock(clock),
       .load_enable(load_enable),
       .funct3(funct3),
-      .rs1(rs1),
+      .rs1_value(rs1_value),
       .immediate12(immediate12),
-      .rd(rd),
+      .rd_value(rd_value),
       .memory_read_address(memory_read_address),
       .memory_read_value(memory_read_value)
 );
@@ -167,9 +163,9 @@ store store_0(
       .clock(clock),
       .store_enable(store_enable),
       .funct3(funct3),
-      .rs1(rs1),
+      .rs1_value(rs1_value),
       .immediate12_store(immediate12_store),
-      .rs2(rs2),
+      .rs2_value(rs2_value),
       .memory_read_address(memory_read_address),
       .memory_read_value(memory_read_value),
       .memory_write_address(memory_write_address),

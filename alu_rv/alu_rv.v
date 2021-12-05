@@ -4,9 +4,6 @@ module alu_rv(
    input         immediate_type_alu,
    input  [31:0] instruction,
    // Register File
-   output [4:0]  rs1,
-   output [4:0]  rs2,
-   output [4:0]  rd,
    input  [31:0] rs1_value,
    input  [31:0] rs2_value,
    output [31:0] rd_value,
@@ -30,6 +27,10 @@ module alu_rv(
    wire [31:0] immediate20_utype;
    wire [31:0] immediate20_jtype;
 
+   // unconnected because repeated decode_field module in top bench
+   wire [4:0]  rs1;
+   wire [4:0]  rs2;
+   wire [4:0]  rd;
 decode_field decode_field_0(
    .clock(clock),
    .instruction(instruction),
