@@ -98,7 +98,7 @@ alu_register_immediate alu_register_immediate_0(
    .clock(clock),
    .alu_register_immediate_enable(alu_register_immediate_enable),
    .funct3(funct3),
-   .rs1(rs1),
+   .rs1_value(rs1_value),
    .immediate12_itype(immediate12_itype),
    .rd_value(rd_value)
 );
