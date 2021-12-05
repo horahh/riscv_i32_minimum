@@ -21,9 +21,9 @@ reg [31:0] mem_write_value;
 
 always @(posedge clock) begin
    case(funct3)
-      SB:      memory_write_value <= {{memory_read_value[31:8]},{rs2[7:0]}};
-      SH:      memory_write_value <= {{memory_read_value[31:16]},{rs2[15:0]}};
-      SW:      memory_write_value <= rs2;
+      SB:      memory_write_value <= {{memory_read_value[31:8]},{rs2_value[7:0]}};
+      SH:      memory_write_value <= {{memory_read_value[31:16]},{rs2_value[15:0]}};
+      SW:      memory_write_value <= rs2_value;
       default: memory_write_value <= `ZERO;
    endcase
 end
@@ -32,7 +32,7 @@ wire [31:0] memory_read_address ;
 assign memory_read_address = memory_write_value;
 
 always @(posedge clock & store_enable ) begin
-   memory_write_address <= rs1 + immediate12_stype;
+   memory_write_address <= rs1_value + immediate12_stype;
 end
 
 endmodule
