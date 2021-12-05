@@ -47,7 +47,7 @@ decode_field decode_field_0(
 );
 
 alu_branch alu_branch_0(
-   .clk(clk),
+   .clock(clock),
    .alu_branch_enable(alu_branch_enable),
    .funct3(funct3),
    .rs1_value(rs1_value),
@@ -78,7 +78,7 @@ alu_unconditional_jal alu_unconditional_jal_0(
 );
 
 alu_upper_immediate_lui alu_upper_immediate_lui_0(
-   .clk(clk),
+   .clock(clock),
    .alu_upper_immediate_lui_enable(alu_upper_immediate_lui_enable),
    .immediate20_utype(immediate20_utype),
    .rs1_value(rs1_value),
@@ -87,7 +87,7 @@ alu_upper_immediate_lui alu_upper_immediate_lui_0(
 );
 
 alu_upper_immediate_auipc alu_upper_immediate_auipc_0(
-   .clk(clk),
+   .clock(clock),
    .alu_upper_immediate_auipc_enable(alu_upper_immediate_auipc_enable),
    .alu_upper_immediate_auipc_enable(alu_upper_immediate_auipc_enable),
    .rs1_value(rs1_value),

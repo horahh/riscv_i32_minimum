@@ -2,7 +2,7 @@
 auipc   rd imm20 6..2=0x05 1..0=3
 ***********************************************************************/
 module alu_upper_immediate_auipc(
-   input             clk,
+   input             clock,
    input             enable,
    input      [31:0] immediate20_utype,
    input      [31:0] rs1_value,

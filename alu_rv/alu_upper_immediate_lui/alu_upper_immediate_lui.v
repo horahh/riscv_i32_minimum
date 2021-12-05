@@ -3,7 +3,7 @@ lui     rd imm20 6..2=0x0D 1..0=3
 ***********************************************************************/
 `define HIGH_IMPEDANCE 32'bz
 module alu_upper_immediate_lui(
-   input             clk,
+   input             clock,
    input             alu_upper_immediate_lui_enable,
    input      [31:0] immediate20_utype,
    input      [31:0] rs1_value,
