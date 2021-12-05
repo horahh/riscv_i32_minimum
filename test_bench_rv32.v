@@ -164,7 +164,7 @@ store store_0(
       .store_enable(store_enable),
       .funct3(funct3),
       .rs1_value(rs1_value),
-      .immediate12_store(immediate12_store),
+      .immediate12_stype(immediate12_stype),
       .rs2_value(rs2_value),
       .memory_read_address(memory_read_address),
       .memory_read_value(memory_read_value),

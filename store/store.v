@@ -6,7 +6,7 @@ module store(
    input      [2:0]  funct3,
    input      [31:0] rs1_value,
    input      [31:0] rs2_value,
-   input      [31:0] immediate12_store,
+   input      [31:0] immediate12_stype,
    output     [31:0] memory_read_address,
    input      [31:0] memory_read_value,
    output reg [31:0] memory_write_address,
@@ -32,7 +32,7 @@ wire [31:0] memory_read_address ;
 assign memory_read_address = memory_write_value;
 
 always @(posedge clock & store_enable ) begin
-   memory_write_address <= rs1 + immediate12_store;
+   memory_write_address <= rs1 + immediate12_stype;
 end
 
 endmodule
