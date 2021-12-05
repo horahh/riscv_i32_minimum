@@ -109,7 +109,7 @@ alu_register_register alu_register_register_0(
    .funct3(funct3),
    .funct7(funct7),
    .rs1_value(rs1_value),
-   .rs2_value(operand_2_value),
+   .rs2_value(rs2_value),
    .rd_value(rd_value)
 );
 
