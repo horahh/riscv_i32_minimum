@@ -45,7 +45,7 @@ end
 
 initial begin
    $readmemh("default_register_init.hex",
-      test_bench_rv32.execute_0.register_file_0.registers
+      test_bench_rv32.register_file_0.registers
    );
 end
 

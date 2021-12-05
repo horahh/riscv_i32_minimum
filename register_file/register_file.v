@@ -15,7 +15,7 @@ module register_file(
 
    // register zero here can be written to any value but when read the zero this
    // value is just ignored
-	reg    [31:0] registers[31:0];
+	reg    [31:0] registers[0:31];
 
    // define a register stuck at zero apart from the others
    reg    [31:0] register_zero = `ZERO;
