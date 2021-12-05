@@ -52,7 +52,7 @@ alu_branch alu_branch_0(
    .funct3(funct3),
    .rs1_value(rs1_value),
    .rs2_value(rs2_value),
-   .immediate12(immediate12),
+   .immediate12_btype(immediate12_btype),
    .pc(pc),
    .next_pc(next_pc)
 );

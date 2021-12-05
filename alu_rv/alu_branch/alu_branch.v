@@ -12,7 +12,7 @@ module alu_branch(
    input      [2:0]  funct3,
    input      [31:0] rs1_value,
    input      [31:0] rs2_value,
-   input      [31:0] immediate12,
+   input      [31:0] immediate12_btype,
    input      [31:0] pc,
    output reg [31:0] next_pc
    );
@@ -26,11 +26,11 @@ parameter [2:0] BGEU = 3'h7;
 
 always @(posedge clock & alu_branch_enable ) begin
    case(funct3)
-      BEQ:     next_pc <= (rs1_value == rs2_value) ? pc + immediate12 : pc + 4;
-      BNE:     next_pc <= (rs1_value != rs2_value) ? pc + immediate12 : pc + 4;
-      BGE:     next_pc <= (rs1_value >= rs2_value) ? pc + immediate12 : pc + 4;
-      BLTU:    next_pc <= (rs1_value <  rs2_value) ? pc + immediate12 : pc + 4;
-      BGEU:    next_pc <= (rs1_value >= rs2_value) ? pc + immediate12 : pc + 4;
+      BEQ:     next_pc <= (rs1_value == rs2_value) ? pc + immediate12_btype : pc + 4;
+      BNE:     next_pc <= (rs1_value != rs2_value) ? pc + immediate12_btype : pc + 4;
+      BGE:     next_pc <= (rs1_value >= rs2_value) ? pc + immediate12_btype : pc + 4;
+      BLTU:    next_pc <= (rs1_value <  rs2_value) ? pc + immediate12_btype : pc + 4;
+      BGEU:    next_pc <= (rs1_value >= rs2_value) ? pc + immediate12_btype : pc + 4;
       default: next_pc <= pc + 4;
    endcase
 end
