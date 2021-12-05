@@ -14,7 +14,7 @@ module execute(
    output        next_pc_valid,
    output [31:0] next_pc,
    //interactions with registers
-   output reg    register_file_write_enable,
+   output        register_file_write_enable,
    output [31:0] rs1_value,
    output [31:0] rs2_value,
    output [31:0] rd_value

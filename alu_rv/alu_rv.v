@@ -18,19 +18,17 @@ module alu_rv(
    wire [2:0]  funct3;
    wire [6:0]  funct7;
    wire [6:0]  opcode;
+   // unconnected because repeated decode_field module in top bench
    wire [4:0]  rs1;
    wire [4:0]  rs2;
    wire [4:0]  rd;
+   // end unconnected because repeated decode_field module in top bench
    wire [31:0] immediate12_itype;
    wire [31:0] immediate12_stype;
    wire [31:0] immediate12_btype;
    wire [31:0] immediate20_utype;
    wire [31:0] immediate20_jtype;
 
-   // unconnected because repeated decode_field module in top bench
-   wire [4:0]  rs1;
-   wire [4:0]  rs2;
-   wire [4:0]  rd;
 decode_field decode_field_0(
    .clock(clock),
    .instruction(instruction),
