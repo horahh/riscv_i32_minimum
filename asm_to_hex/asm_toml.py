@@ -9,8 +9,9 @@ def get_instruction_decoder(instruction_descriptor):
     instruction_type = {}
     #print(instruction_descriptor)
     for (itype,instructions_metadata) in instruction_descriptor["RV32I"].items():
-        #print(instructions_metadata)
+        print(instructions_metadata)
         for (instruction_subtype, instruction_list) in instructions_metadata["INSTRUCTIONS"].items():
+            print(instruction_subtype)
             for instruction in instruction_list:
                 instruction_type[instruction] = itype;
     return instruction_type
@@ -91,12 +92,16 @@ def asm_to_binary(source_file, destination_file, instructions_description):
     #print(hex_instructions)
     write_hex_file(destination_file, hex_instructions)
 
-def main():
+def get_args():
     parser = argparse.ArgumentParser(description="ASM to Binary RV32I Translator")
     parser.add_argument("--asm",type=str, default="code.asm",help="Provide the asm to translate to binary")
     parser.add_argument("--bin",type=str, default="code.hex", help="Provide the bin file to dump the binary translation of the provided asm")
     parser.add_argument("--toml",type=str, default="rv32i_instructions.toml", help="Provide the toml file with the instruction types and field descriptions")
     args=parser.parse_args()
+    return args
+
+def main():
+    args = get_args()
     instructions_description = get_instruction_field_description(args.toml)
     asm_to_binary(args.asm, args.bin, instructions_description)
 

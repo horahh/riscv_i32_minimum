@@ -17,6 +17,9 @@ rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
 [RV32I.ITYPE]
 [RV32I.ITYPE.INSTRUCTIONS]
 ITYPE     = [ "addi", "slti", "sltiu", "xori", "ori", "andi" ]
+ITYPE_J   = [ "jalr" ] 
+[RV32I.ITYPE.OVERRIDES]
+ITYPE_J   = [{ opcode = 0x17 }]
 [RV32I.ITYPE.INSTRUCTION_FIELDS]
 opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
 funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
@@ -24,19 +27,42 @@ rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
 rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
 immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
 
-[RV32I.UJTYPE]
-[RV32I.UJTYPE.INSTRUCTIONS]
-UJTYPE = [ "jal" ] 
+[RV32I.STYPE]
+[RV32I.STYPE.INSTRUCTIONS]
+STYPE = [ "tmps" ]
+[RV32I.STYPE.INSTRUCTION_FIELDS]
+opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
+funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
+rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
+rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
+immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
+
+[RV32I.BTYPE]
+[RV32I.BTYPE.INSTRUCTIONS]
+BTYPE = [ "tmpb" ]
+[RV32I.BTYPE.INSTRUCTION_FIELDS]
+opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
+funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
+rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
+rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
+immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
+
+[RV32I.UTYPE]
+[RV32I.UTYPE.INSTRUCTIONS]
+UTYPE = [ "tmpu" ]
+[RV32I.UTYPE.INSTRUCTION_FIELDS]
+opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
+funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
+rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
+rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
+immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
+
+
+[RV32I.JTYPE]
+[RV32I.JTYPE.INSTRUCTIONS]
+JTYPE    = [ "jal" ] 
+[RV32I.JTYPE.INSTRUCTION_FIELDS]
 opcode       = { bits = 7, value = 0x6f, offset = 0,  token = 0 }
 rd           = { bits = 5, value = 0x0,  offset = 7,  token = 0 }
 immediate_uj = { bits = 20,value = 0x0,  offset = 12, token = 0 }
 
-[RV32I.JITYPE]
-[RV32I.JITYPE.INSTRUCTIONS]
-JITYPE = [ "jalr" ] 
-[RV32I.JITYPE.INTRUCTION_FIELDS]
-opcode    = { bits = 7, value = 0x17, offset = 0,  token = 0 }
-funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
-rs1       = { bits = 5, value = 0x0,  offset = 15, token = 0 }
-rd        = { bits = 5, value = 0x0,  offset = 7,  token = 0 }
-immediate = { bits = 12,value = 0x0,  offset = 20, token = 0 }
