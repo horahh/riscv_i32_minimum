@@ -6,7 +6,7 @@ module load(
    input      [31:0] rs1_value,
    input      [31:0] immediate12,
    output reg [31:0] rd_value,
-   output     [31:0] memory_read_address,
+   output reg [31:0] memory_read_address,
    output reg [31:0] memory_read_value
 );
 
