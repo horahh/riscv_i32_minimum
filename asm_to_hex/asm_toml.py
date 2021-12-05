@@ -8,12 +8,12 @@ def get_instruction_decoder(instruction_descriptor):
     """
     instruction_type = {}
     #print(instruction_descriptor)
-    for (itype,instructions_metadata) in instruction_descriptor["RV32I"].items():
-        print(instructions_metadata)
+    for (itype,instructions_metadata) in instruction_descriptor["RV32I"]["TYPE"].items():
+        #print(instructions_metadata)
         for (instruction_subtype, instruction_list) in instructions_metadata["INSTRUCTIONS"].items():
-            print(instruction_subtype)
+            #print(instruction_subtype)
             for instruction in instruction_list:
-                instruction_type[instruction] = itype;
+                instruction_type[instruction] = {"type": itype, "subtype": instruction_subtype }
     return instruction_type
 
 def get_instruction_field_description(asm_toml):
@@ -30,25 +30,44 @@ def identify_type(token, instruction_fields):
     """
     Function to map the type of the instruction to to specific instruction token
     """
-    instruction_type = get_instruction_decoder(instruction_fields)
-    return instruction_type[token]
+    instruction_decoder = get_instruction_decoder(instruction_fields)
+    return instruction_decoder[token]
 
-def instruction_field_update(instruction_type, tokens, instruction_description):
+def instruction_field_override(instruction_type, tokens, instruction_description):
+    """
+    updates the field of the provided intruction to build the 32bit value
+    """
+    fields = instruction_description["RV32I"]["FIELDS"]
     #TODO need to create a copy instead of modify original
-    for (field_name, field_meta) in instruction_description["RV32I"][instruction_type]["INSTRUCTION_FIELDS"].items():
-        if field_name == "opcode":
+    for field_name in instruction_description["RV32I"]["TYPE"][instruction_type["type"]]["INSTRUCTION_FIELDS"]["fields"]:
+        if fields["opcode"]:
             continue
         function_name = "get_" + field_name
-        token_number = field_meta["token"]
+        token_number = fields[field_name]["token"]
         field_function = getattr(afd,function_name)
         field_value = field_function(tokens[token_number])
         field_meta["value"] = field_value
 
-def instruction_decode(instruction_type, instruction_description):
+def instruction_field_decode(instruction_type, instruction_description):
     instruction = 0
-    for (field_name, field_meta) in instruction_description["RV32I"][instruction_type]["INSTRUCTION_FIELDS"].items():
-        field_value = field_meta["value"] & (2**field_meta["bits"]-1)
+    fields = instruction_description["RV32I"]["FIELDS"]
+    field_overrides = instruction_description["RV32I"]["TYPE"][instruction_type["type"]]["OVERRIDES"][instruction_type["subtype"]]
+    print("instruction={}".format(instruction))
+    print(instruction_type["type"])
+    for field_name in instruction_description["RV32I"]["TYPE"][instruction_type["type"]]["INSTRUCTION_FIELDS"]["fields"]:
+        if field_name not in field_overrides:
+            continue
+        field_value_override = field_overrides[field_name]
+        subfields = fields[field_name]["subfields"]
+        instruction = instruction_subfield_override(instruction,subfields, field_value_override)
+    return instruction
+
+def instruction_subfield_override(instruction, subfields, field_value_override):
+    for field_meta in reversed(subfields):
+        field_value  = field_value_override & (2**field_meta["bits"]-1)
         instruction |= field_value << field_meta["offset"]
+        field_value_override = field_value_override >> field_meta["bits"]
+    print("instruction={}".format(instruction))
     return instruction
 
 def parse_instruction(instruction,  instruction_description):
@@ -59,7 +78,7 @@ def parse_instruction(instruction,  instruction_description):
     #print(tokens)
     #print(tokens[0])
     instruction_type = identify_type(tokens[0], instruction_description)
-    instruction_field_update(instruction_type, tokens, instruction_description)
+    instruction_field_override(instruction_type, tokens, instruction_description)
     return instruction_type
 
 def get_asm_instructions(source_name):
@@ -68,11 +87,11 @@ def get_asm_instructions(source_name):
     return instructions
 
 def asm_to_hex(asm_instructions, instructions_description):
-    hex_instructions = []
+    hex_instructions = [] 
     for instruction in asm_instructions:
         #print(f"Parsing: {instruction}")
         instruction_type = parse_instruction(instruction, instructions_description)
-        hex_instruction_decode = instruction_decode(instruction_type, instructions_description)
+        hex_instruction_decode = instruction_field_decode(instruction_type, instructions_description)
         hex_instructions.append(hex_instruction_decode)
     return hex_instructions
 

@@ -1,68 +1,108 @@
 [RV32I]
 
-[RV32I.RTYPE]
-[RV32I.RTYPE.INSTRUCTIONS]
+################################################################################
+#    INSTRUCTION FIELDS 
+################################################################################
+
+[RV32I.FIELDS]
+# Definitions according to decode_field module
+
+[RV32I.FIELDS.opcode]
+token     = 0
+subfields = [{ bits = 7,  offset =  0 }]
+
+[RV32I.FIELDS.funct3]
+token     = 0
+subfields = [{ bits = 3,  offset = 12 }]
+
+[RV32I.FIELDS.funct7]
+token = 0
+subfields = [{ bits = 7,  offset = 25 }]
+
+[RV32I.FIELDS.rs1]
+token = 3 
+subfields = [{ bits = 5,  offset = 15 }]
+
+[RV32I.FIELDS.rs2]
+token = 2 
+subfields = [{ bits = 5,  offset = 20 }]
+
+[RV32I.FIELDS.rd]
+token = 1 
+subfields = [{ bits = 5,  offset =  7 }]
+
+[RV32I.FIELDS.immediate12_itype]
+token = 3 
+subfields = [{ bits = 12, offset = 20 }]
+
+[RV32I.FIELDS.immediate12_stype]
+token = 3 
+subfields = [{ bits = 7,  offset = 25 },
+             { bits = 5,  offset =  7 }]
+
+[RV32I.FIELDS.immediate12_btype]
+token = 3 
+subfields = [{ bits = 1,  offset = 31 },
+             { bits = 1,  offset =  7 },
+             { bits = 6,  offset = 25 },
+             { bits = 4,  offset =  8 }]
+
+[RV32I.FIELDS.immediate20_utype]
+token = 3 
+subfields = [{ bits = 20, offset = 20 }]
+
+[RV32I.FIELDS.immediate20_jtype]
+token = 3 
+subfields = [{ bits = 1,  offset = 20 },
+             { bits = 8,  offset = 12 },
+             { bits = 1,  offset = 20 },
+             { bits = 10, offset = 21 }]
+
+################################################################################
+#    INSTRUCTION DESCRIPTION
+################################################################################
+
+[RV32I.TYPE.RTYPE]
+[RV32I.TYPE.RTYPE.INSTRUCTIONS]
 RTYPE_BASE = [ "add","sll","slt","sltu","xor","srl","or","and" ]
 RTYPE_EXTRA = [ "sub", "sra" ]
-[RV32I.RTYPE.OVERRIDES]
-RTYPE_EXTRA = [{ FUNCT7 = 32 }]
-[RV32I.RTYPE.INSTRUCTION_FIELDS]
-opcode    = { bits = 7, value = 0x33, offset = 0,  token = 0 }
-funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
-funct7    = { bits = 7, value = 0x0,  offset = 25, token = 0 }
-rs1       = { bits = 5, value = 0x0,  offset = 15, token = 3 }
-rs2       = { bits = 5, value = 0x0,  offset = 20, token = 2 }
-rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
+[RV32I.TYPE.RTYPE.OVERRIDES]
+RTYPE_BASE  = { opcode = 0x33, funct7 = 0 }
+RTYPE_EXTRA = { opcode = 0x33, funct7 = 32 }
+[RV32I.TYPE.RTYPE.INSTRUCTION_FIELDS]
+fields    = [ "opcode","funct3", "funct7", "rs1", "rs2", "rd" ] 
 
-[RV32I.ITYPE]
-[RV32I.ITYPE.INSTRUCTIONS]
+[RV32I.TYPE.ITYPE]
+[RV32I.TYPE.ITYPE.INSTRUCTIONS]
 ITYPE     = [ "addi", "slti", "sltiu", "xori", "ori", "andi" ]
 ITYPE_J   = [ "jalr" ] 
-[RV32I.ITYPE.OVERRIDES]
-ITYPE_J   = [{ opcode = 0x17 }]
-[RV32I.ITYPE.INSTRUCTION_FIELDS]
-opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
-funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
-rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
-rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
-immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
+[RV32I.TYPE.ITYPE.OVERRIDES]
+ITYPE     = { opcode = 0x13 }
+ITYPE_J   = { opcode = 0x17 }
+[RV32I.TYPE.ITYPE.INSTRUCTION_FIELDS]
+fields    = [ "opcode", "funct", "rs1", "rd", "immediate_itype" ] 
 
-[RV32I.STYPE]
-[RV32I.STYPE.INSTRUCTIONS]
+[RV32I.TYPE.STYPE]
+[RV32I.TYPE.STYPE.INSTRUCTIONS]
 STYPE = [ "tmps" ]
-[RV32I.STYPE.INSTRUCTION_FIELDS]
-opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
-funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
-rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
-rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
-immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
+[RV32I.TYPE.STYPE.INSTRUCTION_FIELDS]
+fields    = [ "opcode", "funct3", "rs1", "rd", "immediate12_stype" ]
 
-[RV32I.BTYPE]
-[RV32I.BTYPE.INSTRUCTIONS]
+[RV32I.TYPE.BTYPE]
+[RV32I.TYPE.BTYPE.INSTRUCTIONS]
 BTYPE = [ "tmpb" ]
-[RV32I.BTYPE.INSTRUCTION_FIELDS]
-opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
-funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
-rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
-rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
-immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
+[RV32I.TYPE.BTYPE.INSTRUCTION_FIELDS]
+fields    = [ "opcode", "funct3", "rs1", "rd", "immediate12_btype" ]
 
-[RV32I.UTYPE]
-[RV32I.UTYPE.INSTRUCTIONS]
+[RV32I.TYPE.UTYPE]
+[RV32I.TYPE.UTYPE.INSTRUCTIONS]
 UTYPE = [ "tmpu" ]
-[RV32I.UTYPE.INSTRUCTION_FIELDS]
-opcode    = { bits = 7, value = 0x13, offset = 0,  token = 0 }
-funct3    = { bits = 3, value = 0x0,  offset = 12, token = 0 }
-rs1       = { bits = 5, value = 0x0,  offset = 15, token = 2 }
-rd        = { bits = 5, value = 0x0,  offset = 7,  token = 1 }
-immediate = { bits = 12,value = 0x0,  offset = 20, token = 3 }
+[RV32I.TYPE.UTYPE.INSTRUCTION_FIELDS]
+fields    = [ "opcode", "funct3", "rs1", "rd", "immediate12_utype" ]
 
-
-[RV32I.JTYPE]
-[RV32I.JTYPE.INSTRUCTIONS]
+[RV32I.TYPE.JTYPE]
+[RV32I.TYPE.JTYPE.INSTRUCTIONS]
 JTYPE    = [ "jal" ] 
-[RV32I.JTYPE.INSTRUCTION_FIELDS]
-opcode       = { bits = 7, value = 0x6f, offset = 0,  token = 0 }
-rd           = { bits = 5, value = 0x0,  offset = 7,  token = 0 }
-immediate_uj = { bits = 20,value = 0x0,  offset = 12, token = 0 }
+[RV32I.TYPE.JTYPE.INSTRUCTION_FIELDS]
+fields    = [ "opcode", "funct3", "rs1", "rd", "immediate20_jtype" ]
 

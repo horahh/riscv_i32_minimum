@@ -23,9 +23,11 @@ assign rs2 = instruction[24:20];
 assign rd = instruction[11:7];
 // Register Definitions for constants
 
-reg zero = 1'b0;
+reg zero    =  1'b0;
 reg zero_12 = 12'b0;
-assign immediate12_itype = instruction[31:20];
+reg zero_20 = 20'b0;
+
+assign immediate12_itype = {{zero_20},instruction[31:20]};
 assign immediate12_stype = {{funct7},{rd}};
 assign immediate12_btype = {{instruction[31]},{instruction[7]},{instruction[30:25]},{instruction[11:8]},{zero}};
 assign immediate20_utype = {{instruction[31:12]},{zero_12}};
