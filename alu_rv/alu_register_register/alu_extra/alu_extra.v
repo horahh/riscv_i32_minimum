@@ -5,7 +5,7 @@
 
 module alu_extra(
 	input         clock,
-	input         enable,
+	input         alu_extra_enable,
 	input  [2:0]  funct3,
 	input  [31:0] rs1_value,
 	input  [31:0] rs2_value,
@@ -15,14 +15,14 @@ module alu_extra(
 	parameter [2:0] SRA  = 3'h5; // bit select 31..25 = 32 -> means Shift Right Aritmethic which carries the MSB to the left
 
 	reg rd_value;
-	always @(posedge clock & enable) begin
+	always @(posedge clock & alu_extra_enable) begin
 		case(funct3)
 			SUB: rd_value <= rs1_value - rs2_value;
 			SRA: rd_value <= rs1_value >>> rs2_value;
 			default: rd_value <= `ZERO;
 		endcase
 	end
-	always @(posedge clock & !enable) begin
+	always @(posedge clock & !alu_extra_enable) begin
 		rd_value <= `HIGH_IMPEDANCE;
 	end
 endmodule

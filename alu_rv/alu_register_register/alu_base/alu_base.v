@@ -7,7 +7,7 @@
 
 module alu_base(
 	input             clock,
-	input             enable,
+	input             alu_base_enable,
 	input      [2:0]  funct3,
 	input      [31:0] rs1_value,
 	input      [31:0] rs2_value,
@@ -23,7 +23,7 @@ module alu_base(
 	parameter [2:0] OR   = 3'h6;
 	parameter [2:0] AND  = 3'h7;
 
-	always @(posedge clock & enable) begin
+	always @(posedge clock & alu_base_enable) begin
 		case(funct3)
 			ADD:     rd_value <= rs1_value +  rs2_value;
 			SLL:     rd_value <= rs1_value << rs2_value;
@@ -37,7 +37,7 @@ module alu_base(
 		endcase
 	end
 
-	always @(posedge clock & !enable) begin
+	always @(posedge clock & !alu_base_enable) begin
 		rd_value = `HIGH_IMPEDANCE;
 	end
 
