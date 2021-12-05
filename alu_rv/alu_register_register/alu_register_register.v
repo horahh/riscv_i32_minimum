@@ -22,7 +22,7 @@ module alu_register_register(
       .funct3(funct3), 
       .rs1_value(rs1_value), 
       .rs2_value(rs2_value), 
-      .rd_value(rs2_value)
+      .rd_value(rd_value)
    );
 
    alu_extra alu_extra_0(

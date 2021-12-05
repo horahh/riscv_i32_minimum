@@ -42,4 +42,3 @@ module alu_base(
 	end
 
 endmodule
-
