@@ -13,7 +13,7 @@ initial begin
    $monitor("clock=%h, pc=%h, pc_value=%h, memory_read_address=%h, memory_read_value=%h, read_enable=%h, rs1=%h, rs2=%h, rd=%h, rs1_select=%h, rs2_select=%h, rd_select=%h, register_type_alu=%b, opcode=%h, func7=%h, funct3=%h \n",
       clock, 
       test_bench_rv32.pc, 
-      test_bench_rv32.pc_instruction,
+      test_bench_rv32.instruction,
       test_bench_rv32.memory_read_address,
       test_bench_rv32.memory_read_value,
       test_bench_rv32.read_enable,

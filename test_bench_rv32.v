@@ -9,7 +9,6 @@ module test_bench_rv32;
    wire        memory_write_enable;
    wire [31:0] memory_write_address;
    wire [31:0] memory_write_value;
-   wire [31:0] pc_instruction;
    wire        write_back_enable;
    wire        next_pc_valid;
    wire [31:0] next_pc;
@@ -128,7 +127,7 @@ decode_field decode_field_0(
 
    execute execute_0(
       .clock(clock),
-      .instruction(pc_instruction),
+      .instruction(instruction),
    // feed from decode
       .alu_branch_enable(alu_branch_enable),
       .alu_unconditional_jalr_enable(alu_unconditional_jalr_enable),
