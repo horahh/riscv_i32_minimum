@@ -37,11 +37,11 @@ module execute(
       .register_type_alu(register_type_alu), 
       .immediate_type_alu(immediate_type_alu),
       .instruction(instruction), 
-      .rs1_value(rs1_value),
-      .rs2_value(rs2_value),
       .rs1(rs1),
       .rs2(rs2),
       .rd(rd),
+      .rs1_value(rs1_value),
+      .rs2_value(rs2_value),
       .rd_value(rd_value)
    );
 

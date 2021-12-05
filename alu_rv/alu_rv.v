@@ -4,11 +4,11 @@ module alu_rv(
    input         immediate_type_alu,
    input  [31:0] instruction,
    // Register File
-   input  [31:0] rs1_value,
-   input  [31:0] rs2_value,
    output [4:0]  rs1,
    output [4:0]  rs2,
    output [4:0]  rd,
+   input  [31:0] rs1_value,
+   input  [31:0] rs2_value,
    output [31:0] rd_value,
    // PC interactions
    input  [31:0] pc,

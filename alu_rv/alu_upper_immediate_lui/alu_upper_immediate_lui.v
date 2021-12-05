@@ -7,7 +7,7 @@ module alu_upper_immediate_lui(
    input             alu_upper_immediate_lui_enable,
    input      [31:0] immediate20_utype,
    input      [31:0] rs1_value,
-   output     [31:0] rd_value,
+   output reg [31:0] rd_value,
    input      [31:0] pc
 );
 
