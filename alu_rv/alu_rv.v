@@ -71,7 +71,7 @@ alu_unconditional_jalr alu_unconditional_jalr_0(
 alu_unconditional_jal alu_unconditional_jal_0(
    .clock(clock),
    .alu_unconditional_jal_enable(alu_unconditional_jal_enable),
-   .jimmediate20(jimmediate20),
+   .immediate20_jtype(immediate20_jtype),
    .rd_value(rd_value),
    .pc(pc),
    .next_pc(next_pc)
