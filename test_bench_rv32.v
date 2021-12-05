@@ -153,7 +153,7 @@ load load_0(
       .load_enable(load_enable),
       .funct3(funct3),
       .rs1_value(rs1_value),
-      .immediate12(immediate12),
+      .immediate12_itype(immediate12_itype),
       .rd_value(rd_value),
       .memory_read_address(memory_read_address),
       .memory_read_value(memory_read_value)

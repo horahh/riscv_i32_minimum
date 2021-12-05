@@ -4,7 +4,7 @@ module load(
    input             load_enable,
    input      [2:0]  funct3,
    input      [31:0] rs1_value,
-   input      [31:0] immediate12,
+   input      [31:0] immediate12_itype,
    output reg [31:0] rd_value,
    output reg [31:0] memory_read_address,
    output reg [31:0] memory_read_value
@@ -32,7 +32,7 @@ always @(posedge clock & load_enable) begin
 end
 
 always @(posedge clock & load_enable) begin
-   memory_read_address <= rs1_value + immediate12;
+   memory_read_address <= rs1_value + immediate12_itype;
 end
 
 endmodule
