@@ -20,14 +20,6 @@ module execute(
    output [31:0] rd_value
 );
 
-   wire [4:0] register_data_1_select;
-   wire [4:0] register_data_2_select;
-   wire [4:0] register_data_write_select;
-
-   wire [31:0] register_data_1_value;
-   wire [31:0] register_data_2_value;
-   wire [31:0] register_data_write_value;
-
    reg register_file_write_enable = 1'b1;
 // instantiate functional units
    alu_rv alu_rv_0(
