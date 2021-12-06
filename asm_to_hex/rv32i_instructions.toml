@@ -20,11 +20,11 @@ token = 0
 subfields = [{ bits = 7,  offset = 25 }]
 
 [RV32I.FIELDS.rs1]
-token = 3 
+token = { "ITYPE" = 2, "RTYPE" = 3 }
 subfields = [{ bits = 5,  offset = 15 }]
 
 [RV32I.FIELDS.rs2]
-token = 2 
+token = { "RTYPE" = 2 } 
 subfields = [{ bits = 5,  offset = 20 }]
 
 [RV32I.FIELDS.rd]
@@ -80,7 +80,7 @@ ITYPE_J   = [ "jalr" ]
 ITYPE     = { opcode = 0x13 }
 ITYPE_J   = { opcode = 0x17 }
 [RV32I.TYPE.ITYPE.INSTRUCTION_FIELDS]
-fields    = [ "opcode", "funct", "rs1", "rd", "immediate_itype" ] 
+fields    = [ "opcode", "funct3", "rs1", "rd", "immediate12_itype" ] 
 
 [RV32I.TYPE.STYPE]
 [RV32I.TYPE.STYPE.INSTRUCTIONS]

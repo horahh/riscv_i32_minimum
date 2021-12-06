@@ -33,20 +33,30 @@ def identify_type(token, instruction_fields):
     instruction_decoder = get_instruction_decoder(instruction_fields)
     return instruction_decoder[token]
 
-def instruction_field_override(instruction_type, tokens, instruction_description):
+def get_token_number(token, type):
+    if isinstance(token, dict):
+        return token[type]
+    return token
+
+def instruction_field_override(instruction_type, tokens, instruction_description, generic_instruction_decode):
     """
     updates the field of the provided intruction to build the 32bit value
     """
+    specific_instruction_decode = generic_instruction_decode
     fields = instruction_description["RV32I"]["FIELDS"]
     #TODO need to create a copy instead of modify original
     for field_name in instruction_description["RV32I"]["TYPE"][instruction_type["type"]]["INSTRUCTION_FIELDS"]["fields"]:
-        if fields["opcode"]:
+        if field_name == "opcode":
             continue
         function_name = "get_" + field_name
-        token_number = fields[field_name]["token"]
+        print("field name: {}".format(field_name))
+        token_number = get_token_number(fields[field_name]["token"],instruction_type["type"])
         field_function = getattr(afd,function_name)
         field_value = field_function(tokens[token_number])
-        field_meta["value"] = field_value
+        print("field value: {}".format(hex(field_value)))
+        subfields = fields[field_name]["subfields"]
+        specific_instruction_decode = instruction_subfield_override(specific_instruction_decode, subfields, field_value)
+    return specific_instruction_decode
 
 def instruction_field_decode(instruction_type, instruction_description):
     instruction = 0
@@ -67,18 +77,17 @@ def instruction_subfield_override(instruction, subfields, field_value_override):
         field_value  = field_value_override & (2**field_meta["bits"]-1)
         instruction |= field_value << field_meta["offset"]
         field_value_override = field_value_override >> field_meta["bits"]
-    print("instruction={}".format(instruction))
+    print("instruction subfield override={}".format(hex(instruction)))
     return instruction
 
-def parse_instruction(instruction,  instruction_description):
-    tokens = afd.get_instruction_tokens(instruction)
+def identify_instruction_type(instruction,  instructions_description, tokens):
     if not tokens:
         exit(1)
     #print(instruction)
     #print(tokens)
     #print(tokens[0])
-    instruction_type = identify_type(tokens[0], instruction_description)
-    instruction_field_override(instruction_type, tokens, instruction_description)
+    instruction_type = identify_type(tokens[0], instructions_description)
+    #instruction_field_override(instruction_type, tokens, instruction_description)
     return instruction_type
 
 def get_asm_instructions(source_name):
@@ -90,10 +99,18 @@ def asm_to_hex(asm_instructions, instructions_description):
     hex_instructions = [] 
     for instruction in asm_instructions:
         #print(f"Parsing: {instruction}")
-        instruction_type = parse_instruction(instruction, instructions_description)
-        hex_instruction_decode = instruction_field_decode(instruction_type, instructions_description)
-        hex_instructions.append(hex_instruction_decode)
+        specific_instruction_decode = instruction_decode(instruction)
+        hex_instructions.append(specific_instruction_decode)
     return hex_instructions
+
+def instruction_decode(instruction,instructions_description):
+    tokens = afd.get_instruction_tokens(instruction)
+    instruction_type = identify_instruction_type(instruction, instructions_description, tokens)
+    type_instruction_decode = instruction_field_decode(instruction_type, instructions_description)
+    print(hex(type_instruction_decode))
+    specific_instruction_decode = instruction_field_override(instruction_type, tokens, instructions_description, type_instruction_decode)
+    print(hex(specific_instruction_decode))
+    return specific_instruction_decode
 
 def write_hex_file(destination_name, hex_instructions):
     with open(destination_name, 'w') as destination_file:

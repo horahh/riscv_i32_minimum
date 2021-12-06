@@ -65,7 +65,7 @@ def get_rs2(token):
 def get_rd(token):
     return get_register(token)
 
-def get_immediate(token):
+def get_immediate12_itype(token):
     result = re.match(r"^([\-\+]?\d+)$", token)
     if result:
         immediate = int(result.group(1))
@@ -102,7 +102,7 @@ def int_to_32bit_hex_instructions(int_instructions):
         hex_instructions.append(hex_instruction)
     return hex_instructions
 
-def get_immediate_uj(token):
+def get_immediate20_utype(token):
     immediate = get_immediate_j_value(token)
     immediate_1 = immediate >> 1 & ( 2**9-1) 
     immediate_2 = immediate >> 11 & 1
@@ -115,7 +115,7 @@ def get_immediate_uj(token):
     immediate_rv = (immediate_1 << immediate_1_offset ) + (immediate_2 << immediate_2_offset) + (immediate_3 << immediate_3_offset) + (immediate_4 << immediate_4_offset)
     return immediate_rv
 
-def get_immediate_j_value(token):
+def get_immediate20_jtype(token):
     result = re.match(r"^([\-\+]?\d+)$", token)
     if result:
         immediate = int(result.group(1))
