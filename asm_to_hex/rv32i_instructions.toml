@@ -20,11 +20,11 @@ token = 0
 subfields = [{ bits = 7,  offset = 25 }]
 
 [RV32I.FIELDS.rs1]
-token = { "ITYPE" = 2, "RTYPE" = 3 }
+token = { "ITYPE" = 2, "RTYPE_BASE" = 3, "RTYPE_EXTRA" = 3, "ITYPE_LOAD" = 3  }
 subfields = [{ bits = 5,  offset = 15 }]
 
 [RV32I.FIELDS.rs2]
-token = { "RTYPE" = 2 } 
+token = { "RTYPE_BASE" = 2, "RTYPE_EXTRA" = 2, "ITYPE_LOAD" = 2 } 
 subfields = [{ bits = 5,  offset = 20 }]
 
 [RV32I.FIELDS.rd]
@@ -32,7 +32,7 @@ token = 1
 subfields = [{ bits = 5,  offset =  7 }]
 
 [RV32I.FIELDS.immediate12_itype]
-token = 3 
+token = { "ITYPE" = 3 , "ITYPE_LOAD" = 2 }
 subfields = [{ bits = 12, offset = 20 }]
 
 [RV32I.FIELDS.immediate12_stype]
@@ -76,9 +76,11 @@ fields    = [ "opcode","funct3", "funct7", "rs1", "rs2", "rd" ]
 [RV32I.TYPE.ITYPE.INSTRUCTIONS]
 ITYPE     = [ "addi", "slti", "sltiu", "xori", "ori", "andi" ]
 ITYPE_J   = [ "jalr" ] 
+ITYPE_LOAD= [ "lb", "lh", "lw", "lbu", "lhu" ]
 [RV32I.TYPE.ITYPE.OVERRIDES]
 ITYPE     = { opcode = 0x13 }
 ITYPE_J   = { opcode = 0x17 }
+ITYPE_LOAD= { opcode = 0x03 }
 [RV32I.TYPE.ITYPE.INSTRUCTION_FIELDS]
 fields    = [ "opcode", "funct3", "rs1", "rd", "immediate12_itype" ] 
 

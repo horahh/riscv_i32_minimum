@@ -33,9 +33,9 @@ def identify_type(token, instruction_fields):
     instruction_decoder = get_instruction_decoder(instruction_fields)
     return instruction_decoder[token]
 
-def get_token_number(token, type):
+def get_token_number(token, subtype):
     if isinstance(token, dict):
-        return token[type]
+        return token[subtype]
     return token
 
 def instruction_field_override(instruction_type, tokens, instruction_description, generic_instruction_decode):
@@ -50,7 +50,7 @@ def instruction_field_override(instruction_type, tokens, instruction_description
             continue
         function_name = "get_" + field_name
         print("field name: {}".format(field_name))
-        token_number = get_token_number(fields[field_name]["token"],instruction_type["type"])
+        token_number = get_token_number(fields[field_name]["token"],instruction_type["subtype"])
         field_function = getattr(afd,function_name)
         field_value = field_function(tokens[token_number])
         print("field value: {}".format(hex(field_value)))

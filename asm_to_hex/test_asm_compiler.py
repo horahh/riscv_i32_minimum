@@ -27,3 +27,8 @@ def test_immediate_sum_positive():
     hex_instruction_field_decode = afd.int_to_32bit_hex_instruction(int_instruction_field_decode)
     assert(hex_instruction_field_decode == "03208793")
 
+def test_immediate_load():
+    instruction = "lw r14, 8(r2)"
+    int_instruction_field_decode = asm.instruction_decode(instruction, instructions_description)
+    hex_instruction_field_decode = afd.int_to_32bit_hex_instruction(int_instruction_field_decode)
+    assert(hex_instruction_field_decode == "00812703")

@@ -42,8 +42,18 @@ def get_funct3(token):
     funct3ji_token = {
             "jalr": 0
             }
+    funct3i_load_token = {
+            "lb": 0,
+            "lh": 1,
+            "lw": 2,
+            "lbu": 4,
+            "lbb": 5
+            }
+    if token in funct3i_load_token:
+        return funct3i_load_token[token]
     if token in funct3ji_token.keys():
         return 0
+
     print("ERROR: token not supported")
     exit(1)
 
@@ -87,7 +97,7 @@ def get_immediate12_itype(token):
 
 def get_instruction_tokens(instruction):
     instruction = instruction.strip()
-    tokens = re.split(r"\s+|\s?,\s?",instruction)
+    tokens = re.split(r"\s+|\s*,\s*|\s*\(\s*|\s*\)",instruction)
     #print(tokens)
     return tokens
 
