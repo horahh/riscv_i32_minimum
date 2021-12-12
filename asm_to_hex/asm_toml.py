@@ -99,7 +99,7 @@ def asm_to_hex(asm_instructions, instructions_description):
     hex_instructions = [] 
     for instruction in asm_instructions:
         #print(f"Parsing: {instruction}")
-        specific_instruction_decode = instruction_decode(instruction)
+        specific_instruction_decode = instruction_decode(instruction, instructions_description)
         hex_instructions.append(specific_instruction_decode)
     return hex_instructions
 
