@@ -1,6 +1,6 @@
 import argparse
 import toml
-import asm_field_decode as afd
+import asm_field_decode 
 
 def get_instruction_decoder(instruction_descriptor):
     """
@@ -51,7 +51,7 @@ def instruction_field_override(instruction_type, tokens, instruction_description
         function_name = "get_" + field_name
         print("field name: {}".format(field_name))
         token_number = get_token_number(fields[field_name]["token"],instruction_type["subtype"])
-        field_function = getattr(afd,function_name)
+        field_function = getattr(asm_field_decode,function_name)
         field_value = field_function(tokens[token_number])
         print("field value: {}".format(hex(field_value)))
         subfields = fields[field_name]["subfields"]
@@ -104,7 +104,7 @@ def asm_to_hex(asm_instructions, instructions_description):
     return hex_instructions
 
 def instruction_decode(instruction,instructions_description):
-    tokens = afd.get_instruction_tokens(instruction)
+    tokens = asm_field_decode.get_instruction_tokens(instruction)
     instruction_type = identify_instruction_type(instruction, instructions_description, tokens)
     type_instruction_decode = instruction_field_decode(instruction_type, instructions_description)
     print(hex(type_instruction_decode))
@@ -123,7 +123,7 @@ def asm_to_binary(source_file, destination_file, instructions_description):
     asm_instructions = get_asm_instructions(source_file)
     #print(asm_instructions)
     int_instructions = asm_to_hex(asm_instructions, instructions_description)
-    hex_instructions = afd.int_to_32bit_hex_instructions(int_instructions)
+    hex_instructions = asm_field_decode.int_to_32bit_hex_instructions(int_instructions)
 
     #print(hex_instructions)
     write_hex_file(destination_file, hex_instructions)

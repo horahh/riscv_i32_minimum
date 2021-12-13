@@ -8,53 +8,52 @@
 # Definitions according to decode_field module
 
 [RV32I.FIELDS.opcode]
-token     = 0
+token_index     = 0
 subfields = [{ bits = 7,  offset =  0 }]
 
 [RV32I.FIELDS.funct3]
-token     = 0
+token_index     = 0
 subfields = [{ bits = 3,  offset = 12 }]
 
 [RV32I.FIELDS.funct7]
-token = 0
+token_index = 0
 subfields = [{ bits = 7,  offset = 25 }]
 
 [RV32I.FIELDS.rs1]
-token = { "ITYPE" = 2, "RTYPE_BASE" = 3, "RTYPE_EXTRA" = 3, "ITYPE_LOAD" = 3  }
+token_index = { "ITYPE" = 2, "RTYPE_BASE" = 3, "RTYPE_EXTRA" = 3, "ITYPE_LOAD" = 3  }
 subfields = [{ bits = 5,  offset = 15 }]
 
 [RV32I.FIELDS.rs2]
-token = { "RTYPE_BASE" = 2, "RTYPE_EXTRA" = 2, "ITYPE_LOAD" = 2 } 
+token_index = { "RTYPE_BASE" = 2, "RTYPE_EXTRA" = 2, "ITYPE_LOAD" = 2 } 
 subfields = [{ bits = 5,  offset = 20 }]
 
 [RV32I.FIELDS.rd]
-token = 1 
+token_index = 1 
 subfields = [{ bits = 5,  offset =  7 }]
 
 [RV32I.FIELDS.immediate12_itype]
-token = { "ITYPE" = 3 , "ITYPE_LOAD" = 2 }
+token_index = { "ITYPE" = 3 , "ITYPE_LOAD" = 2 }
 subfields = [{ bits = 12, offset = 20 }]
 
 [RV32I.FIELDS.immediate12_stype]
-token = 3 
+token_index = 3 
 subfields = [{ bits = 7,  offset = 25 },
              { bits = 5,  offset =  7 }]
 
 [RV32I.FIELDS.immediate12_btype]
-token = 3 
+token_index = 3 
 subfields = [{ bits = 1,  offset = 31 },
              { bits = 1,  offset =  7 },
              { bits = 6,  offset = 25 },
              { bits = 4,  offset =  8 }]
 
 [RV32I.FIELDS.immediate20_utype]
-token = 3 
+token_index = 3 
 subfields = [{ bits = 20, offset = 20 }]
 
 [RV32I.FIELDS.immediate20_jtype]
-token = 3 
-subfields = [{ bits = 1,  offset = 20 },
-             { bits = 8,  offset = 12 },
+token_index = 3 
+subfields = [{ bits = 8,  offset = 12 },
              { bits = 1,  offset = 20 },
              { bits = 10, offset = 21 }]
 
@@ -92,7 +91,7 @@ fields    = [ "opcode", "funct3", "rs1", "rd", "immediate12_stype" ]
 
 [RV32I.TYPE.BTYPE]
 [RV32I.TYPE.BTYPE.INSTRUCTIONS]
-BTYPE = [ "tmpb" ]
+BTYPE = [ "beq","bne","blt","bge","bltu","bgeu"]
 [RV32I.TYPE.BTYPE.INSTRUCTION_FIELDS]
 fields    = [ "opcode", "funct3", "rs1", "rd", "immediate12_btype" ]
 
