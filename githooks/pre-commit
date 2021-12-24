@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+#Credits
+#https://sigmoidal.io/automatic-code-quality-checks-with-git-hooks/
+
+# if any command inside script returns error, exit and return that error
+set -e
+
+# magic line to ensure that we're always inside the root of our application,
+# no matter from which directory we'll run script
+# thanks to them we can just enter `./scripts/run-tests.bash` and tests will run
+# found one day on the internet
+cd "${0%/*}/.."
+
+echo "Running pre-commit hook"
+pytest -vv
+# $? stores exit value of the last command
+if [ $? -ne 0 ]; then
+ echo "Tests must pass before commit!"
+ exit 1
+fi
+
+files_not_in_commit=$(git diff)
+if [ $? -ne 0 ] || [ ! -z "$files_not_in_commit" ]; then
+ echo "Repo changes must be included before commit!"
+ exit 1
+fi
+
+python -m black .
+# $? stores exit value of the last command
+if [ $? -ne 0 ]; then
+ echo "Code must be formatted with black before commit!"
+ exit 1
+fi
+
+files_not_in_commit=$(git diff)
+if [ $? -ne 0 ] || [ ! -z "$files_not_in_commit" ]; then
+ echo "Repo changes must be included before commit!"
+ echo "Black might had done few changes"
+ echo "Review them and then include them with git add -A"
+ echo "Just make sure you do not commit anything you do not want to!"
+ exit 1
+fi
+
+lizard --CCN 10 --arguments 3 --length 50 --Threshold nloc=50 --ignore_warnings 10
+if [ $? -ne 0 ]; then
+ echo "Code must be compliant with lizard before commit!"
+ exit 1
+fi
+
