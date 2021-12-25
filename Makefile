@@ -112,13 +112,19 @@ CURRENT_DIR = $(notdir $(patsubst %/,%,$(dir $(MAKEFILE_PATH))))
 OUTPUT_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.vcd' -o -name '*.out' -o -name '*.lxt2' -o -name '*.log' \))
 
 ################################################################################
+#################### COMPILE ASM ###############################################
+################################################################################
+
+COMPILE_ASM = python compiler/compiler.py --asm asm/code.asm --bin bin/code.hex --toml compiler/config/rv32i_instructions.toml
+
+################################################################################
 #################### COMPILATION AND SIMULATION TARGETS ########################
 ################################################################################
 all:
 	@echo $(VERILOG_FILES)
 	@echo $(IP_NAME)
-	python asm_to_hex/asm_toml.py --asm asm_to_hex/code.asm --bin asm_to_hex/code.hex --toml asm_to_hex/rv32i_instructions.toml
 
+	$(COMPILE_ASM)
 	$(VERILOG_COMPILER) $(VERILOG_FLAGS) $(VERILOG_OUTPUT) $(TEST_BENCH_FILE) $(TEST_CASE_FILE) $(VERILOG_FILES)
 	$(VCD_GENERATION) $(VCD_FLAGS) $(VCD_LOG) $(VERILOG_OUTPUT) > $(VCD_OUTPUT)
 
@@ -126,7 +132,7 @@ sim:
 	$(WAVE_GENERATION_TOOL) $(VCD_OUTPUT) &
 
 bin:
-	python asm_to_hex/asm_compiler.py --asm asm_to_hex/code.asm --bin asm_to_hex/code.hex --toml asm_to_hex/rv32i_instructions.toml
+	$(COMPILE_ASM)
 
 test:
 	pytest -vv

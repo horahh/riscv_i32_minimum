@@ -1,11 +1,12 @@
 import instruction_set
 
-class TypeDecoder()
+class TypeDecoder():
     __instruction_set = None
+
     def __init__(self,instruction_set_obj):
         if __instruction_set == None: 
             __instruction_set = instruction_set_obj
-        self.__instruction_type = __get_instruction_decoder(self):
+            self.__instruction_type = __get_instruction_decoder(self)
         
     def __get_instruction_decoder(self):
         """

@@ -3,7 +3,7 @@ import instruction_descriptor
 class Instruction():
     instruction_set_descriptor = None
     def __init__(self,instruction_string, descriptor):
-        if !instruction_set_descriptor :
+        if not instruction_set_descriptor :
             instruction_set_descriptor = descriptor
         self.tokens = self.__decode_tokens(instruction_string)
 

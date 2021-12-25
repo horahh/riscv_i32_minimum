@@ -46,11 +46,11 @@ class InstructionDescriptor():
             field_offset  = field_meta["offset"]
             field_size    = field_meta["bits"]
             field_decode  = set_value & field_mask
-            instruction  &= mask32 & !(field_mask << field_offset)
+            instruction  &= mask32 & ~(field_mask << field_offset)
             instruction  |= field_decode << field_offset 
             set_value = set_value >> field_size
 
         #print("instruction subfield override={}".format(hex(instruction)))
-    return instruction
+        return instruction
 
 
