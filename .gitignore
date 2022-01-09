@@ -8,3 +8,4 @@
 *.bin
 *.gtkw
 **/__pycache__
+tags
