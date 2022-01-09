@@ -115,7 +115,7 @@ OUTPUT_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.vcd' -o -name '*.o
 #################### COMPILE ASM ###############################################
 ################################################################################
 
-COMPILE_ASM = python compiler/compiler.py --asm asm/code.asm --bin bin/code.hex --toml compiler/config/rv32i_instructions.toml
+COMPILE_ASM = python compiler/compiler.py --asm asm/code.asm --bin bin/code.hex --toml compiler/configuration/rv32i_instructions.toml
 
 ################################################################################
 #################### COMPILATION AND SIMULATION TARGETS ########################

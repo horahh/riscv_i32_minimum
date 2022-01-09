@@ -1,13 +1,12 @@
+import re
 import instruction_descriptor
 
 class Instruction():
-    instruction_set_descriptor = None
     def __init__(self,instruction_string, descriptor):
-        if not instruction_set_descriptor :
-            instruction_set_descriptor = descriptor
+        instruction_set_descriptor = descriptor
         self.tokens = self.__decode_tokens(instruction_string)
 
-    def __decode_tokens(instruction):
+    def __decode_tokens(self,instruction):
         instruction = instruction.strip()
         tokens = re.split(r"\s+|\s*,\s*|\s*\(\s*|\s*\)",instruction)
         self.value = 0

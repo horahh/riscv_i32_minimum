@@ -2,22 +2,14 @@ import instruction_set
 import type_decoder
 
 class InstructionDescriptor(): 
-    __instruction_set = None
-    type_decode = None
     def __init__(self,instruction_set_obj):
-        if type_decode == None:
-            type_decode = TypeDecoder(self)
-
-        __instruction_set = instruction_set_obj
-
-    def __init__(self):
-        if descriptor_file == None:
-            raise "Need to define toml file for descriptor"
+        self.__instruction_set = instruction_set_obj
+        typeDecoder = type_decoder.TypeDecoder(self.__instruction_set)
 
     def __get_fields_by_type(self,field_type):
         return __instruction_set["RV32I"]["TYPE"][specific_type]["INSTRUCTION_FIELDS"]
     def set_fields(self,instruction):
-        field_type = type_decode.get_type()
+        field_type = typeDecoder.get_type()
         fields = self.__get_fields_by_type(field_type)
         for field in fields:
             self.set_field(field, instruction)

@@ -1,34 +1,36 @@
-import asm_toml as asm
-import asm_field_decode as afd
+import instruction_set 
+import instruction_descriptor
+import instruction
+import compiler
 
-instructions_description = asm.get_instruction_field_description("asm_to_hex/rv32i_instructions.toml")
+isa = instruction_set.InstructionSet("compiler/configuration/rv32i_instructions.toml")
 
 def test_reg_sum():
-    instruction = "add r10, r6, r5"
-    int_instruction_field_decode = asm.instruction_decode(instruction, instructions_description)
-    hex_instruction_field_decode = afd.int_to_32bit_hex_instruction(int_instruction_field_decode)
-    assert(hex_instruction_field_decode == "00628533")
+    asm_instructions = [ "add r10, r6, r5" ]
+    hex_instructions_expected = [ "00628533" ]
+    hex_instructions = compiler.asm_to_hex(asm_instructions, isa)
+    assert(hex_instructions == hex_instructions_expected )
 
 def test_reg_sub():
-    instruction = "sub r3,r1,r0"
-    int_instruction_field_decode = asm.instruction_decode(instruction, instructions_description)
-    hex_instruction_field_decode = afd.int_to_32bit_hex_instruction(int_instruction_field_decode)
-    assert(hex_instruction_field_decode == "401001b3")
+    asm_instructions = [ "sub r3,r1,r0" ]
+    hex_instructions_expected = [ "401001b3" ]
+    hex_instructions = compiler.asm_to_hex(asm_instructions, isa)
+    assert(hex_instructions == hex_instructions_expected )
 
 def test_immediate_sum_negative():
-    instruction = "addi r15, r1, -50"
-    int_instruction_field_decode = asm.instruction_decode(instruction, instructions_description)
-    hex_instruction_field_decode = afd.int_to_32bit_hex_instruction(int_instruction_field_decode)
-    assert(hex_instruction_field_decode == "fce08793")
+    asm_instructions = [ "addi r15, r1, -50" ]
+    hex_instructions_expected = [ "fce08793" ]
+    hex_instructions = compiler.asm_to_hex(asm_instructions, isa)
+    assert(hex_instructions == hex_instructions_expected )
 
 def test_immediate_sum_positive():
-    instruction = "addi r15, r1, 50"
-    int_instruction_field_decode = asm.instruction_decode(instruction, instructions_description)
-    hex_instruction_field_decode = afd.int_to_32bit_hex_instruction(int_instruction_field_decode)
-    assert(hex_instruction_field_decode == "03208793")
+    asm_instructions = [ "addi r15, r1, 50" ]
+    hex_instructions_expected = [ "03208793" ]
+    hex_instructions = compiler.asm_to_hex(asm_instructions, isa)
+    assert(hex_instructions == hex_instructions_expected )
 
 def test_immediate_load():
-    instruction = "lw r14, 8(r2)"
-    int_instruction_field_decode = asm.instruction_decode(instruction, instructions_description)
-    hex_instruction_field_decode = afd.int_to_32bit_hex_instruction(int_instruction_field_decode)
-    assert(hex_instruction_field_decode == "00812703")
+    asm_instructions = "lw r14, 8(r2)"
+    hex_instructions_expected = [ "00812703" ]
+    hex_instructions = compiler.asm_to_hex(asm_instructions, isa)
+    assert(hex_instructions == hex_instructions_expected )
