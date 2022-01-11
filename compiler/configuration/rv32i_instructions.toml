@@ -66,7 +66,7 @@ subfields = [{ bits = 8,  offset = 12 },
 RTYPE_BASE = [ "add","sll","slt","sltu","xor","srl","or","and" ]
 RTYPE_EXTRA = [ "sub", "sra" ]
 [RV32I.TYPE.RTYPE.OVERRIDES]
-RTYPE_BASE  = { opcode = 0x33, funct7 = 0 }
+RTYPE_BASE  = { opcode = 0x33, funct7 = 0 , funct3 = { add = 0, sll = 1} }
 RTYPE_EXTRA = { opcode = 0x33, funct7 = 32 }
 [RV32I.TYPE.RTYPE.INSTRUCTION_FIELDS]
 fields    = [ "opcode","funct3", "funct7", "rs1", "rs2", "rd" ] 
