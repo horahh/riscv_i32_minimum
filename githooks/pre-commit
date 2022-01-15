@@ -42,7 +42,7 @@ if [ $? -ne 0 ] || [ ! -z "$files_not_in_commit" ]; then
  exit 1
 fi
 
-lizard --CCN 10 --arguments 3 --length 50 --Threshold nloc=50 --ignore_warnings 10
+lizard --CCN 10 --arguments 4 --length 50 --Threshold nloc=50 --ignore_warnings 10
 if [ $? -ne 0 ]; then
  echo "Code must be compliant with lizard before commit!"
  exit 1
