@@ -77,7 +77,7 @@ ITYPE     = [ "addi", "slti", "sltiu", "xori", "ori", "andi" ]
 ITYPE_J   = [ "jalr" ] 
 ITYPE_LOAD= [ "lb", "lh", "lw", "lbu", "lhu" ]
 [RV32I.TYPE.ITYPE.OVERRIDES]
-ITYPE     = { opcode = 0x13 }
+ITYPE     = { opcode = 0x13 , funct3 = 0}
 ITYPE_J   = { opcode = 0x17 }
 ITYPE_LOAD= { opcode = 0x03 }
 [RV32I.TYPE.ITYPE.INSTRUCTION_FIELDS]

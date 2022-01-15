@@ -20,12 +20,13 @@ def test_reg_sub():
     assert hex_instructions == hex_instructions_expected
 
 
-# def test_immediate_sum_negative():
-#    asm_instructions = [ "addi r15, r1, -50" ]
-#    hex_instructions_expected = [ "fce08793" ]
-#    hex_instructions = compiler.asm_to_hex(asm_instructions, isa)
-#    assert(hex_instructions == hex_instructions_expected )
-#
+def test_immediate_sum_negative():
+    asm_instructions = ["addi r15, r1, -50"]
+    hex_instructions_expected = ["fce08793"]
+    hex_instructions = compiler.asm_to_hex(asm_instructions, isa)
+    assert hex_instructions == hex_instructions_expected
+
+
 # def test_immediate_sum_positive():
 #    asm_instructions = [ "addi r15, r1, 50" ]
 #    hex_instructions_expected = [ "03208793" ]

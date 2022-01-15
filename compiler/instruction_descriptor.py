@@ -16,6 +16,8 @@ class InstructionDescriptor:
     def set_fields(self, instruction):
         instruction_token = instruction.get_token(0)
         print(f"Token: {instruction_token}")
+        v = instruction.get_token(3)
+        print(f"value: {v}")
         field_type = self.typeDecoder.get_type(instruction.get_token(0))
         print(f"field: {field_type}")
         fields = self.__get_fields_by_type(field_type["type"])
@@ -58,7 +60,9 @@ class InstructionDescriptor:
         if not token_index:
             return
         token_value = instruction.get_token(token_index)
-        token_value = int(token_value[1:])
+        if token_value[0] == "r":
+            token_value = token_value[1:]
+        token_value = int(token_value)
 
         print(f"token value: {token_value}")
         field_value = self.__token_to_field_decode(
@@ -99,7 +103,6 @@ class InstructionDescriptor:
         for key, field in self.fields.items():
             if isinstance(field, dict):
                 field_val = field[instruction.get_token(0)]
-                print("no")
             else:
                 field_val = field
 
