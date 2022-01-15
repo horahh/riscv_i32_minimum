@@ -16,8 +16,6 @@ class InstructionDescriptor:
     def set_fields(self, instruction):
         instruction_token = instruction.get_token(0)
         print(f"Token: {instruction_token}")
-        v = instruction.get_token(3)
-        print(f"value: {v}")
         field_type = self.typeDecoder.get_type(instruction.get_token(0))
         print(f"field: {field_type}")
         fields = self.__get_fields_by_type(field_type["type"])
@@ -105,7 +103,7 @@ class InstructionDescriptor:
                 field_val = field[instruction.get_token(0)]
             else:
                 field_val = field
-
+            print(f"key {key}, value: {field_val}")
             field_hex = hex(field_val)
             print(f"key: \t{key} \tfield: \t{field_hex}")
             print(f"field value : {field_val}")
