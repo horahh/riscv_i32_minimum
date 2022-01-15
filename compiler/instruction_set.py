@@ -19,3 +19,6 @@ class InstructionSet:
 
     def __getitem__(self, index):
         return self.toml_configuration[index]
+
+    def get_field_descriptor(self, field_name):
+        return self.toml_configuration["RV32I"]["FIELDS"][field_name]

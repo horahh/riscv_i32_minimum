@@ -138,8 +138,8 @@ test:
 	pytest -vv
 
 # Create tags to browse code symbols for compiler
-ctags:
-	ctags -R *.py
+tags:
+	ctags -R */*.py
 
 help:
 	$(info $(MAKE_TARGETS)

@@ -14,15 +14,15 @@ class InstructionDescriptor:
         ]["fields"]
 
     def set_fields(self, instruction):
-        token = instruction.get_token(0)
-        print(f"Token: {token}")
+        instruction_token = instruction.get_token(0)
+        print(f"Token: {instruction_token}")
         field_type = self.typeDecoder.get_type(instruction.get_token(0))
         print(f"field: {field_type}")
         fields = self.__get_fields_by_type(field_type["type"])
         print(f"fields: {fields}")
         for field in fields:
             self.set_field(field, instruction, field_type["subtype"])
-        self.set_overrides(field_type["type"], field_type["subtype"])
+        self.set_overrides(instruction_token, field_type["type"], field_type["subtype"])
 
     def set_field(self, field_name, instruction, subtype):
         print(f"field name: {field_name}")
@@ -31,12 +31,24 @@ class InstructionDescriptor:
         self.fields[field_name] = field_value
         print(self.fields)
 
-    def set_overrides(self, instruction_type, subtype):
+    def set_overrides(self, instruction_token, instruction_type, subtype):
         overrides = self.__instruction_set["RV32I"]["TYPE"][instruction_type][
             "OVERRIDES"
         ][subtype]
         for field, override in overrides.items():
-            self.fields[field] = override
+            override_value = 0
+            if isinstance(override, dict):
+                override_value = override[instruction_token]
+            else:
+                override_value = override
+
+            field_descriptor = self.__instruction_set.get_field_descriptor(field)
+            field_size = field_descriptor["subfields"][0]["bits"]
+            field_offset = field_descriptor["subfields"][0]["offset"]
+            field_value_offset = self.__field_shift(
+                override_value, field_size, field_offset
+            )
+            self.fields[field] = field_value_offset
 
     def __get_field_descriptor(self, field_name):
         return self.__instruction_set["RV32I"]["FIELDS"][field_name]
@@ -63,7 +75,7 @@ class InstructionDescriptor:
     def __token_to_field_decode(self, set_value, subfields):
         instruction = 0
         mask32 = 0xFFFFFFFF
-        for field_meta in reversed(subfields):
+        for field_meta in subfields:
             field_mask = 2 ** (field_meta["bits"]) - 1
             field_offset = field_meta["offset"]
             field_size = field_meta["bits"]
@@ -73,6 +85,12 @@ class InstructionDescriptor:
             set_value = set_value >> field_size
         return instruction
 
+    def __field_shift(self, field_value, field_size, field_offset):
+        field_mask = 2 ** (field_size) - 1
+        final_value = field_mask & field_value
+        final_value = final_value << field_offset
+        return final_value
+
     def get_value(self, instruction):
         self.fields = {}
         self.set_fields(instruction)
@@ -81,11 +99,15 @@ class InstructionDescriptor:
         for key, field in self.fields.items():
             if isinstance(field, dict):
                 field_val = field[instruction.get_token(0)]
+                print("no")
             else:
                 field_val = field
-            print(field_val)
+
             field_hex = hex(field_val)
             print(f"key: \t{key} \tfield: \t{field_hex}")
+            print(f"field value : {field_val}")
             instruction_int |= field_val
+            instruction_hex = hex(instruction_int)
+            print(f"instruction: \t{instruction_hex}")
         # print("instruction subfield override={}".format(hex(instruction)))
         return instruction_int
