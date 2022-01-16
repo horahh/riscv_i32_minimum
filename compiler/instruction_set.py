@@ -22,3 +22,37 @@ class InstructionSet:
 
     def get_field_descriptor(self, field_name):
         return self.toml_configuration["RV32I"]["FIELDS"][field_name]
+
+    def get_fields(self, field_type):
+        return self.toml_configuration["RV32I"]["TYPE"][field_type][
+            "INSTRUCTION_FIELDS"
+        ]["fields"]
+
+    def get_field_overrides(self, instruction_type, subtype, instruction_token):
+        overrides = self.toml_configuration["RV32I"]["TYPE"][instruction_type][
+            "OVERRIDES"
+        ][subtype]
+        for field, override in overrides.items():
+            override_value = 0
+            if isinstance(override, dict):
+                override_value = override[instruction_token]
+            else:
+                override_value = override
+            yield field, override_value
+
+    def get_token_index(self, field_name, subtype):
+        field_descriptor = self.get_field_descriptor(field_name)
+        if isinstance(field_descriptor["token_index"], dict):
+            return field_descriptor["token_index"][subtype]
+        return field_descriptor["token_index"]
+
+    def get_subfields(self, field_name):
+        subfields = self.get_field_descriptor(field_name)["subfields"]
+        for subfield in subfields:
+            yield subfield["bits"], subfield["offset"]
+
+    def get_field_size(self, field_name):
+        return self.get_field_descriptor(field_name)["subfields"][0]["bits"]
+
+    def get_field_offset(self, field_name):
+        return self.get_field_descriptor(field_name)["subfields"][0]["offset"]
