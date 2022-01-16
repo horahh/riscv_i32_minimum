@@ -3,6 +3,11 @@ import instruction_descriptor
 
 
 class Instruction:
+    """
+    Class to hold the original instruction ASM representation.
+    Responsible to provide split methods to decode instruction into tokens and also its final hex representation.
+    """
+
     def __init__(self, instruction_string, descriptor):
         self.instruction_set_descriptor = descriptor
         self.instruction_string = instruction_string

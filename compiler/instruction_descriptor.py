@@ -3,6 +3,13 @@ import type_decoder
 
 
 class InstructionDescriptor:
+    """
+    Class to translate the ASM instruction object into binary.
+    Holds the ISA definition from the InstructioSet object.
+    Responsible of translation from instruction tokens to the bitfields
+    into the final binary representation
+    """
+
     def __init__(self, instruction_set_obj):
         self.__instruction_set = instruction_set_obj
         self.typeDecoder = type_decoder.TypeDecoder(self.__instruction_set)

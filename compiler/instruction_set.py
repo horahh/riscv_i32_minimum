@@ -2,6 +2,13 @@ import toml
 
 
 class InstructionSet:
+    """
+    Class to hold the description provided by the toml file.
+    Responsible of providing information from instructions to other classes.
+    The idea is is abstract the TOML description and provide necessary pieces of
+    information by providing accessors to specific data by given tokens
+    """
+
     def __init__(self, instruction_set_configuration_file):
         self.toml_configuration = self.__get_instruction_set_configuration(
             instruction_set_configuration_file
