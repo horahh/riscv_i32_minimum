@@ -39,10 +39,4 @@ module memory(
    always @(posedge clock & write_enable) begin
       random_access_memory[write_word_address] <= write_value;
    end
-
-   initial
-   begin
-      $readmemh("asm_to_hex/code.hex",random_access_memory);
-   end
-
 endmodule

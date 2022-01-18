@@ -7,7 +7,8 @@ module test_case_rv32(
 
 parameter CLOCK_HALF_PERIOD = 1;
 
-initial begin
+initial 
+begin
    $dumpfile("test_case_rv32.vcd");
    $dumpvars();
    $monitor("clock=%h, pc=%h, instruction=%h, rs1=%h, rs2=%h, rd=%h, rs1_value=%h, rs2_value=%h, rd_value=%h, alu_register_register=%b, opcode=%h, funct7=%h, funct3=%h \n",
@@ -28,12 +29,12 @@ initial begin
       test_bench_rv32.execute_0.alu_rv_0.funct7,
       test_bench_rv32.execute_0.alu_rv_0.funct3
    );
-   //$monitor("clock=%h, alu_base_enable=%h,  alu_extra_enable=%h\n", clock,test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.alu_base_enable, test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_extra_0.alu_extra_enable);
    #100 
    $finish;
 end
 
-initial begin
+initial 
+begin
    clock  = 0;
    enable = 1;
    forever begin
@@ -41,10 +42,16 @@ initial begin
    end
 end
 
-initial begin
+initial 
+begin
    $readmemh("default_register_init.hex",
       test_bench_rv32.register_file_0.registers
    );
+end
+
+initial 
+begin
+      $readmemh("bin/code.hex",test_bench_rv32.memory_0.random_access_memory);
 end
 
 endmodule
