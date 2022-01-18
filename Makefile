@@ -116,8 +116,13 @@ OUTPUT_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.vcd' -o -name '*.o
 ################################################################################
 #################### COMPILE ASM ###############################################
 ################################################################################
-
-COMPILE_ASM = python compiler/compiler.py --asm asm/code.asm --bin bin/code.hex --toml compiler/configuration/rv32i_instructions.toml
+ASM_ARG      = --asm
+ASM_CODE     = asm/code.asm
+BIN_ARG      = --bin
+BIN_FILE     = bin/code.hex
+CONFIG_ARG   = --toml
+CONFIG_FILE  = compiler/configuration/rv32i_instructions.toml
+ASM_COMPILER = python compiler/compiler.py
 
 ################################################################################
 #################### COMPILATION AND SIMULATION TARGETS ########################
@@ -126,7 +131,7 @@ all:
 	@echo $(VERILOG_FILES)
 	@echo $(IP_NAME)
 
-	$(COMPILE_ASM)
+	$(ASM_COMPILER) $(ASM_ARG) $(ASM_CODE) $(BIN_ARG) $(BIN_FILE) $(CONFIG_ARG) $(CONFIG_FILE)
 	$(VERILOG_COMPILER) $(VERILOG_FLAGS) $(VERILOG_OUTPUT) $(TEST_BENCH_FILE) $(TEST_CASE_FILE) $(VERILOG_FILES)
 	$(VCD_GENERATION) $(VCD_FLAGS) $(VCD_LOG) $(VERILOG_OUTPUT) > $(VCD_OUTPUT)
 
@@ -134,7 +139,7 @@ sim:
 	$(WAVE_GENERATION_TOOL) $(VCD_GTKWAVE) &
 
 bin:
-	$(COMPILE_ASM)
+	$(ASM_COMPILER) $(ASM_ARG) $(ASM_CODE) $(BIN_ARG) $(BIN_FILE) $(CONFIG_ARG) $(CONFIG_FILE)
 
 test:
 	pytest -vv
