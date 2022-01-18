@@ -99,6 +99,8 @@ VERILOG_OUTPUT       = $(IP_BLOCK)/$(IP_NAME).out
 VCD_GENERATION       = vvp
 VCD_FLAGS            = -v -l
 VCD_OUTPUT           = $(IP_BLOCK)/$(IP_NAME).vcd
+TEST_CASE            = "test_case_"
+VCD_GTKWAVE          = $(IP_BLOCK)/$(TEST_CASE)$(IP_NAME).vcd
 
 WAVE_GENERATION_TOOL = gtkwave
 
@@ -129,7 +131,7 @@ all:
 	$(VCD_GENERATION) $(VCD_FLAGS) $(VCD_LOG) $(VERILOG_OUTPUT) > $(VCD_OUTPUT)
 
 sim:
-	$(WAVE_GENERATION_TOOL) $(VCD_OUTPUT) &
+	$(WAVE_GENERATION_TOOL) $(VCD_GTKWAVE) &
 
 bin:
 	$(COMPILE_ASM)
