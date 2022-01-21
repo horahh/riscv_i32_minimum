@@ -1,5 +1,16 @@
+import logging
+
 import instruction_set
 import type_decoder
+
+formatter = logging.Formatter("%(asctime)s:%(levelname)s:%(message)s")
+file_handler = logging.FileHandler(f"{__name__}.log")
+file_handler.setLevel(logging.ERROR)
+# file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(file_handler)
 
 
 class InstructionDescriptor:
@@ -17,20 +28,20 @@ class InstructionDescriptor:
 
     def set_fields(self, instruction):
         instruction_token = instruction.get_token(0)
-        print(f"Token: {instruction_token}")
+        logger.debug(f"Token: {instruction_token}")
         field_type = self.typeDecoder.get_type(instruction.get_token(0))
-        print(f"field: {field_type}")
+        logger.debug(f"field: {field_type}")
         fields = self.__instruction_set.get_fields(field_type["type"])
-        print(f"fields: {fields}")
+        logger.debug(f"fields: {fields}")
         for field in fields:
             self.set_field(field, instruction, field_type["subtype"])
         self.set_overrides(instruction_token, field_type["type"], field_type["subtype"])
 
     def set_field(self, field_name, instruction, subtype):
-        print(f"field name: {field_name}")
+        logger.debug(f"field name: {field_name}")
         field_value = self.__get_field_value(field_name, instruction, subtype)
         self.fields[field_name] = field_value
-        print(self.fields)
+        logger.debug(self.fields)
 
     def set_overrides(self, instruction_token, instruction_type, subtype):
         for field, override_value in self.__instruction_set.get_field_overrides(
@@ -55,9 +66,9 @@ class InstructionDescriptor:
             token_value = token_value[1:]
         token_value = int(token_value)
 
-        print(f"token value: {token_value}")
+        logger.debug(f"token value: {token_value}")
         field_value = self.__token_to_field_decode(token_value, field_name)
-        print(f"field value: {field_value}")
+        logger.debug(f"field value: {field_value}")
         return field_value
 
     def __token_to_field_decode(self, field_value, field_name):
@@ -88,12 +99,12 @@ class InstructionDescriptor:
                 field_val = field[instruction.get_token(0)]
             else:
                 field_val = field
-            print(f"key {key}, value: {field_val}")
+            logger.debug(f"key {key}, value: {field_val}")
             field_hex = hex(field_val)
-            print(f"key: \t{key} \tfield: \t{field_hex}")
-            print(f"field value : {field_val}")
+            logger.debug(f"key: \t{key} \tfield: \t{field_hex}")
+            logger.debug(f"field value : {field_val}")
             instruction_int |= field_val
             instruction_hex = hex(instruction_int)
-            print(f"instruction: \t{instruction_hex}")
-        # print("instruction subfield override={}".format(hex(instruction)))
+            logger.debug(f"instruction: \t{instruction_hex}")
+        # logger.debug("instruction subfield override={}".format(hex(instruction)))
         return instruction_int

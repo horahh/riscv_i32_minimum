@@ -11,6 +11,7 @@ initial
 begin
    $dumpfile("test_case_rv32.vcd");
    $dumpvars();
+   /*
    $monitor("clock=%h, pc=%h, instruction=%h, rs1=%h, rs2=%h, rd=%h, rs1_value=%h, rs2_value=%h, rd_value=%h, alu_register_register=%b, opcode=%h, funct7=%h, funct3=%h \n",
       clock, 
       test_bench_rv32.pc, 
@@ -29,6 +30,7 @@ begin
       test_bench_rv32.execute_0.alu_rv_0.funct7,
       test_bench_rv32.execute_0.alu_rv_0.funct3
    );
+   */
    #100 
    $finish;
 end
