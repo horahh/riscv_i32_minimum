@@ -50,21 +50,21 @@ define IP_BLOCK_HELP
 
  EXAMPLES:
 
-  Compile a specific Project IP
+  Compile a specific Project IP 
 
- $ make IP_BLOCK=alu_rv/alu/alu_base
-	alu_rv/alu/alu_base/alu_base.v
+ $ make IP_BLOCK=core_rtl/rv32i/alu/alu_base
+	core_rtl/rv32i/alu/alu_base/alu_base.v
 	alu_base
-	iverilog -o alu_rv/alu/alu_base/alu_base.out alu_rv/alu/alu_base/test_bench_alu_base.v alu_rv/alu/alu_base/test_case_alu_base.v alu_rv/alu/alu_base/alu_base.v
-	vvp -v -l alu_rv/alu/alu_base/alu_base.log alu_rv/alu/alu_base/alu_base.out > alu_base.vcd
+	iverilog -o core_rtl/rv32i/alu/alu_base/alu_base.out core_rtl/rv32i/alu/alu_base/test_bench_alu_base.v core_rtl/rv32i/alu/alu_base/test_case_alu_base.v core_rtl/rv32i/alu/alu_base/alu_base.v
+	vvp -v -l core_rtl/rv32i/alu/alu_base/alu_base.log core_rtl/rv32i/alu/alu_base/alu_base.out > alu_base.vcd
 	... Linking
 	... Removing symbol tables
 	... Compiletf functions
 
   Clean specific Project IP
 
-	$ make clean IP_BLOCK=alu_rv/alu/alu_base
-	rm -f alu_rv/alu/alu_base/*.out; rm -f alu_rv/alu/alu_base/*.vcd; rm -f alu_rv/alu/alu_base/*.lxt2; rm -f alu_rv/alu/alu_base/*.log
+	$ make clean IP_BLOCK=core_rtl/rv32i/alu/alu_base
+	rm -f core_rtl/rv32i/alu/alu_base/*.out; rm -f core_rtl/rv32i/alu/alu_base/*.vcd; rm -f core_rtl/rv32i/alu/alu_base/*.lxt2; rm -f core_rtl/rv32i/alu/alu_base/*.log
 	
 
 endef
@@ -72,8 +72,8 @@ endef
 ################################################################################
 #################### VERILOG_FILES     ##########################################
 ################################################################################
-# Execute the project from the root as base
-IP_BLOCK             = .
+# Execute the project from the root of the rv32i as base 
+IP_BLOCK             = core_rtl/rv32i
 # search for all verilog files 
 # exclude the test files from the list
 VERILOG_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.v' ! -name '*test*' \))
