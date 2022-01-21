@@ -1,75 +1,4 @@
 ################################################################################
-##################### SOURCE FILES #############################################
-################################################################################
-# assign a multiline variable for help
-# https://stackoverflow.com/questions/649246/is-it-possible-to-create-a-multi-line-string-variable-in-a-makefile 
-define MAKE_TARGETS
- There are currently 4 supported targets for compilation:
-
- all (DEFAULT) 
- Refers to a verilog IP_BLOCK that is selected with the IP_BLOCK variable set to a specific directory.
-
- sim
- Opens a gtkwave instance to explore the simulation signals graphically
-
- clean 
- cleans up the whole directory tree of compilation objects.
-
- bin
- Creates a translation from the asm to the hex file to be loaded into memory by the RTL simulation
- Simulation expects a 4K word memory (4096 bytes)
-
- test
- Test the compiler from ASM to HEX covertion for different instructions supported
-
-endef
-
-define IP_BLOCK_HELP  
- IP_BLOCK refers to the ip desired to be compiled/simulated 
- By default refers to the whole system (current directory) 
-
- Each directory is supposed to have a self contained ip with
- test bench, a test and connections for all its inner ips.
-
- The directories are recursive so that each ip can have 
- another ip inside with the same requirements as test bench, 
- a test and connections for its inner ips.
-
- IP_BLOCK can be changed to the directory of the IP that is 
- wanted to be compiled/simulated provided that has all 
- dependencies of the makefile which are: 
- test_bench_*.v 
- test_case_*.v 
- <ip_block_0>.v <ip_block_1>.v <ip_block_2>.v ... 
- <inner_ip_directory0> <inner_ip_directory1> <inner_ip_directory2> ...
-
- IP_BLOCK can be overwritten by the ip_block directory path i.e. alu, 
- register_file, alu/alu_base, etc 
-
- This applies in order to compile/simmulate a specific block only "
-
- EXAMPLES:
-
-  Compile a specific Project IP 
-
- $ make IP_BLOCK=core_rtl/rv32i/alu/alu_base
-	core_rtl/rv32i/alu/alu_base/alu_base.v
-	alu_base
-	iverilog -o core_rtl/rv32i/alu/alu_base/alu_base.out core_rtl/rv32i/alu/alu_base/test_bench_alu_base.v core_rtl/rv32i/alu/alu_base/test_case_alu_base.v core_rtl/rv32i/alu/alu_base/alu_base.v
-	vvp -v -l core_rtl/rv32i/alu/alu_base/alu_base.log core_rtl/rv32i/alu/alu_base/alu_base.out > alu_base.vcd
-	... Linking
-	... Removing symbol tables
-	... Compiletf functions
-
-  Clean specific Project IP
-
-	$ make clean IP_BLOCK=core_rtl/rv32i/alu/alu_base
-	rm -f core_rtl/rv32i/alu/alu_base/*.out; rm -f core_rtl/rv32i/alu/alu_base/*.vcd; rm -f core_rtl/rv32i/alu/alu_base/*.lxt2; rm -f core_rtl/rv32i/alu/alu_base/*.log
-	
-
-endef
-
-################################################################################
 #################### VERILOG_FILES     ##########################################
 ################################################################################
 # Execute the project from the root of the rv32i as base 
@@ -79,6 +8,12 @@ IP_BLOCK             = core_rtl/rv32i
 VERILOG_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.v' ! -name '*test*' \))
 TEST_BENCH_FILE      = $(wildcard $(IP_BLOCK)/test_bench_*.v)
 TEST_CASE_FILE       = $(wildcard $(IP_BLOCK)/test_case_*.v)
+################################################################################
+#################### IP_NAME          ##########################################
+################################################################################
+README               = README.md
+RV32I_README         = $(IP_BLOCK)/$(README)
+
 
 ################################################################################
 #################### IP_NAME          ##########################################
@@ -149,8 +84,7 @@ tags:
 	ctags -R */*.py
 
 help:
-	$(info $(MAKE_TARGETS)
-	$(info $(IP_BLOCK_HELP))
+	cat $(RV32I_README)
 
 clean:
 	@echo $(OUTPUT_FILES)
