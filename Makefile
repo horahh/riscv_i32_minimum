@@ -64,19 +64,32 @@ ASM_TARGET   = $(ASM_COMPILER) $(ASM_ARG) $(ASM_CODE) $(BIN_ARG) $(BIN_FILE) $(C
 ################################################################################
 #################### COMPILATION AND SIMULATION TARGETS ########################
 ################################################################################
-all:
-	@echo $(VERILOG_FILES)
-	@echo $(IP_NAME)
+.PHONY: all sim bin rtl simulation sim test tags help clean
 
-	$(ASM_TARGET)
+all:
+	@echo "COMPILING IP: " $(IP_NAME)
+
+	make bin
+	make rtl 
+	make simulation
+
+rtl:
+	@echo "COMPILING VERILOG RTL..."
 	$(VERILOG_TARGET)
+	@echo "COMPILING VERILOG RTL... DONE"
+
+simulation:
+	@echo "GENERATING SIMULATION OUTPUT FILE..."
 	$(VCD_GENERATION) $(VCD_FLAGS) $(VCD_LOG) $(VERILOG_OUTPUT) > $(VCD_OUTPUT)
+	@echo "GENERATING SIMULATION OUTPUT FILE... DONE"
 
 sim:
 	$(WAVE_GENERATION_TOOL) $(VCD_GTKWAVE) &
 
 bin:
+	@echo "COMPILING ASM TO BIN..."
 	$(ASM_TARGET)
+	@echo "COMPILING ASM TO BIN... DONE"
 
 test:
 	pytest -vv

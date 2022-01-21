@@ -1,4 +1,4 @@
-add r10, r6, r2
+ add r10, r6, r2
 add r10, r6, r2
 add r10, r6, r2
 add r10, r6, r2
