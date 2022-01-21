@@ -45,10 +45,17 @@ def asm_to_hex(asm_instructions, isa):
     return hex_instructions
 
 
+def write_output(instructions, filename):
+    with open(filename, "w") as filehandle:
+        for instruction in instructions:
+            filehandle.write(f"{instruction}\n")
+
+
 def asm_to_binary(args):
     isa = instruction_set.InstructionSet(args.toml)
     asm_instructions = get_asm_instructions(args.asm)
     int_instructions = asm_to_hex(asm_instructions, isa)
+    write_output(int_instructions, args.bin)
 
 
 def main():
