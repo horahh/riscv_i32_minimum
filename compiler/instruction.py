@@ -8,7 +8,7 @@ class Instruction:
     Responsible to provide split methods to decode instruction into tokens and also its final hex representation.
     """
 
-    def __init__(self, instruction_string, descriptor):
+    def __init__(self, instruction_string, descriptor=None):
         self.instruction_set_descriptor = descriptor
         self.instruction_string = instruction_string
         self.tokens = self.__decode_tokens()

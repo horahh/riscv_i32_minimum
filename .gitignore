@@ -9,3 +9,4 @@
 *.gtkw
 **/__pycache__
 tags
+*.csv

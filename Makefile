@@ -62,8 +62,14 @@ ASM_COMPILER = python compiler/compiler.py
 ASM_TARGET   = $(ASM_COMPILER) $(ASM_ARG) $(ASM_CODE) $(BIN_ARG) $(BIN_FILE) $(CONFIG_ARG) $(CONFIG_FILE)
 
 ################################################################################
-#################### COMPILATION AND SIMULATION TARGETS ########################
+#################### EMULATION TARGET #########################################
 ################################################################################
+EMULATOR          = python emulator/emulator.py
+
+################################################################################
+#################### SIMULATION AND SIMULATION TARGETS  ########################
+################################################################################
+
 .PHONY: all sim bin rtl simulation sim test tags help clean
 
 all:
@@ -90,6 +96,11 @@ bin:
 	@echo "COMPILING ASM TO BIN..."
 	$(ASM_TARGET)
 	@echo "COMPILING ASM TO BIN... DONE"
+
+emulation:
+	@echo "START EMULATION..."
+	$(EMULATOR)
+	@echo "END EMULATION..."
 
 test:
 	pytest -vv
