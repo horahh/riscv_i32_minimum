@@ -122,6 +122,9 @@ class SystemEmulator:
         instructionMethod(instruction)
 
     def get_attribute(self, instruction_name):
+        """
+        Function to return a function corresponding to the instruction to emulate  if present, otherwise returning a stub function that does nothing.
+        """
         if not hasattr(self, instruction_name):
             return self.stub
         instructionMethod = getattr(self, instruction_name)
@@ -132,8 +135,9 @@ class SystemEmulator:
         Method to dump state of the system at any point in order to verify against HW state.
         """
         register_name = lambda index: f"r{index}"
+        get32_bits = lambda register: register & (2 ** 32 - 1)
         register_dump = {
-            register_name(index): register
+            register_name(index): get32_bits(register)
             for index, register in enumerate(self.registers)
         }
         return register_dump
@@ -145,12 +149,28 @@ class SystemEmulator:
         pass
 
     def add(self, instruction):
+        rd = instruction.get_token(1)
         rs1 = instruction.get_token(2)
         rs2 = instruction.get_token(3)
-        rd = instruction.get_token(1)
         if rd == "r0":
             return
         self.registers[rd] = self.registers[rs1] + self.registers[rs2]
+
+    def sub(self, instruction):
+        rd = instruction.get_token(1)
+        rs1 = instruction.get_token(2)
+        rs2 = instruction.get_token(3)
+        if rd == "r0":
+            return
+        self.registers[rd] = self.registers[rs1] - self.registers[rs2]
+
+    def addi(self, instruction):
+        rd = instruction.get_token(1)
+        rs1 = instruction.get_token(2)
+        immediate = int(instruction.get_token(3))
+        if rd == "r0":
+            return
+        self.registers[rd] = self.registers[rs1] + immediate
 
 
 class Memory:
