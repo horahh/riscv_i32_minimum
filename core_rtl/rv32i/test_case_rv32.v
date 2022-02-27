@@ -12,9 +12,10 @@ reg [31:0]cycle_counter;
 
 initial 
 begin
-   $dumpfile("dump_test_case_rv32.vcd");
+   $dumpfile("test_case_rv32.vcd");
    $dumpvars();
-/*   $monitorh("counter=%4d,pc=%8d,instruction=%8d,x0=%8d,x1=%8d,x2=%8d,x3=%8d,x4=%8d,x5=%8d,x6=%8d,x7=%8d,x8=%8d,x9=%8d,x10=%8d,x11=%8d,x12=%8d,x13=%8d,x14=%8d,x15=%8d,x16=%8d,x17=%8d,x18=%8d,x18=%8d,x19=%8d,x20=%8d,x21=%8d,x22=%8d,x23=%8d,x24=%8d,x25=%8d,x26=%8d,x27=%8d,x28=%8d,x29=%8d,x30=%8d,x31=%8d", 
+   $monitorh("counter=%04d,pc=%08x,instruction=%08x,x0=%08x,x1=%08x,x2=%08x,x3=%08x,x4=%08x,x5=%08x,x6=%08x,x7=%08x,x8=%08x,x9=%08x,x10=%08x,x11=%08x,x12=%08x,x13=%08x,x14=%08x,x15=%08x,x16=%08x,x17=%08x,x18=%08x,x19=%08x,x20=%08x,x21=%08x,x22=%08x,x23=%08x,x24=%08x,x25=%08x,x26=%08x,x27=%08x,x28=%08x,x29=%08x,x30=%08x,x31=%08x", 
+      cycle_counter,
       test_bench_rv32.pc,
       test_bench_rv32.instruction,
       test_bench_rv32.register_file_0.registers[0],
@@ -50,7 +51,7 @@ begin
       test_bench_rv32.register_file_0.registers[30],
       test_bench_rv32.register_file_0.registers[31]
    );
-   */
+   /*
    $monitor("clock=%h, pc=%h, instruction=%h, rs1=%h, rs2=%h, rd=%h, rs1_value=%h, rs2_value=%h, rd_value=%h, alu_register_register=%b, opcode=%h, funct7=%h, funct3=%h \n",
       clock, 
       test_bench_rv32.pc, 
@@ -69,6 +70,7 @@ begin
       test_bench_rv32.execute_0.alu_rv_0.funct7,
       test_bench_rv32.execute_0.alu_rv_0.funct3
    );
+   */
    #100 
    $finish;
 end
@@ -79,10 +81,15 @@ begin
    clock  = 0;
    enable = 1;
    cycle_counter = 0;
+   test_bench_rv32.program_counter_0.pc=0;
+
    forever begin
       #CLOCK_PERIOD cycle_counter += 1;
    end
+end
 
+initial
+begin
    forever begin
       #CLOCK_HALF_PERIOD clock = !clock;
    end
