@@ -80,6 +80,7 @@ class InstructionDescriptor:
             subfield_value = self.__field_shift(
                 field_value, subfield_size, subfield_offset
             )
+            field_value >>= subfield_size
             instruction |= subfield_value
         return instruction
 
