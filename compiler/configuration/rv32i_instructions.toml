@@ -38,15 +38,18 @@ subfields = [{ bits = 12, offset = 20 }]
 
 [RV32I.FIELDS.immediate12_stype]
 token_index = 2 
-subfields = [ { bits = 5,  offset =  7 },
-             { bits = 7,  offset = 25 },]
+subfields = [ 
+              { bits = 5,  offset =  7 },
+              { bits = 7,  offset = 25 },]
 
 [RV32I.FIELDS.immediate12_btype]
 token_index = 3 
-subfields = [{ bits = 1,  offset = 31 },
+subfields = [
              { bits = 1,  offset =  7 },
+             { bits = 4,  offset =  8 },
              { bits = 6,  offset = 25 },
-             { bits = 4,  offset =  8 }]
+             { bits = 1,  offset = 31 },
+             ]
 
 [RV32I.FIELDS.immediate20_utype]
 token_index = 3 

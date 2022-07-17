@@ -20,13 +20,22 @@ module execute(
    output [31:0] rd_value
 );
 
+// TODO: remove this
    reg register_file_write_enable = 1'b1;
 // instantiate functional units
    alu_rv alu_rv_0(
       .clock(clock), 
-      .register_type_alu(register_type_alu), 
-      .immediate_type_alu(immediate_type_alu),
       .instruction(instruction), 
+      .alu_branch_enable(alu_branch_enable),
+      .alu_unconditional_jalr_enable(alu_unconditional_jalr_enable),
+      .alu_unconditional_jal_enable(alu_unconditional_jal_enable),
+      .alu_upper_immediate_lui_enable(alu_upper_immediate_lui_enable),
+      .alu_upper_immediate_auipc_enable(alu_upper_immediate_auipc_enable),
+      .alu_register_immediate_enable(alu_register_immediate_enable),
+      .alu_register_register_enable(alu_register_register_enable), 
+      .pc(pc),
+      .next_pc_valid(next_pc_valid),
+      .next_pc(next_pc),
       .rs1_value(rs1_value),
       .rs2_value(rs2_value),
       .rd_value(rd_value)

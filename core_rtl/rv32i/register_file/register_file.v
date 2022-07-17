@@ -18,14 +18,17 @@ module register_file(
 	reg    [31:0] registers[0:31];
 
    // define a register stuck at zero apart from the others
-   reg    [31:0] register_zero = `ZERO;
+   //reg    register_zero [0:31] = `ZERO;
 
 	always@(posedge clock & register_file_write_enable) begin
+      if (rd == 0)
+         registers[rd] <= `ZERO;
+      else
 			registers[rd] <= rd_value;
 	end
 
    always @(posedge clock) begin
-      rs1_value <= rs1 ? registers[rs1] : register_zero;
+      rs1_value <=  registers[rs1] ;
    end
 
    always @(posedge clock) begin

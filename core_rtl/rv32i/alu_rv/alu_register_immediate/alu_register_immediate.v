@@ -31,7 +31,7 @@ always @(posedge clock & alu_register_immediate_enable) begin
 end
 
 	always @(posedge clock & !alu_register_immediate_enable) begin
-		rd_value = `HIGH_IMPEDANCE;
+		rd_value <= `HIGH_IMPEDANCE;
 	end
 
 endmodule

@@ -36,7 +36,9 @@ VCD_GENERATION       = vvp
 VCD_FLAGS            = -v -l
 VCD_OUTPUT           = $(IP_BLOCK)/$(IP_NAME).vcd
 TEST_CASE            = "test_case_"
-VCD_GTKWAVE          = $(IP_BLOCK)/$(TEST_CASE)$(IP_NAME).vcd
+#VCD_GTKWAVE          = $(IP_BLOCK)/$(TEST_CASE)$(IP_NAME).vcd
+# simulation file gets dump in the root dir from the bench itself
+VCD_GTKWAVE          = $(TEST_CASE)$(IP_NAME).vcd
 
 WAVE_GENERATION_TOOL = gtkwave
 
@@ -52,14 +54,14 @@ OUTPUT_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.vcd' -o -name '*.o
 ################################################################################
 #################### COMPILE ASM ###############################################
 ################################################################################
-ASM_ARG      = --asm
-ASM_CODE     = asm/code.asm
-BIN_ARG      = --bin
+ASM_FILE     = asm/code.asm
 BIN_FILE     = bin/code.hex
-CONFIG_ARG   = --toml
 CONFIG_FILE  = compiler/configuration/rv32i_instructions.toml
+ASM_ARG      = --asm $(ASM_FILE)
+BIN_ARG      = --bin $(BIN_FILE)
+CONFIG_ARG   = --toml $(CONFIG_FILE)
 ASM_COMPILER = python compiler/compiler.py
-ASM_TARGET   = $(ASM_COMPILER) $(ASM_ARG) $(ASM_CODE) $(BIN_ARG) $(BIN_FILE) $(CONFIG_ARG) $(CONFIG_FILE)
+ASM_TARGET   = $(ASM_COMPILER) $(ASM_ARG) $(BIN_ARG) $(CONFIG_ARG) 
 
 ################################################################################
 #################### EMULATION TARGET #########################################
@@ -70,7 +72,7 @@ EMULATOR          = python emulator/emulator.py
 #################### SIMULATION AND SIMULATION TARGETS  ########################
 ################################################################################
 
-.PHONY: all sim bin rtl simulation sim test tags help clean
+.PHONY: all sim bin rtl simulation test tags help clean
 
 all:
 	@echo "COMPILING IP: " $(IP_NAME)

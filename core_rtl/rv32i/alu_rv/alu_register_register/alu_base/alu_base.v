@@ -25,20 +25,20 @@ module alu_base(
 
 	always @(posedge clock & alu_base_enable) begin
 		case(funct3)
-			ADD:     rd_value <= rs1_value +  rs2_value;
-			SLL:     rd_value <= rs1_value << rs2_value;
+			ADD:     rd_value <=         rs1_value  +          rs2_value;
+			SLL:     rd_value <=         rs1_value  <<         rs2_value;
 			SLT:     rd_value <= $signed(rs1_value) <  $signed(rs2_value) ? `ONE : `ZERO;
-			SLTU:    rd_value <= rs1_value <  rs2_value ? `ONE : `ZERO;
-			XOR:     rd_value <= rs1_value ^  rs2_value;
-			SRL:     rd_value <= rs1_value >> rs2_value;
-			OR:      rd_value <= rs1_value |  rs2_value;
-			AND:     rd_value <= rs1_value &  rs2_value;
-			default: rd_value <= 32'b0;
+			SLTU:    rd_value <=         rs1_value  <          rs2_value  ? `ONE : `ZERO;
+			XOR:     rd_value <=         rs1_value  ^          rs2_value;
+			SRL:     rd_value <=         rs1_value  >>         rs2_value;
+			OR:      rd_value <=         rs1_value  |          rs2_value;
+			AND:     rd_value <=         rs1_value  &          rs2_value;
+			default: rd_value <=         `ZERO;
 		endcase
 	end
 
 	always @(posedge clock & !alu_base_enable) begin
-		rd_value = `HIGH_IMPEDANCE;
+		rd_value <= `HIGH_IMPEDANCE;
 	end
 
 endmodule

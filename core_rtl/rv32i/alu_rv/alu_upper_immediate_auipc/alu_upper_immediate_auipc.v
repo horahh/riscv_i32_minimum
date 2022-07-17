@@ -16,6 +16,6 @@ module alu_upper_immediate_auipc(
    end
 
 	always @(posedge clock & !alu_upper_immediate_auipc_enable) begin
-		rd_value = `HIGH_IMPEDANCE;
+		rd_value <= `HIGH_IMPEDANCE;
 	end
 endmodule

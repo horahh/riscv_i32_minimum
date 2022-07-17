@@ -17,6 +17,6 @@ module alu_upper_immediate_lui(
    end
 
 	always @(posedge clock & !alu_upper_immediate_lui_enable) begin
-		rd_value = `HIGH_IMPEDANCE;
+		rd_value <= `HIGH_IMPEDANCE;
 	end
 endmodule

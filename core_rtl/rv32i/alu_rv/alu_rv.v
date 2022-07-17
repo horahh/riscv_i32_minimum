@@ -1,8 +1,14 @@
 module alu_rv(
    input         clock,
-   input         register_type_alu,
-   input         immediate_type_alu,
+   // feed from decode
    input  [31:0] instruction,
+   input         alu_branch_enable,
+   input         alu_unconditional_jalr_enable,
+   input         alu_unconditional_jal_enable,
+   input         alu_upper_immediate_lui_enable,
+   input         alu_upper_immediate_auipc_enable,
+   input         alu_register_immediate_enable,
+   input         alu_register_register_enable,
    // Register File
    input  [31:0] rs1_value,
    input  [31:0] rs2_value,
@@ -28,7 +34,6 @@ module alu_rv(
    wire [31:0] immediate12_btype;
    wire [31:0] immediate20_utype;
    wire [31:0] immediate20_jtype;
-
 decode_field decode_field_0(
    .clock(clock),
    .instruction(instruction),

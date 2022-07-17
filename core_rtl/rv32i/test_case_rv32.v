@@ -14,7 +14,7 @@ initial
 begin
    $dumpfile("test_case_rv32.vcd");
    $dumpvars();
-   $monitorh("counter=%04d,pc=%08x,instruction=%08x,x0=%08x,x1=%08x,x2=%08x,x3=%08x,x4=%08x,x5=%08x,x6=%08x,x7=%08x,x8=%08x,x9=%08x,x10=%08x,x11=%08x,x12=%08x,x13=%08x,x14=%08x,x15=%08x,x16=%08x,x17=%08x,x18=%08x,x19=%08x,x20=%08x,x21=%08x,x22=%08x,x23=%08x,x24=%08x,x25=%08x,x26=%08x,x27=%08x,x28=%08x,x29=%08x,x30=%08x,x31=%08x", 
+   $monitorh("counter=%04d,pc=%08x,instruction=%08x,r0=%08x,r1=%08x,r2=%08x,r3=%08x,r4=%08x,r5=%08x,r6=%08x,r7=%08x,r8=%08x,r9=%08x,r10=%08x,r11=%08x,r12=%08x,r13=%08x,r14=%08x,r15=%08x,r16=%08x,r17=%08x,r18=%08x,r19=%08x,r20=%08x,r21=%08x,r22=%08x,r23=%08x,r24=%08x,r25=%08x,r26=%08x,r27=%08x,r28=%08x,r29=%08x,r30=%08x,r31=%08x", 
       cycle_counter,
       test_bench_rv32.pc,
       test_bench_rv32.instruction,
@@ -78,10 +78,7 @@ end
 
 initial 
 begin
-   clock  = 0;
-   enable = 1;
    cycle_counter = 0;
-   test_bench_rv32.program_counter_0.pc=0;
 
    forever begin
       #CLOCK_PERIOD cycle_counter += 1;
@@ -90,8 +87,11 @@ end
 
 initial
 begin
+   clock  = 0;
+   enable = 1;
+   test_bench_rv32.program_counter_0.pc=0;
    forever begin
-      #CLOCK_HALF_PERIOD clock = !clock;
+      #CLOCK_HALF_PERIOD clock = ~clock;
    end
 end
 

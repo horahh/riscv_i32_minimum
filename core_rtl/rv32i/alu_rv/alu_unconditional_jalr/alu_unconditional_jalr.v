@@ -18,7 +18,7 @@ always @(posedge clock & alu_unconditional_jalr_enable ) begin
    rd_value   <= pc  + 4;
 end
 
-always @(posedge clock & alu_unconditional_jalr_enable ) begin
+always @(posedge clock & !alu_unconditional_jalr_enable ) begin
    next_pc    <= `HIGH_IMPEDANCE;
    rd_value   <= `HIGH_IMPEDANCE;
 end
