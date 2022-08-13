@@ -20,7 +20,7 @@ parameter [2:0] ANDI   = 3'h7;
 
 always @(posedge clock & alu_register_immediate_enable) begin
    case(funct3)
-      ADDI:    rd_value <= rs1_value + immediate12_itype;
+      ADDI:    rd_value <= rs1_value + $signed(immediate12_itype);
       SLTI:    rd_value <= $signed(rs1_value) < $signed(immediate12_itype) ? `ONE : `ZERO;
       SLTU:    rd_value <= rs1_value < immediate12_itype ? `ONE : `ZERO;
       XORI:    rd_value <= rs1_value ^ immediate12_itype;
