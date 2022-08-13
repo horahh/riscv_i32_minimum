@@ -34,7 +34,7 @@ module decode(
    parameter [6:0] ALU_UNCONDITIONAL_JAL          = 7'h6f;
    parameter [6:0] ALU_UPPER_IMMEDIATE_LUI        = 7'h37;
    parameter [6:0] ALU_UPPER_IMMEDIATE_AUIPC      = 7'h17;
-   parameter [6:0] ALU_REGISTER_IMMEDIATE         = 7'h0C;
+   parameter [6:0] ALU_REGISTER_IMMEDIATE         = 7'h13;
    parameter [6:0] ALU_REGISTER_REGISTER          = 7'h33;
    parameter [6:0] LOAD                           = 7'h03;
    parameter [6:0] STORE                          = 7'h23;
