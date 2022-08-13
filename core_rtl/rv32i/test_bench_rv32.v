@@ -146,7 +146,6 @@ decode_field decode_field_0(
       .rs2_value(rs2_value),
       .rd_value(rd_value)
    );
-   
 load load_0(
       .clock(clock),
       .load_enable(load_enable),

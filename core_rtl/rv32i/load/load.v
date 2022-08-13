@@ -1,4 +1,5 @@
 `define ZERO 32'b0
+`define TRISTATE 32'bz
 module load(
    input             clock,
    input             load_enable,
@@ -30,6 +31,11 @@ always @(posedge clock & load_enable) begin
       default: rd_value <= `ZERO;
    endcase
 end
+
+always @(posedge clock & !load_enable) begin
+   rd_value <= `TRISTATE ;
+end
+
 
 always @(posedge clock & load_enable) begin
    memory_read_address <= rs1_value + immediate12_itype;

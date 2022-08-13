@@ -25,7 +25,7 @@ module alu_register_register(
       .rd_value(rd_value)
    );
 
-/*   alu_extra alu_extra_0(
+   alu_extra alu_extra_0(
       .clock(clock), 
       .alu_extra_enable(alu_extra_enable), 
       .funct3(funct3), 
@@ -33,6 +33,5 @@ module alu_register_register(
       .rs2_value(rs2_value),
       .rd_value(rd_value)
    );
-   */
 
 endmodule
