@@ -8,6 +8,10 @@ IP_BLOCK             = core_rtl/rv32i
 VERILOG_FILES  = $(shell find $(IP_BLOCK)/ -type f \( -name '*.v' ! -name '*test*' \))
 TEST_BENCH_FILE      = $(wildcard $(IP_BLOCK)/test_bench_*.v)
 TEST_CASE_FILE       = $(wildcard $(IP_BLOCK)/test_case_*.v)
+
+# saved simulation file to keep interesting signals
+SAVED_SIMULATION = debug_opcode_transition.sav
+
 ################################################################################
 #################### IP_NAME          ##########################################
 ################################################################################
@@ -80,6 +84,7 @@ all:
 	make bin
 	make rtl 
 	make simulation
+	#make test
 
 rtl:
 	@echo "COMPILING VERILOG RTL..."
@@ -92,7 +97,7 @@ simulation:
 	@echo "GENERATING SIMULATION OUTPUT FILE... DONE"
 
 sim:
-	$(WAVE_GENERATION_TOOL) $(VCD_GTKWAVE) &
+	$(WAVE_GENERATION_TOOL) $(VCD_GTKWAVE) $(SAVED_SIMULATION) &
 
 bin:
 	@echo "COMPILING ASM TO BIN..."

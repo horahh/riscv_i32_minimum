@@ -7,11 +7,11 @@ module decode_field(
    output     [4:0]  rs1,
    output     [4:0]  rs2,
    output     [4:0]  rd,
-   output     [31:0] immediate12_itype,
-   output     [31:0] immediate12_stype,
-   output     [31:0] immediate12_btype,
-   output     [31:0] immediate20_utype,
-   output     [31:0] immediate20_jtype
+   output reg [31:0] immediate12_itype,
+   output reg [31:0] immediate12_stype,
+   output reg [31:0] immediate12_btype,
+   output reg [31:0] immediate20_utype,
+   output reg [31:0] immediate20_jtype
 );
 
 // Field Extraction 
@@ -27,10 +27,12 @@ reg zero    =  1'b0;
 reg zero_12 = 12'b0;
 reg zero_20 = 20'b0;
 
-assign immediate12_itype = {{zero_20},instruction[31:20]};
-assign immediate12_stype = {{funct7},{rd}};
-assign immediate12_btype = {{instruction[31]},{instruction[7]},{instruction[30:25]},{instruction[11:8]},{zero}};
-assign immediate20_utype = {{instruction[31:12]},{zero_12}};
-assign immediate20_jtype = {{instruction[31]},{instruction[19:12]},{instruction[20]},{instruction[30:21]},{zero}};
+always @(posedge clock) begin
+   immediate12_itype <= {{20{instruction[31]}},instruction[31:20]};
+   immediate12_stype <= {{funct7},{rd}};
+   immediate12_btype <= {{instruction[31]},{instruction[7]},{instruction[30:25]},{instruction[11:8]},{zero}};
+   immediate20_utype <= {{instruction[31:12]},{zero_12}};
+   immediate20_jtype <= {{instruction[31]},{instruction[19:12]},{instruction[20]},{instruction[30:21]},{zero}};
+end
 
 endmodule

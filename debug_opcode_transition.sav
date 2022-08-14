@@ -1,0 +1,41 @@
+[*]
+[*] GTKWave Analyzer v3.3.111 (w)1999-2020 BSI
+[*] Sun Aug 14 17:09:25 2022
+[*]
+[dumpfile] "/home/horacio/src/riscv_i32_minimum/test_case_rv32.vcd"
+[dumpfile_mtime] "Sun Aug 14 16:54:01 2022"
+[dumpfile_size] 45208
+[savefile] "/home/horacio/src/riscv_i32_minimum/debug_opcode_transition.sav"
+[timestart] 24930
+[size] 1920 1015
+[pos] -461 -208
+*-12.755659 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test_bench_rv32.
+[treeopen] test_bench_rv32.execute_0.
+[treeopen] test_bench_rv32.execute_0.alu_rv_0.
+[treeopen] test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.
+[sst_width] 208
+[signals_width] 262
+[sst_expanded] 1
+[sst_vpaned_height] 295
+@28
+test_bench_rv32.clock
+@22
+test_bench_rv32.opcode[6:0]
+test_bench_rv32.rs1_value[31:0]
+test_bench_rv32.rs2_value[31:0]
+test_bench_rv32.immediate12_itype[31:0]
+test_bench_rv32.rd_value[31:0]
+@28
+test_bench_rv32.alu_register_immediate_enable
+test_bench_rv32.alu_register_register_enable
+@22
+test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rd_value[31:0]
+test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rs1_value[31:0]
+test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.rs2_value[31:0]
+@28
+test_bench_rv32.execute_0.alu_rv_0.alu_register_register_0.alu_base_0.alu_base_enable
+@23
+test_bench_rv32.fetch_0.instruction[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
