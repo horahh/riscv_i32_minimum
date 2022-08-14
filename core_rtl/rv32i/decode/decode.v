@@ -43,7 +43,7 @@ module decode(
    wire [6:0] opcode;
    assign opcode = instruction[6:0];
 
-   always @(posedge clock) begin
+   always @(negedge clock) begin
       alu_branch_enable                <= opcode == ALU_BRANCH                     ? `ONE : `ZERO;
       alu_unconditional_jalr_enable    <= opcode == ALU_UNCONDITIONAL_JALR         ? `ONE : `ZERO;
       alu_unconditional_jal_enable     <= opcode == ALU_UNCONDITIONAL_JAL          ? `ONE : `ZERO;

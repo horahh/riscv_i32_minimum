@@ -10,7 +10,7 @@ module fetch(
    assign pc_enable = enable;
 
 // for now this module is for illustrative purpose
-   always @(posedge clock) begin
+   always @(negedge clock) begin
       instruction <= pc_value;
    end
 

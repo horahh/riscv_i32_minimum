@@ -43,7 +43,6 @@ def get_emulation_log():
                 yield row
                 yield row
                 yield row
-                yield row
                 first = False
 
 
