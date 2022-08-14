@@ -31,9 +31,20 @@ def get_rtl_log_registers():
 def get_emulation_log():
     with open("emulation_state.csv", "r") as emulation_log:
         emulation_reader = csv.DictReader(emulation_log)
-        for row in emulation_reader:
+        first = True
+        yield emulation_reader
+        for line_num, row in enumerate(emulation_reader):
+            print(f"line {line_num}")
             print(row)
             yield row
+            # TODO: Actual RTL simulation have single cycle delay from input to result
+            # emulate this by repeating the first value
+            if first:
+                yield row
+                yield row
+                yield row
+                yield row
+                first = False
 
 
 def map_log_to_register(line):
