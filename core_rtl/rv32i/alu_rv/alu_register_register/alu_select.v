@@ -8,16 +8,16 @@ module alu_select(
    parameter [6:0] BASE   = 7'h0;
 	parameter [6:0] EXTRA  = 7'h20; // 32 dec
 
-	always @(negedge clock & alu_select_enable) begin
+	always @* begin
 		case(funct7)
-			BASE: alu_base_enable <= 1'b1;
+			BASE: alu_base_enable <= 1'b1 & alu_select_enable;
 			default: alu_base_enable <= 1'b0;
 		endcase
 	end
 
-	always @(negedge clock & alu_select_enable) begin
+	always @* begin
 		case(funct7)
-			EXTRA: alu_extra_enable <= 1'b1;
+			EXTRA: alu_extra_enable <= 1'b1 & alu_select_enable;
 			default: alu_extra_enable <= 1'b0;
 		endcase
 	end
