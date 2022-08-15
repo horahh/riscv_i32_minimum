@@ -84,7 +84,7 @@ all:
 	make bin
 	make rtl 
 	make simulation
-	#make test
+	make test
 
 rtl:
 	@echo "COMPILING VERILOG RTL..."

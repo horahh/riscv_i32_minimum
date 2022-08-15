@@ -6,7 +6,7 @@ module decode_field(
    output     [6:0]  opcode,
    output     [4:0]  rs1,
    output     [4:0]  rs2,
-   output     [4:0]  rd,
+   output reg [4:0]  rd,
    output reg [31:0] immediate12_itype,
    output reg [31:0] immediate12_stype,
    output reg [31:0] immediate12_btype,
@@ -20,14 +20,19 @@ always @(posedge clock) begin
 end
 
 // Field Extraction 
+// Need rd to hold for entire cycle at posedge
 assign opcode = instruction[6:0];
+always @(posedge clock) begin
+   rd <= instruction_hold[11:7];
+end
+
+// Need func3 and funct7 to hold for entire cycle at negedge
 always @(negedge clock) begin 
    funct3 <= instruction[14:12];
    funct7 <= instruction[31:25];
 end
 assign rs1 = instruction[19:15];
 assign rs2 = instruction[24:20];
-assign rd = instruction[11:7];
 // Register Definitions for constants
 
 reg zero    =  1'b0;

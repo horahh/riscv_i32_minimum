@@ -5,9 +5,13 @@ def get_rtl_log():
     end_info = "VCD info"
 
     with open("core_rtl/rv32i/rv32.log", "r") as rtl_log:
+        """
+        RTL file has duplicate lines as it check each clock
+        transition, being posedge and negedge, so just need the posedge.
+        """
         pair = False
         ignore = True
-        for line in rtl_log:
+        for line_number, line in enumerate(rtl_log):
             line = line.strip()
             if end_info in line:
                 ignore = False
@@ -18,6 +22,8 @@ def get_rtl_log():
                 pair = False
                 continue
             pair = True
+            print(f"RTL line: {line_number}")
+            print(line)
             yield line
 
 
@@ -33,8 +39,8 @@ def get_emulation_log():
         emulation_reader = csv.DictReader(emulation_log)
         first = True
         yield emulation_reader
-        for line_num, row in enumerate(emulation_reader):
-            print(f"line {line_num}")
+        for line_number, row in enumerate(emulation_reader):
+            print(f"Emulation line number: {line_number}")
             print(row)
             yield row
             # TODO: Actual RTL simulation have single cycle delay from input to result
